@@ -1,0 +1,710 @@
+# Tema 8: Transistores BJT
+
+## Índice de Contenidos
+- [1. Descripción Básica](#1-descripción-básica)
+ - [1.1 Concepto de Transistor BJT](#11-concepto-de-transistor-bjt)
+ - [1.2 El Efecto Transistor](#12-el-efecto-transistor)
+- [2. Regiones de Funcionamiento](#2-regiones-de-funcionamiento)
+ - [2.1 Región Activa](#21-región-activa)
+ - [2.2 Región de Saturación](#22-región-de-saturación)
+ - [2.3 Región de Corte](#23-región-de-corte)
+ - [2.4 Región Activa Inversa](#24-región-activa-inversa)
+ - [2.5 Tabla Resumen de Polarización](#25-tabla-resumen-de-polarización)
+- [3. Configuración en Base Común](#3-configuración-en-base-común)
+ - [3.1 Descripción](#31-descripción)
+ - [3.2 Curva Característica de Entrada](#32-curva-característica-de-entrada)
+ - [3.3 Curva Característica de Salida](#33-curva-característica-de-salida)
+- [4. Configuración en Emisor Común](#4-configuración-en-emisor-común)
+ - [4.1 Descripción](#41-descripción)
+ - [4.2 Curva Característica de Entrada e Impedancia de Entrada](#42-curva-característica-de-entrada-e-impedancia-de-entrada)
+ - [4.3 Curva Característica de Salida](#43-curva-característica-de-salida)
+ - [4.4 Ganancia de Corriente (CC y Pequeña Señal)](#44-ganancia-de-corriente-cc-y-pequeña-señal)
+ - [4.5 Efecto Early](#45-efecto-early)
+ - [4.6 Impedancia de Salida](#46-impedancia-de-salida)
+- [5. Configuración en Colector Común](#5-configuración-en-colector-común)
+ - [5.1 Descripción](#51-descripción)
+ - [5.2 Curva Característica de Entrada y Salida](#52-curva-característica-de-entrada-y-salida)
+- [6. Características Técnicas del Transistor BJT](#6-características-técnicas-del-transistor-bjt)
+ - [6.1 Temperatura Máxima de la Unión](#61-temperatura-máxima-de-la-unión)
+ - [6.2 Área de Operación Segura (SOA)](#62-área-de-operación-segura-soa)
+ - [6.3 Efecto Capacitivo y Tiempos de Conmutación](#63-efecto-capacitivo-y-tiempos-de-conmutación)
+- [7. Análisis en Corriente Continua (CC)](#7-análisis-en-corriente-continua-cc)
+ - [7.1 Modelos de Gran Señal](#71-modelos-de-gran-señal)
+ - [7.2 Ecuaciones de Kirchhoff Constitutivas](#72-ecuaciones-de-kirchhoff-constitutivas)
+ - [7.3 Método Analítico de Resolución de Circuitos](#73-método-analítico-de-resolución-de-circuitos)
+ - [Ejemplo Práctico de Polarización (Paso a Paso)](#ejemplo-práctico-de-polarización-paso-a-paso)
+ - [7.4 Método Gráfico: Recta de Carga](#74-método-gráfico-recta-de-carga)
+- [8. Aplicaciones Básicas](#8-aplicaciones-básicas)
+ - [8.1 El Transistor como Amplificador Lineal](#81-el-transistor-como-amplificador-lineal)
+ - [8.2 El Transistor en Conmutación](#82-el-transistor-en-conmutación)
+- [9. Polarización y Estabilidad Térmica](#9-polarización-y-estabilidad-térmica)
+ - [9.1 Variación del Punto de Trabajo](#91-variación-del-punto-de-trabajo)
+ - [9.2 Circuito de Polarización por Resistencia de Base](#92-circuito-de-polarización-por-resistencia-de-base)
+ - [9.3 Circuito de Polarización por Divisor de Tensión con Resistencia de Emisor](#93-circuito-de-polarización-por-divisor-de-tensión-con-resistencia-de-emisor)
+- [10. Modelos de Aproximación en Pequeña Señal](#10-modelos-de-aproximación-en-pequeña-señal)
+ - [10.1 Modelo de Parámetros Híbridos para Baja Frecuencia](#101-modelo-de-parámetros-híbridos-para-baja-frecuencia)
+ - [10.2 Análisis del Amplificador en Emisor Común con Desacoplo de Emisor](#102-análisis-del-amplificador-en-emisor-común-con-desacoplo-de-emisor)
+ - [10.3 Análisis del Amplificador en Emisor Común sin Desacoplo de Emisor](#103-análisis-del-amplificador-en-emisor-común-sin-desacoplo-de-emisor)
+ - [10.4 Modelo de Alta Frecuencia (Modelo en Pi)](#104-modelo-de-alta-frecuencia-modelo-en-pi)
+
+---
+
+## 1. Descripción Básica
+
+### 1.1 Concepto de Transistor BJT
+
+El **transistor de unión bipolar (BJT)** es un dispositivo semiconductor de tres terminales formado por la unión de dos regiones de material tipo P y una región tipo N (transistor PNP), o bien dos regiones tipo N y una tipo P (transistor NPN). Su nombre proviene del inglés *Bipolar Junction Transistor*. El término bipolar indica que la conducción de corriente involucra tanto a electrones (portadores minoritarios o mayoritarios) como a huecos.
+
+El dispositivo cuenta con tres zonas diferenciadas y asimétricas:
+1. **Emisor (E):** Región fuertemente dopada:
+$$n^+$$
+para NPN. Su función principal consiste en inyectar o generar portadores de carga mayoritarios hacia la base.
+2. **Base (B):** Región central. Es físicamente muy estrecha y posee un nivel de dopaje bajo para reducir la tasa de recombinación. Esto permite que la mayor parte de los portadores inyectados desde el emisor atraviesen la base y alcancen el colector.
+3. **Colector (C):** Región de mayor tamaño físico y dopaje moderado, encargada de recoger los portadores provenientes del emisor a través de la base.
+
+> [!IMPORTANT]
+> Un BJT **NO** es un dispositivo simétrico. Aunque constructivamente se represente como N-P-N o P-N-P, el emisor y el colector tienen dopajes y áreas muy diferentes. Si se conecta al revés, sus parámetros de ganancia se reducen drásticamente.
+
+---
+
+### 1.2 El Efecto Transistor
+
+El funcionamiento básico del transistor se logra controlando de forma adecuada la polarización de sus dos uniones P-N: la unión Base-Emisor (B-E) y la unión Base-Colector (B-C).
+
+Tomando como referencia un transistor NPN polarizado en la región activa:
+- La unión B-E se polariza en **directa**:
+$$V_{BE} > 0\text{ V}$$
+lo que provoca una inyección masiva de electrones libres desde el emisor hacia la base.
+- La unión B-C se polariza en **inversa**:
+$$V_{BC} < 0\text{ V}$$
+lo que genera una zona de carga espacial ancha con un campo eléctrico intenso dirigido desde el colector hacia la base.
+
+Dado que la base es muy delgada y poco dopada, solo un porcentaje mínimo de electrones se recombina con los huecos de la base (dando origen a una pequeña corriente de base, $$I_B$$). La gran mayoría de los electrones inyectados son atraídos por el campo eléctrico de la unión B-C y son barridos hacia el colector, constituyendo la corriente de colector ($$I_C$$).
+
+Las ecuaciones fundamentales que rigen el comportamiento de las corrientes en el BJT son:
+$$I_C = \alpha \cdot I_E + I_{CBo}$$
+$$I_B = \left(1 - \alpha\right) \cdot I_E - I_{CBo}$$
+$$I_E = I_C + I_B$$
+donde la ganancia de corriente en base común es:
+$$\alpha$$
+y la corriente de saturación inversa de la unión base-colector (con emisor abierto) es:
+$$I_{CBo}$$
+
+El valor de la ganancia relativa en base común cumple que:
+$$\alpha \approx [0.9\text{ a }0.99]$$
+
+Si se simplifica considerando la corriente inversa de saturación despreciable:
+$$I_{CBo} \approx 0\text{ A}$$
+entonces las corrientes cumplen la relación:
+$$I_C \approx I_E$$
+
+De este modo, aplicando pequeños incrementos de tensión en la unión Base-Emisor se logran controlar variaciones de corriente de gran magnitud circulando de colector a emisor, lo que constituye el fenómeno físico de **amplificación**.
+
+---
+
+## 2. Regiones de Funcionamiento
+
+Las uniones B-E y B-C del transistor pueden estar polarizadas en directa o inversa, dando lugar a cuatro modos o regiones de funcionamiento bien diferenciadas.
+
+### 2.1 Región Activa
+
+- **Condición:** Unión B-E en directa y unión B-C en inversa.
+- **Comportamiento:** El transistor actúa como una fuente de corriente controlada por corriente de base ($$I_C \approx \beta \cdot I_B$$). Se utiliza principalmente para la amplificación lineal de señales.
+- **Ecuación representativa:**
+$$V_{BE} \approx V_\gamma \approx 0.7\text{ V}$$
+
+---
+
+### 2.2 Región de Saturación
+
+- **Condición:** Unión B-E en directa y unión B-C en directa.
+- **Comportamiento:** El canal interno del transistor ofrece una resistencia muy baja. Se asemeja a un interruptor cerrado. Las corrientes de base y de colector son elevadas y no se cumple la relación de ganancia activa lineal.
+- **Ecuaciones de modelo en saturación:**
+$$V_{BE} \approx V_\gamma$$
+$$V_{BC} \approx V_\gamma$$
+$$V_{CE} \approx [0.1\text{ a }0.2]\text{ V}$$
+$$I_E = I_C + I_B$$
+
+---
+
+### 2.3 Región de Corte
+
+- **Condición:** Unión B-E en inversa y unión B-C en inversa.
+- **Comportamiento:** Las corrientes se reducen a valores mínimos de saturación inversa. Se asemeja a un interruptor abierto.
+- **Ecuaciones representativas:**
+$$I_E = I_C + I_B = 0\text{ A}$$
+$$I_C = -I_B = I_{CBo} \approx 0\text{ A}$$
+
+---
+
+### 2.4 Región Activa Inversa
+
+- **Condición:** Unión B-E en inversa y unión B-C en directa.
+- **Comportamiento:** El transistor funciona a la inversa, actuando el colector como emisor y viceversa. Debido a la asimetría física de las capas del dispositivo, el coeficiente de ganancia:
+$$\alpha$$
+se reduce a valores extremadamente bajos. Carece de utilidad práctica y se evita en el diseño de circuitos.
+
+---
+
+### 2.5 Tabla Resumen de Polarización
+
+La siguiente tabla detalla la condición de polarización de cada unión del transistor para determinar su estado de funcionamiento (válido para transistores NPN y PNP):
+
+| Polarización / Región | Unión B-E | Unión B-C | Función Principal |
+| :--- | :--- | :--- | :--- |
+| **Activa** | Directa | Inversa | Amplificación Lineal |
+| **Saturación** | Directa | Directa | Interruptor Cerrado (ON) |
+| **Corte** | Inversa | Inversa | Interruptor Abierto (OFF) |
+| **Activa Inversa** | Inversa | Directa | Sin utilidad práctica (baja ganancia) |
+
+---
+
+## 3. Configuración en Base Común
+
+### 3.1 Descripción
+
+En esta configuración, el terminal de la **Base** es el punto común de referencia tanto para el circuito de entrada (conectado al Emisor) como para el de salida (conectado al Colector).
+
+> [!NOTE]
+> Esta configuración presenta características muy específicas:
+> - Impedancia de entrada muy pequeña.
+> - Impedancia de salida muy elevada.
+> - Ganancia de corriente inferior a la unidad ($$\alpha < 1$$).
+> - Ganancia de tensión elevada. Es ideal para adaptar fuentes de baja impedancia a cargas de alta impedancia y en amplificadores de alta frecuencia.
+
+---
+
+### 3.2 Curva Característica de Entrada
+
+La curva de entrada muestra la variación de la corriente de entrada ($$I_E$$) en función de la tensión de entrada ($$V_{BE}$$) manteniendo constante la tensión de salida ($$V_{CB}$$).
+
+El comportamiento es similar al de un diodo polarizado en directa. A medida que la tensión de salida de colector:
+$$V_{CB}$$
+aumenta, la curva se desplaza ligeramente hacia la izquierda, logrando un valor de corriente de emisor:
+$$I_E$$
+mayor para la misma tensión Base-Emisor:
+$$V_{BE}$$
+
+---
+
+### 3.3 Curva Característica de Salida
+
+Muestra la variación de la corriente de salida ($$I_C$$) frente a la tensión de salida ($$V_{CB}$$) tomando como parámetro la corriente de emisor de entrada ($$I_E$$).
+
+Se identifican tres zonas de comportamiento en la curva:
+1. **Región de corte:** Ocurre cuando la corriente de emisor es nula:
+$$I_E = 0\text{ A}$$
+donde la corriente de colector se reduce a:
+$$I_C = I_{CBo}$$
+2. **Región activa:** La corriente de colector:
+$$I_C$$
+es prácticamente constante e independiente de la tensión:
+$$V_{CB}$$
+cumpliendo que:
+$$I_C \approx I_E$$
+3. **Región de saturación:** Ocurre para tensiones de salida de colector:
+$$V_{CB} < 0\text{ V}$$
+donde la corriente disminuye rápidamente hacia cero.
+
+---
+
+## 4. Configuración en Emisor Común
+
+### 4.1 Descripción
+
+En esta configuración, el terminal del **Emisor** sirve de referencia común para la entrada (Base) y la salida (Colector). Es la configuración de mayor uso práctico debido a que proporciona ganancias elevadas tanto de tensión como de corriente.
+
+---
+
+### 4.2 Curva Característica de Entrada e Impedancia de Entrada
+
+La entrada se caracteriza representando la corriente de base ($$I_B$$) en función del voltaje Base-Emisor ($$V_{BE}$$) a una tensión Colector-Emisor ($$V_{CE}$$) constante.
+
+Presenta el comportamiento característico de una unión en directa. La impedancia de entrada dinámica se define como:
+$$R_e = \frac{\Delta V_{BE}}{\Delta I_B}$$
+donde la impedancia de entrada es:
+$$R_e$$
+Esta resistencia es no lineal y disminuye al aumentar el voltaje Base-Emisor ($$V_{BE}$$). Los cambios en la tensión de salida ($$V_{CE}$$) ejercen una influencia muy pequeña sobre esta curva, considerándose la corriente de base prácticamente independiente de la tensión de colector.
+
+---
+
+### 4.3 Curva Característica de Salida
+
+Se representa la corriente de salida ($$I_C$$) frente a la tensión Colector-Emisor ($$V_{CE}$$) tomando como parámetro diferentes valores constantes de la corriente de entrada ($$I_B$$).
+
+Se distinguen las siguientes regiones:
+1. **Corte:** Ocurre para:
+$$I_B = 0\text{ A}$$
+donde la corriente de salida es despreciable e igual a:
+$$I_{CEo} \approx \left(\beta + 1\right) \cdot I_{CBo}$$
+2. **Saturación:** Ocurre para tensiones muy bajas:
+$$V_{CE} < V_{CE\text{sat}} \approx [0.1\text{ a }0.2]\text{ V}$$
+donde la corriente de colector cae rápidamente al reducirse la tensión.
+3. **Región activa:** Ocurre cuando la unión B-C está polarizada en inversa. La corriente de colector se mantiene estable en función de la corriente de base.
+
+---
+
+### 4.4 Ganancia de Corriente (CC y Pequeña Señal)
+
+Partiendo de la definición en activa de la corriente de colector:
+$$I_C = \alpha \cdot I_E + I_{CBo}$$
+y sustituyendo la relación de corrientes:
+$$I_E = I_B + I_C$$
+se obtiene:
+$$I_C = \alpha \cdot \left(I_B + I_C\right) + I_{CBo}$$
+Reordenando los términos algebraicamente:
+$$I_C \cdot \left(1 - \alpha\right) = \alpha \cdot I_B + I_{CBo}$$
+$$I_C = \frac{\alpha}{1 - \alpha} \cdot I_B + \frac{I_{CBo}}{1 - \alpha}$$
+
+Se define el parámetro de ganancia de corriente en continua o emisor común ($$\beta$$ o $$h_{FE}$$) como:
+$$\beta = \frac{\alpha}{1 - \alpha}$$
+lo que permite expresar la corriente del colector como:
+$$I_C = \beta \cdot I_B + \left(\beta + 1\right) \cdot I_{CBo}$$
+
+El valor de ganancia en continua se calcula en un punto de operación Q como:
+$$h_{FE} = \beta = \frac{I_C}{I_B}$$
+
+Para el análisis de señales alternas, se define la ganancia en pequeña señal ($$h_{fe}$$) como:
+$$h_{fe} = \frac{\Delta I_C}{\Delta I_B}$$
+
+#### Ejemplo de Cálculo de Ganancia de Corriente Continua ($$h_{FE}$$):
+Dados los siguientes puntos medidos sobre curvas de salida:
+- **Punto 1:** Para una corriente de base de:
+$$I_B = 450\text{ }\mu\text{A}$$
+se mide una corriente de colector de:
+$$I_C = 60\text{ mA}$$
+Calculamos el parámetro beta:
+$$\beta = h_{FE} = \frac{I_C}{I_B} = \frac{60\text{ mA}}{450\text{ }\mu\text{A}} = 133.3$$
+
+- **Punto 2:** Para una corriente de base de:
+$$I_B = 750\text{ }\mu\text{A}$$
+se mide una corriente de colector de:
+$$I_C = 87\text{ mA}$$
+Calculamos su valor correspondiente:
+$$\beta = h_{FE} = \frac{I_C}{I_B} = \frac{87\text{ mA}}{750\text{ }\mu\text{A}} = 116$$
+
+#### Ejemplo de Cálculo de Ganancia en Pequeña Señal ($$h_{fe}$$):
+Utilizando las variaciones entre los dos puntos anteriores:
+$$\Delta I_C = 87\text{ mA} - 60\text{ mA} = 27\text{ mA}$$
+$$\Delta I_B = 750\text{ }\mu\text{A} - 450\text{ }\mu\text{A} = 300\text{ }\mu\text{A}$$
+Aplicando la definición de ganancia en pequeña señal:
+$$h_{fe} = \frac{\Delta I_C}{\Delta I_B} = \frac{27\text{ mA}}{300\text{ }\mu\text{A}} = 90$$
+
+---
+
+### 4.5 Efecto Early
+
+En la región activa real de la configuración en emisor común se observa que al aumentar la tensión de salida ($$V_{CE}$$), la corriente de colector ($$I_C$$) experimenta un incremento ligero (las líneas de la gráfica no son completamente horizontales, presentan una pendiente positiva).
+
+Este comportamiento físico se denomina **Efecto Early** (o modulación del ancho de base):
+- Al aumentar la tensión inversa en la unión Base-Colector ($$V_{CB}$$), la anchura de la región de carga espacial de esta unión se incrementa.
+- Como consecuencia, la anchura efectiva de la región física de la base se reduce.
+- Al ser la base más estrecha, disminuye la probabilidad de recombinación de los electrones inyectados, lo que incrementa el flujo de electrones hacia el colector, elevando la corriente de colector ($$I_C$$) y aumentando de forma efectiva la ganancia ($$\beta$$).
+
+---
+
+### 4.6 Impedancia de Salida
+
+La impedancia de salida del transistor en emisor común se define como la inversa de la pendiente de las curvas de salida en la región activa:
+$$R_s = \frac{\Delta V_{CE}}{\Delta I_C}$$
+donde la impedancia de salida es:
+$$R_s$$
+
+#### Ejemplo de Cálculo de Impedancia de Salida:
+- **Caso A (Para $$I_B = 450\text{ }\mu\text{A}$$):**
+Se observa en las curvas de simulación una variación de voltaje:
+$$\Delta V_{CE} = 19\text{ V} - 6\text{ V} = 13\text{ V}$$
+que produce una variación de corriente de:
+$$\Delta I_C = 70\text{ mA} - 60\text{ mA} = 10\text{ mA}$$
+Calculamos la impedancia de salida:
+$$R_s = \frac{13\text{ V}}{10\text{ mA}} = 1300\text{ }\Omega$$
+
+- **Caso B (Para $$I_B = 750\text{ }\mu\text{A}$$):**
+Se observa para el mismo rango de voltajes una variación de corriente de:
+$$\Delta I_C = 102\text{ mA} - 87\text{ mA} = 15\text{ mA}$$
+Calculamos la impedancia de salida:
+$$R_s = \frac{13\text{ V}}{15\text{ mA}} \approx 866\text{ }\Omega$$
+
+> [!TIP]
+> La impedancia de salida $$R_s$$ no es constante, sino que **disminuye** conforme se aumenta el nivel de corriente de base ($$I_B$$) de entrada del transistor.
+
+---
+
+## 5. Configuración en Colector Común
+
+### 5.1 Descripción
+
+En esta configuración, el terminal del **Colector** es la referencia común para los terminales de entrada (Base) y de salida (Emisor). Esta disposición también se conoce en el ámbito del diseño de circuitos como **Seguidor de Emisor** (*Emitter Follower*).
+
+- **Impedancia de entrada:** Muy elevada.
+- **Impedancia de salida:** Muy baja.
+- **Ganancia de corriente:** Elevada.
+- **Ganancia de tensión:** Ligeramente inferior a la unidad ($$A_v \approx 1$$), sin inversión de fase. Se emplea principalmente para la adaptación de impedancias en etapas de salida de amplificación de potencia.
+
+---
+
+### 5.2 Curva Característica de Entrada y Salida
+
+- La característica de entrada relaciona la corriente de base ($$I_B$$) frente a la tensión de entrada Base-Colector ($$V_{BC}$$) manteniendo constante la tensión de salida Emisor-Colector ($$V_{EC}$$). Su comportamiento es análogo al de la configuración en emisor común.
+- La característica de salida relaciona la corriente de emisor ($$I_E$$) frente a la tensión de salida ($$V_{EC}$$) tomando como parámetro la corriente de base ($$I_B$$).
+
+---
+
+## 6. Características Técnicas del Transistor BJT
+
+Los límites físicos de los transistores se especifican en sus correspondientes hojas de características del fabricante para evitar daños permanentes.
+
+### 6.1 Temperatura Máxima de la Unión
+
+El equilibrio térmico interno del transistor limita la potencia máxima que puede disipar de forma segura. La temperatura de la unión semiconductora ($$T_j$$) no debe exceder:
+- **Transistores de Germanio (Ge):**
+$$75\text{ ºC a }100\text{ ºC}$$
+- **Transistores de Silicio (Si):**
+$$150\text{ ºC a }200\text{ ºC}$$
+
+La temperatura ambiente limita la potencia máxima que puede disipar el encapsulado de acuerdo con la curva de disipación de potencia (*Power Derating Curve*):
+- Si la temperatura ambiente ($$T_a$$) sube por encima de la de referencia, la potencia máxima admisible ($$P_D$$) decae de forma lineal hasta anularse al llegar a la temperatura límite de la unión.
+
+---
+
+### 6.2 Área de Operación Segura (SOA)
+
+El **Área de Operación Segura** (SOA, *Safe Operating Area*) define el límite de operación combinando simultáneamente los valores instantáneos de tensión ($$V_{CE}$$) e intensidad ($$I_C$$) que el transistor puede soportar de manera continua.
+
+El límite de potencia disipable se calcula mediante la ecuación:
+$$P_Q = V_{BE} \cdot I_E + V_{CB} \cdot I_C \approx V_{CE} \cdot I_C$$
+donde la potencia en el punto de reposo es:
+$$P_Q$$
+
+En la gráfica SOA de un transistor comercial se identifican cuatro límites claros de operación:
+1. **Límite de corriente máxima:** Determinado por la capacidad de conducción de los cables internos de conexión y la densidad de corriente máxima en las uniones.
+2. **Límite por disipación térmica máxima:** Línea hiperbólica definida por la ecuación térmica de la unión:
+$$V_{CE} \cdot I_C = Cte$$
+3. **Límite de ruptura secundaria (*Secondary Breakdown*):** Zona crítica que sufren los transistores bipolares debido a la formación de "puntos calientes" (*hot spots*). Al calentarse de manera localizada una porción de la unión, su resistencia disminuye concentrando aún más corriente en esa zona, lo que produce una realimentación térmica destructiva.
+4. **Límite de tensión de ruptura máxima:** Tensión de avalancha inversa en bornes del transistor (tensión de ruptura $$V_{CEo}$$).
+
+---
+
+### 6.3 Efecto Capacitivo y Tiempos de Conmutación
+
+- **Efecto Capacitivo:** Al polarizar las uniones del transistor en inversa, se crean capacidades asociadas a la región de carga espacial (capacidades parásitas de transición). A medida que la tensión inversa de polarización aumenta, el ancho de la zona de carga espacial crece, disminuyendo el valor de la capacidad parásita asociada ($$C_{ibo}$$ y $$C_{obo}$$).
+- **Tiempos de Conmutación:** El paso del estado de corte al de saturación no ocurre instantáneamente debido al tiempo que requiere la acumulación y evacuación de cargas en la base. Los tiempos se desglosan en:
+ - **Tiempo de encendido ($$t_{ON}$$):**
+$$t_{ON} = t_d + t_r$$
+donde el tiempo de retraso es:
+$$t_d$$
+y el tiempo de subida es:
+$$t_r$$
+ - **Tiempo de apagado ($$t_{OFF}$$):**
+$$t_{OFF} = t_s + t_f$$
+donde el tiempo de almacenamiento es:
+$$t_s$$
+y el tiempo de caída es:
+$$t_f$$
+
+---
+
+## 7. Análisis en Corriente Continua (CC)
+
+### 7.1 Modelos de Gran Señal
+
+Para facilitar el análisis matemático de circuitos con transistores bipolares en régimen de corriente continua, se sustituye el componente por modelos eléctricos equivalentes según su estado de polarización en el circuito:
+
+- **Región Activa (NPN):** Se modela como un diodo en directa en la entrada (unión B-E) y una fuente de corriente controlada en la salida (unión C-E).
+$$V_{BE} \approx V_\gamma \approx [0.6\text{ a }0.7]\text{ V}$$
+$$I_C = \beta \cdot I_B + \left(\beta + 1\right) \cdot I_{CBo} \approx \beta \cdot I_B$$
+- **Región de Saturación:** Se modela como un diodo en directa en la entrada y una fuente de tensión constante de valor muy bajo en la salida.
+$$V_{BE} \approx V_\gamma$$
+$$V_{CE} = V_{CE\text{sat}} \approx [0.1\text{ a }0.2]\text{ V}$$
+- **Región de Corte:** Se modela como un circuito abierto en todos sus terminales.
+$$I_B = 0\text{ A}$$
+$$I_C = 0\text{ A}$$
+$$I_E = 0\text{ A}$$
+
+---
+
+### 7.2 Ecuaciones de Kirchhoff Constitutivas
+
+Cualquier circuito con transistores bipolares se resuelve aplicando las leyes básicas de corrientes y voltajes de Kirchhoff en el circuito:
+- **Primera Ley de Kirchhoff (Corrientes):**
+$$I_E = I_B + I_C$$
+- **Segunda Ley de Kirchhoff (Voltajes):**
+$$V_{EB} + V_{BC} + V_{CE} = 0\text{ V}$$
+o en términos del transistor NPN convencional:
+$$V_{BE} + V_{CB} - V_{CE} = 0\text{ V}$$
+
+Dado que disponemos de 2 ecuaciones independientes y 6 variables incógnitas en bornes del dispositivo, se hace necesario asumir o deducir el estado de polarización del transistor para aplicar las ecuaciones de modelo correspondientes a esa región y resolver el circuito.
+
+---
+
+### 7.3 Método Analítico de Resolución de Circuitos
+
+El procedimiento metodológico para el análisis analítico de circuitos es el siguiente:
+1. **Redibujar el circuito:** Si es necesario, simplificar la parte de control de la base aplicando el equivalente de Thévenin.
+2. **Asumir estado de funcionamiento:** Por simple inspección del circuito, suponer en qué región se encuentra el transistor (habitualmente se comienza asumiendo **región activa**).
+3. **Aplicar ecuaciones del modelo asumido:** Usar las ecuaciones del transistor correspondientes para esa zona (ej. $$V_{BE} = 0.6\text{ V}$$ e $$I_C = \beta \cdot I_B$$ en activa).
+4. **Resolver el circuito:** Aplicar las leyes de Kirchhoff para calcular todas las tensiones e intensidades en los terminales.
+5. **Verificar suposiciones de partida:** Comprobar que los resultados numéricos obtenidos respetan las condiciones físicas del estado asumido:
+ - *Si asumimos activa:* Comprobar que:
+$$I_B > 0\text{ A}$$
+$$V_{CE} > V_{CE\text{sat}}$$
+ - Si las comprobaciones arrojan valores imposibles o incoherentes, la suposición de partida era falsa. Se debe seleccionar otro estado de polarización y repetir el cálculo.
+
+---
+
+#### Ejemplo Práctico de Polarización (Paso a Paso)
+
+Dada la red de polarización por divisor de tensión de la figura, resolver el circuito utilizando los siguientes datos del componente y alimentación:
+- Transistor de silicio con parámetros:
+$$\beta = 165$$
+$$I_{CBo} \approx 0\text{ A}$$
+- Tensiones y resistencias de la red:
+$$V_1 = 10\text{ V}$$
+$$R_1 = 330\text{ k}\Omega$$
+$$R_2 = 470\text{ k}\Omega$$
+$$R_c = 1\text{ k}\Omega$$
+- El emisor del transistor está conectado directamente a tierra:
+$$R_e = 0\text{ }\Omega$$
+
+##### Paso 1: Cálculo del Equivalente de Thévenin en la Base
+Simplificamos la rama del divisor resistiva conectada a la base del transistor:
+- Resistencia equivalente de Thévenin:
+$$R_{th} = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{330\text{ k}\Omega \cdot 470\text{ k}\Omega}{330\text{ k}\Omega + 470\text{ k}\Omega} = 193.875\text{ k}\Omega \approx 193.9\text{ k}\Omega$$
+- Tensión equivalente de Thévenin:
+$$V_{th} = V_1 \cdot \frac{R_2}{R_1 + R_2} = 10\text{ V} \cdot \frac{470\text{ k}\Omega}{330\text{ k}\Omega + 470\text{ k}\Omega} = 5.875\text{ V} \approx 5.88\text{ V}$$
+
+##### Paso 2: Planteamiento del estado (Suposición de Región Activa)
+Asumimos que el transistor se encuentra en **región activa**. Por lo tanto:
+$$V_{BE} = 0.6\text{ V}$$
+$$I_C = \beta \cdot I_B$$
+
+##### Paso 3: Cálculo de la corriente de base ($$I_B$$)
+Escribimos la ecuación de malla de entrada en el circuito equivalente de base:
+$$V_{th} = I_B \cdot R_{th} + V_{BE}$$
+Despejamos la corriente de base:
+$$I_B = \frac{V_{th} - V_{BE}}{R_{th}}$$
+Sustituyendo los valores numéricos calculados:
+$$I_B = \frac{5.88\text{ V} - 0.6\text{ V}}{193.9\text{ k}\Omega} \approx 27.29\text{ }\mu\text{A}$$
+
+##### Paso 4: Cálculo de la corriente de colector y emisor
+Aplicamos la ganancia de corriente del transistor en activa:
+$$I_C = \beta \cdot I_B = 165 \cdot 27.29\text{ }\mu\text{A} \approx 4.5\text{ mA}$$
+La corriente de emisor es la suma de ambas:
+$$I_E = I_B + I_C = 27.29\text{ }\mu\text{A} + 4.5\text{ mA} \approx 4.527\text{ mA}$$
+
+##### Paso 5: Cálculo de la tensión de salida Colector-Emisor ($$V_{CE}$$)
+Escribimos la ecuación de malla de salida del circuito de colector:
+$$V_1 = I_C \cdot R_c + V_{CE}$$
+Despejamos la tensión colector-emisor:
+$$V_{CE} = V_1 - I_C \cdot R_c$$
+Sustituyendo los valores correspondientes:
+$$V_{CE} = 10\text{ V} - 4.5\text{ mA} \cdot 1\text{ k}\Omega = 5.5\text{ V}$$
+
+##### Paso 6: Verificación de las condiciones de contorno
+Para validar la suposición de región activa realizamos las siguientes comprobaciones:
+- Comprobación de conducción en la unión B-E:
+$$V_{BE} = 0.6\text{ V} > 0\text{ V}$$
+- Comprobación de tensión en bornes de salida para no saturar:
+$$V_{CE} = 5.5\text{ V} > 0.2\text{ V}$$
+- Comprobación de polarización inversa en la unión B-C:
+$$V_{CB} = V_{CE} - V_{BE} = 5.5\text{ V} - 0.6\text{ V} = 4.9\text{ V} > 0\text{ V}$$
+
+Dado que todas las condiciones se cumplen satisfactoriamente, se confirma que el transistor se encuentra en **región activa** y las corrientes e impedancias calculadas son correctas.
+
+---
+
+### 7.4 Método Gráfico: Recta de Carga
+
+Consiste en resolver visualmente el circuito superponiendo la recta de carga sobre la familia de curvas características de salida del componente:
+- **Ecuación de la recta de carga (Kirchhoff):**
+$$V_1 = I_C \cdot R_c + V_{CE}$$
+- **Puntos extremos de la recta:**
+ - Si el transistor estuviera en corte absoluto ($$I_C = 0\text{ A}$$):
+$$V_{CE} = V_1$$
+ - Si el transistor estuviera en saturación absoluta ideal ($$V_{CE} = 0\text{ V}$$):
+$$I_C = \frac{V_1}{R_c}$$
+
+La intersección de la recta de carga con la curva del transistor correspondiente a la corriente de base ($$I_B$$) de trabajo define de forma exacta el **punto de reposo o de trabajo Q** ($$V_{CEQ}, I_{CQ}$$) del circuito.
+
+---
+
+## 8. Aplicaciones Básicas
+
+### 8.1 El Transistor como Amplificador Lineal
+
+En esta aplicación, se polariza el transistor en la región activa utilizando componentes de CC para situar el punto de reposo Q en el centro de la recta de carga.
+
+Al superponer una pequeña señal de alterna de entrada ($$v_b$$):
+1. Provoca pequeñas variaciones en la tensión instantánea de la base:
+$$v_{be}(t)$$
+2. Estas variaciones se traducen en pequeñas oscilaciones de corriente en la base:
+$$i_b(t)$$
+3. La ganancia lineal del transistor amplifica la corriente de salida en el colector:
+$$i_c(t) \approx \beta \cdot i_b(t)$$
+4. La corriente a través de la resistencia de colector ($$R_c$$) genera grandes variaciones en la tensión colector-emisor:
+$$v_{ce}(t)$$
+que reproduce la señal original de entrada con una ganancia de tensión muy elevada.
+
+> [!WARNING]
+> Si el punto de trabajo Q no se sitúa adecuadamente centrado en la recta de carga, o si la amplitud de la señal de entrada es excesiva, el transistor puede alcanzar temporalmente las zonas de corte o saturación, provocando una distorsión por recorte en la señal de salida.
+
+---
+
+### 8.2 El Transistor en Conmutación
+
+En los sistemas digitales y de potencia, el transistor opera exclusivamente en dos estados extremos (corte y saturación), actuando como un interruptor electrónico controlado.
+
+- **Estado de Corte (Interruptor Abierto - OFF):**
+Se aplica una tensión de base nula o negativa:
+$$V_{th} = 0\text{ V}$$
+lo que asegura:
+$$I_B \approx 0\text{ A}$$
+$$I_C \approx 0\text{ A}$$
+$$V_{CE} \approx V_{CC}$$
+El circuito no conduce corriente hacia la carga.
+
+- **Estado de Saturación (Interruptor Cerrado - ON):**
+Se inyecta una corriente de base lo suficientemente alta para saturar la salida:
+$$V_{th} = V_{CC}$$
+lo que asegura:
+$$I_B \ge \frac{I_{C\text{sat}}}{\beta}$$
+donde la corriente de saturación es:
+$$I_{C\text{sat}} \approx \frac{V_{CC}}{R_c}$$
+y se logran valores mínimos de tensión:
+$$V_{CE} = V_{CE\text{sat}} \approx 0.2\text{ V}$$
+El transistor conduce la máxima corriente permitida por la carga externa con pérdidas mínimas de potencia en el componente.
+
+---
+
+## 9. Polarización y Estabilidad Térmica
+
+### 9.1 Variación del Punto de Trabajo
+
+El punto de trabajo Q ($$I_{CQ}, V_{CEQ}$$) de un circuito polarizado puede verse alterado significativamente por dos factores:
+1. **Tolerancias de fabricación:** Los transistores de una misma serie comercial presentan variaciones de hasta un 300% en su factor de ganancia de corriente ($$\beta$$).
+2. **Efectos de la temperatura:** Al calentarse la unión semiconductora, se producen tres fenómenos:
+ - La corriente de saturación inversa ($$I_{CBo}$$ o $$I_{co}$$) duplica su valor por cada 10 ºC de incremento de la temperatura.
+ - La tensión Base-Emisor en directa ($$V_{BE}$$) disminuye de forma constante:
+$$\frac{\Delta V_{BE}}{\Delta T} \approx -2.5\text{ mV/}^\circ\text{C}$$
+ - El factor de ganancia de corriente ($$\beta$$) aumenta al subir la temperatura.
+
+Cualquiera de estas variaciones térmicas produce un incremento en la corriente de colector ($$I_C$$), lo que calienta aún más el semiconductor, pudiendo provocar un embalamiento térmico destructivo.
+
+---
+
+### 9.2 Circuito de Polarización por Resistencia de Base
+
+Consiste en conectar una única resistencia ($$R_b$$) directamente entre la alimentación y la base:
+- Ecuación de corriente de base:
+$$I_B = \frac{V_{CC} - V_{BE}}{R_b}$$
+- Ecuación de corriente de colector:
+$$I_C \approx \beta \cdot I_B = \beta \cdot \frac{V_{CC} - V_{BE}}{R_b}$$
+
+> [!CAUTION]
+> Este circuito es extremadamente **inestable** frente a variaciones de temperatura o tolerancia. Al depender directamente del parámetro beta de forma lineal, cualquier incremento en $$\beta$$ se traduce íntegramente en un aumento proporcional de la corriente de reposo de salida, desplazando el punto Q hacia la zona de saturación.
+
+---
+
+### 9.3 Circuito de Polarización por Divisor de Tensión con Resistencia de Emisor
+
+Para solucionar la inestabilidad, se emplea una red con un divisor resistivo en la base y una resistencia de realimentación ($$R_e$$) conectada en el terminal del emisor.
+
+El circuito ejerce una acción correctora de realimentación negativa:
+- Si la temperatura aumenta, la corriente de colector ($$I_C$$) y la de emisor ($$I_E$$) intentan aumentar.
+- Esto provoca un incremento en la caída de tensión en bornes de la resistencia de emisor:
+$$V_{Re} = I_E \cdot R_e$$
+- Dado que la tensión equivalente del divisor de base ($$V_{BB}$$) permanece fija, un aumento de la tensión de emisor disminuye la tensión neta disponible en la malla de entrada de base:
+$$V_{BB} = I_B \cdot R_b + V_{BE} + I_E \cdot R_e$$
+lo que provoca una caída correctiva de la corriente de base ($$I_B$$), contrarrestando el incremento térmico inicial de la corriente de colector y logrando un punto Q estable.
+
+La ecuación constitutiva exacta de la corriente de colector de este circuito es:
+$$I_C \approx \frac{V_{BB} - V_{BE}}{R_e + \frac{R_b}{\beta}}$$
+donde la resistencia equivalente del circuito de base es:
+$$R_b = R_1 \parallel R_2$$
+y la tensión del equivalente de Thévenin es:
+$$V_{BB} = V_{CC} \cdot \frac{R_2}{R_1 + R_2}$$
+
+Si diseñamos el circuito de forma que la resistencia de emisor sea mucho mayor que la resistencia de base dividida por la ganancia:
+$$R_e \gg \frac{R_b}{\beta}$$
+la ecuación se reduce a:
+$$I_C \approx \frac{V_{BB} - V_{BE}}{R_e}$$
+logrando una corriente de colector prácticamente **independiente** del parámetro beta del transistor.
+
+---
+
+## 10. Modelos de Aproximación en Pequeña Señal
+
+Para analizar el comportamiento del transistor frente a variaciones rápidas de señal alterna de pequeña amplitud, se linealiza su comportamiento en torno al punto de trabajo Q utilizando modelos de parámetros híbridos.
+
+### 10.1 Modelo de Parámetros Híbridos para Baja Frecuencia
+
+El comportamiento de un cuadripolo en emisor común se modela mediante dos ecuaciones constitutivas lineales:
+$$v_{be} = h_{ie} \cdot i_b + h_{re} \cdot v_{ce}$$
+$$i_c = h_{fe} \cdot i_b + h_{oe} \cdot v_{ce}$$
+donde las variables minúsculas representan las amplitudes de señal de alterna y los parámetros híbridos representan:
+- **$$h_{ie}$$:** Impedancia de entrada (en ohmios).
+- **$$h_{re}$$:** Ganancia inversa de tensión (adimensional).
+- **$$h_{fe}$$:** Ganancia directa de corriente alterna (adimensional).
+- **$$h_{oe}$$:** Admitancia de salida (en siemens).
+
+Dado que los parámetros de realimentación inversa y conducción de salida son extremadamente pequeños para transistores comerciales típicos:
+$$h_{re} \approx 10^{-4}$$
+$$h_{oe} \approx 10^{-5}\text{ S}$$
+se consideran despreciables en la práctica, reduciendo el modelo a las ecuaciones simplificadas:
+$$v_{be} \approx h_{ie} \cdot i_b$$
+$$i_c \approx h_{fe} \cdot i_b$$
+
+---
+
+### 10.2 Análisis del Amplificador en Emisor Común con Desacoplo de Emisor
+
+En este circuito, la resistencia de emisor ($$R_e$$) se puentea en alterna mediante un condensador de desacoplo ($$C_3$$), cuya impedancia a la frecuencia de trabajo se considera nula ($$X_{C3} \approx 0\text{ }\Omega$$).
+
+El análisis de señal alterna proporciona los siguientes parámetros característicos:
+- **Ganancia de Tensión ($$A_v$$):** Relación de voltajes de alterna salida/entrada:
+$$A_v = \frac{v_{ce}}{v_{be}} = -\frac{\left(R_L \parallel R_c\right) \cdot h_{fe}}{h_{ie}}$$
+donde el signo negativo indica una inversión de fase de 180 grados entre la entrada y la salida.
+- **Ganancia de Corriente ($$A_i$$):**
+$$A_i = \frac{i_2}{i_1} = -h_{fe}$$
+- **Impedancia de Entrada ($$Z_i$$):**
+$$Z_i = h_{ie}$$
+- **Impedancia de Salida ($$Z_o$$):** Sin considerar la resistencia de colector del circuito:
+$$Z_o = \infty\text{ }\Omega$$
+
+---
+
+### 10.3 Análisis del Amplificador en Emisor Común sin Desacoplo de Emisor
+
+Si no se coloca el condensador de desacoplo ($$C_3$$), la resistencia de emisor ($$R_e$$) interviene en el circuito de alterna, actuando como una realimentación local de emisor.
+
+Los parámetros de pequeña señal resultantes de resolver este circuito son:
+- **Ganancia de Tensión ($$A_v$$):**
+$$A_v = -\frac{\left(R_L \parallel R_c\right) \cdot h_{fe}}{h_{ie} + R_e \cdot \left(h_{fe} + 1\right)}$$
+Si la ganancia de corriente es grande ($$h_{fe} \gg 1$$) y se cumple que $$R_e \cdot \left(h_{fe} + 1\right) \gg h_{ie}$$, la ecuación se simplifica a:
+$$A_v \approx -\frac{R_L \parallel R_c}{R_e}$$
+lo que demuestra que la ganancia es ahora menor, pero mucho más estable al no depender de los parámetros del transistor.
+- **Ganancia de Corriente ($$A_i$$):**
+$$A_i = -h_{fe}$$
+- **Impedancia de Entrada ($$Z_i$$):**
+$$Z_i = h_{ie} + R_e \cdot \left(h_{fe} + 1\right)$$
+lo que representa un incremento sustancial en la impedancia de entrada respecto al circuito con desacoplo.
+- **Impedancia de Salida ($$Z_o$$):**
+$$Z_o = \infty\text{ }\Omega$$
+
+---
+
+### 10.4 Modelo de Alta Frecuencia (Modelo en Pi)
+
+A frecuencias de operación elevadas, las capacidades de almacenamiento y difusión internas del transistor ya no se comportan como circuitos abiertos y no se pueden despreciar. En este régimen se utiliza el modelo equivalente en $$\pi$$ (Pi híbrida) que introduce:
+- Resistencia física interna de base:
+$$r_b$$
+- Resistencia y capacidad dinámica de la unión B-E:
+$$r_\pi$$
+$$C_\pi$$
+- Capacidad de la unión de colector B-C:
+$$C_\mu$$
+- Resistencia de pérdidas de colector y conducción de salida:
+$$r_c$$
+$$r_o$$
+- Transconductancia del dispositivo:
+$$g_m \cdot v_{\pi}$$
