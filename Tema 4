@@ -1,0 +1,341 @@
+# Tema 4: Potenciómetros
+
+## Índice de Contenidos
+- [1. Descripción Básica](#1-descripción-básica)
+  - [1.1 Concepto de Potenciómetro y Reostato](#11-concepto-de-potenciómetro-y-reostato)
+  - [1.2 Aplicaciones y Principio de Desplazamiento](#12-aplicaciones-y-principio-de-desplazamiento)
+    - [Deducción Matemática del Divisor de Tensión por Desplazamiento](#deducción-matemática-del-divisor-de-tensión-por-desplazamiento)
+- [2. Características Técnicas](#2-características-técnicas)
+  - [2.1 Resistencia Nominal, Residual y de Contacto](#21-resistencia-nominal-residual-y-de-contacto)
+  - [2.2 Leyes de Variación (Curvas de Transferencia)](#22-leyes-de-variación-curvas-de-transferencia)
+  - [2.3 Ángulo de Rotación y Recorrido](#23-ángulo-de-rotación-y-recorrido)
+  - [2.4 Tolerancia](#24-tolerancia)
+  - [2.5 Temperatura Máxima](#25-temperatura-máxima)
+  - [2.6 Potencia Nominal en Potenciómetros](#26-potencia-nominal-en-potenciómetros)
+  - [2.7 Tensión Límite y Resistencia de Aislamiento](#27-tensión-límite-y-resistencia-de-aislamiento)
+  - [2.8 Coeficiente de Temperatura](#28-coeficiente-de-temperatura)
+  - [2.9 Linealidad y Conformidad](#29-linealidad-y-conformidad)
+  - [2.10 Resolución](#210-resolución)
+  - [2.11 Tipos de Ruido en Potenciómetros](#211-tipos-de-ruido-en-potenciómetros)
+  - [2.12 Estabilidad](#212-estabilidad)
+  - [2.13 Otros Parámetros (Ajustabilidad, Pares mecánicos)](#213-otros-parámetros-ajustabilidad-pares-mecánicos)
+- [3. Tipos de Potenciómetros](#3-tipos-de-potenciómetros)
+  - [3.1 Clasificación General](#31-clasificación-general)
+  - [3.2 Potenciómetros Bobinados](#32-potenciómetros-bobinados)
+  - [3.3 Potenciómetros de Película Resistiva](#33-potenciómetros-de-película-resistiva)
+  - [3.4 Potenciómetros Multivuelta](#34-potenciómetros-multivuelta)
+  - [3.5 Potenciómetros SMD](#35-potenciómetros-smd)
+- [4. Códigos de Designación y Símbolos](#4-códigos-de-designación-y-símbolos)
+  - [4.1 Codificación Alfanumérica](#41-codificación-alfanumérica)
+  - [4.2 Símbolos Gráficos Normalizados](#42-símbolos-gráficos-normalizados)
+
+---
+
+## 1. Descripción Básica
+
+### 1.1 Concepto de Potenciómetro y Reostato
+
+Un **potenciómetro** es un dispositivo de resistencia variable que se basa en la variación física de la longitud del camino conductor. Recordando la ecuación geométrica de la resistencia eléctrica:
+$$R = \rho \cdot \frac{L}{A}$$
+
+Si se incorpora un mecanismo móvil (cursor deslizante o giratorio) que permita variar de forma controlada la longitud efectiva del conductor (L) recorrida por la corriente, se obtiene una resistencia variable o ajustable.
+
+> [!NOTE]
+> **Definición de la RAE (Real Academia Española):**
+> Un potenciómetro es una resistencia eléctrica regulable incorporada a un circuito eléctrico.
+
+Físicamente, constan de:
+1. **Un elemento resistivo fijo** (bobina de hilo conductor o pista de carbón/metal depositado).
+2. **Un cursor móvil de contacto deslizante** que roza sobre el elemento resistivo, permitiendo tomar una conexión eléctrica intermedia.
+
+#### Diferencia de montaje y funcionalidad:
+- **Reostato:** Conexión de dos terminales (un extremo fijo y el cursor móvil). Se conecta en serie en la rama del circuito para **regular la intensidad de corriente** que circula por la carga.
+- **Potenciómetro:** Conexión de tres terminales (dos extremos fijos y el cursor móvil). Se conecta en paralelo con la fuente para actuar como un divisor de tensión variable, permitiendo **regular la tensión de salida** en bornes del cursor.
+
+---
+
+### 1.2 Aplicaciones y Principio de Desplazamiento
+
+Los potenciómetros se emplean principalmente en dos funciones básicas:
+1. **Ajustables (Trimmers):** Componentes montados internamente en el circuito, no accesibles directamente para el usuario. Se emplean para calibraciones finales de fábrica, ajuste fino de tolerancias o balanceo de divisores resistivos.
+2. **Variables de control:** Dispositivos provistos de eje y accesibles para el usuario para modificar condiciones operativas habituales (control de volumen de audio, brillo de pantallas, etc.).
+3. **Instrumentación (Sensores de posición):** Detección de desplazamientos físicos:
+   - Lineales: típicamente mayores a 10 mm.
+   - Angulares: típicamente mayores a 15 grados.
+
+---
+
+#### Deducción Matemática del Divisor de Tensión por Desplazamiento
+
+Analicemos un potenciómetro lineal de longitud física total (l) y resistencia total (R_total) alimentado por una fuente de tensión (V_fuente). Si el cursor móvil se desplaza a una distancia física (x) desde el origen común a tierra:
+
+Las variables físicas representan:
+- Desplazamiento lineal del cursor (m):
+$$x$$
+- Longitud total de la pista resistiva (m):
+$$l$$
+- Resistencia entre el origen y el cursor móvil (Ω):
+$$R_2$$
+- Resistencia entre el cursor móvil y el terminal superior (Ω):
+$$R_1$$
+- Resistencia total del componente (Ω):
+$$R_{\text{total}}$$
+
+Las ecuaciones constitutivas del divisor de tensión por posición son:
+
+1. Conservación de la resistencia total:
+$$R_1 + R_2 = R_{\text{total}}$$
+
+2. Resistencia de la sección inferior en función de la posición:
+$$R_2 = R_{\text{total}} \cdot \frac{x}{l}$$
+
+3. Resistencia de la sección superior en función de la posición:
+$$R_1 = R_{\text{total}} \cdot \left(1 - \frac{x}{l}\right)$$
+
+4. Relación del divisor de tensión para obtener la tensión de salida (V_salida):
+$$V_{\text{salida}} = V_{\text{fuente}} \cdot \frac{R_2}{R_1 + R_2}$$
+
+Sustituyendo las resistencias en la ecuación del divisor de tensión:
+$$V_{\text{salida}} = V_{\text{fuente}} \cdot \frac{R_{\text{total}} \cdot \frac{x}{l}}{R_{\text{total}}}$$
+
+Simplificando la resistencia total en la ecuación de tensión:
+$$V_{\text{salida}} = V_{\text{fuente}} \cdot \frac{x}{l}$$
+
+Definiendo la constante de escala del sensor (k):
+$$k = \frac{V_{\text{fuente}}}{l}$$
+
+Obtenemos que la tensión de salida es linealmente proporcional al desplazamiento mecánico del cursor:
+$$V_{\text{salida}} = k \cdot x$$
+
+---
+
+## 2. Características Técnicas
+
+### 2.1 Resistencia Nominal, Residual y de Contacto
+
+- **Resistencia Nominal (R_N):** Valor óhmico teórico del elemento resistivo total marcado por el fabricante a la temperatura estándar de 20 ºC.
+- **Resistencia Residual (R_d):** Resistencia interna inevitable medida entre el cursor móvil y uno de los terminales fijos extremos cuando el cursor se coloca en el extremo físico correspondiente a dicho terminal (contacto final).
+- **Resistencia de Contacto (R_cursor):** Resistencia de paso óhmica medida en el punto de contacto deslizante entre la escobilla del cursor móvil y la pista resistiva sólida.
+- **Resistencia Total Real (R_total):** Resistencia real final medida entre los terminales fijos externos, la cual incluye los efectos de la resistencia residual de ambos extremos:
+$$R_{\text{total}} = R_N + 2 \cdot R_d$$
+donde la resistencia residual extrema es:
+$$R_d$$
+
+---
+
+### 2.2 Leyes de Variación (Curvas de Transferencia)
+
+Define la relación funcional de la resistencia obtenida en bornes del cursor en función del desplazamiento mecánico (ángulo de giro beta para giratorios, o distancia x para deslizantes lineales):
+
+1. **Lineal:** La variación óhmica es directamente proporcional a la rotación del cursor (recta de pendiente constante):
+$$R(x) = a \cdot x$$
+Por ejemplo, si un giro de 10 grados incrementa la resistencia en 100 Ω, un giro de 50 grados la incrementará exactamente en 500 Ω.
+
+2. **Logarítmica:** Proporciona variaciones de valor óhmico muy bajas al principio del recorrido y mucho más rápidas al final del giro. Se emplea principalmente en controles de audio debido a la respuesta logarítmica de audición del oído humano:
+$$\beta = K \cdot \log(R + 1) \implies R + 1 = 10^{\frac{\beta}{K}}$$
+donde la variable representa el ángulo de rotación:
+$$\beta$$
+y la constante de escala es:
+$$K$$
+
+3. **Logarítmica Negativa (Anti-logarítmica):** Presenta una variación rápida de la resistencia al principio del recorrido y muy lenta hacia el final del giro (inversa a la logarítmica):
+$$R = K \cdot \log(\beta + 1)$$
+donde la variable representa la rotación del cursor:
+$$\beta$$
+
+---
+
+### 2.3 Ángulo de Rotación y Recorrido
+
+- **Recorrido del cursor:** Es el ángulo total de giro (beta) para potenciómetros angulares, o el desplazamiento lineal total (x) para potenciómetros lineales, requerido para desplazar el cursor de un extremo físico al otro.
+- **Recorrido mecánico:** Desplazamiento máximo limitado por los topes mecánicos del cursor (típicamente de 270 grados en potenciómetros de una sola vuelta).
+- **Recorrido eléctrico:** Fracción del recorrido mecánico en la cual el deslizamiento del cursor genera un cambio efectivo en la resistencia del circuito. Habitualmente coincide o es ligeramente inferior al recorrido mecánico.
+
+---
+
+### 2.4 Tolerancia
+
+Determina la exactitud o desviación porcentual máxima admitida entre el valor real medido de la resistencia total del componente y su valor nominal marcado. Sigue la misma ecuación relativa aplicada a los resistores fijos.
+
+---
+
+### 2.5 Temperatura Máxima
+
+Es la temperatura ambiente límite de seguridad (T_max) garantizada por el fabricante a partir de la cual el componente sufre variaciones irreversibles en su material conductor o degradación por carbonización. Depende directamente de la tecnología constructiva utilizada.
+
+---
+
+### 2.6 Potencia Nominal en Potenciómetros
+
+> [!IMPORTANT]
+> **Definición Crítica:**
+> La **Potencia Nominal (P_N)** es la potencia máxima continua en vatios (W) que se puede disipar **sobre la totalidad del elemento resistivo** (entre sus terminales fijos externos) en servicio continuo a la temperatura de referencia.
+> $$P_N = I_N^2 \cdot R_N$$
+> donde la corriente nominal máxima admisible es:
+> $$I_N$$
+
+Si el cursor se sitúa en una posición intermedia reduciendo la longitud de pista activa (resistencia de trabajo R_beta), la corriente que circula por dicha sección **nunca debe superar la corriente nominal (I_N)** del potenciómetro para evitar sobrecalentamientos locales localizados en la pista:
+$$P_{\beta} = I_N^2 \cdot R_{\beta}$$
+donde la potencia disipada en la fracción activa intermedia es:
+$$P_{\beta}$$
+y la resistencia de dicha sección activa es:
+$$R_{\beta}$$
+
+---
+
+### 2.7 Tensión Límite y Resistencia de Aislamiento
+
+- **Tensión límite (V_Lim):** Tensión máxima continua o eficaz aplicable en los extremos fijos del potenciómetro impuesta por la rigidez dieléctrica de los materiales de aislamiento.
+- **Resistencia de aislamiento:** Oposición al paso de corriente medida entre las partes activas del conductor (terminales y pista) y las partes metálicas externas inactivas del chasis (carcasa protectora, tuercas de sujeción, eje de giro).
+
+---
+
+### 2.8 Coeficiente de Temperatura
+
+Expresa la variación relativa de la resistencia total en función de los cambios de temperatura de operación del componente. Responde a la misma formulación lineal dada para resistores fijos:
+$$R(T_c) = R_N \cdot \left(1 + \alpha \cdot \left(T_c - T_N\right)\right)$$
+donde el coeficiente TCR representa a alfa:
+$$\alpha$$
+
+---
+
+### 2.9 Linealidad y Conformidad
+
+- **Conformidad:** Grado de coincidencia entre la curva de variación de resistencia real del potenciómetro frente a la curva teórica de diseño. Se mide como la máxima desviación de resistencia real en cualquier punto respecto al valor nominal total.
+- **Linealidad:** Caso particular de la conformidad donde la función de transferencia teórica de diseño es una línea recta perfecta.
+$$\text{Linealidad (\%)} = \frac{h}{X_s - X_i} \cdot 100$$
+donde la variable representa la máxima desviación absoluta:
+$$h$$
+y el rango total de span mecánico es:
+$$X_s - X_i$$
+
+---
+
+### 2.10 Resolución
+
+La **resolución** es la magnitud del incremento óhmico mínimo que se puede obtener entre el terminal del cursor y un extremo al realizar un desplazamiento infinitamente pequeño del cursor.
+
+- **Potenciómetros no bobinados (carbón/película):** Poseen una resolución **teóricamente infinita** gracias a la naturaleza continua de la superficie de la pista conductora.
+- **Potenciómetros bobinados:** La resolución es discreta (a saltos), ya que el cursor salta físicamente de una espira de hilo conductor a la siguiente. La resolución relativa responde a la ecuación:
+$$\text{Resolución} = \frac{1}{n}$$
+donde el número total de espiras físicas de la bobina es:
+$$n$$
+
+---
+
+### 2.11 Tipos de Ruido en Potenciómetros
+
+A los ruidos térmicos y de conducción típicos de los resistores, en los potenciómetros se añaden los ruidos de naturaleza dinámica provocados por el deslizamiento mecánico del cursor:
+
+1. **Ruido de resolución:** Ruido en escalera provocado por los cambios discontinuos de resistencia al saltar el cursor entre las espiras físicas del bobinado.
+2. **Ruido de vibración:** Variaciones parásitas de resistencia debidas a pequeños rebotes o saltos mecánicos temporales del cursor sobre la superficie resistiva al girar el eje a velocidad excesiva.
+3. **Ruido de contacto:** Variaciones bruscas en la resistencia de paso de la escobilla causadas por desgaste mecánico por rozamiento continuo o acumulación de suciedad y polvo en la superficie de la pista.
+
+---
+
+### 2.12 Estabilidad
+
+Es la capacidad del componente de mantener su valor de resistencia total inicial estable y sin derivas permanentes frente a factores de almacenamiento prolongado, desgaste por el número de maniobras mecánicas del eje y ciclos térmicos de operación.
+
+---
+
+### 2.13 Otros Parámetros (Ajustabilidad, Pares mecánicos)
+
+- **Ajustabilidad:** Nivel de precisión y facilidad mecánica con la que el cursor del potenciómetro puede ser posicionado en un punto de resistencia previamente seleccionado.
+- **Par de accionamiento:** Fuerza de torsión mínima requerida en el eje del potenciómetro para vencer el rozamiento estático de la escobilla y comenzar el giro.
+- **Par extremo:** Fuerza mecánica máxima de torsión que pueden soportar los topes físicos de fin de recorrido del cursor antes de romperse por sobreesfuerzo.
+
+---
+
+## 3. Tipos de Potenciómetros
+
+### 3.1 Clasificación General
+
+Los potenciómetros comerciales se clasifican según cuatro criterios principales de diseño:
+
+1. **Por el desplazamiento del cursor:**
+   - *Angulares o rotatorios:* Pista circular o semicircular con giro del eje (simples de 270 grados o multivueltas).
+   - *Lineales o deslizantes (Faders):* Pista resistiva recta con movimiento longitudinal del cursor.
+2. **Por su función en el circuito:**
+   - *Ajustables (Trimmers):* Calibración fija interna en placa.
+   - *Variables:* Modificación de parámetros de cara al usuario.
+3. **Por tipo de montaje circuital:**
+   - *Potenciómetro:* Montaje de tres bornes (divisor de tensión).
+   - *Reostato:* Montaje de dos bornes en serie (regulador de corriente).
+4. **Por su tecnología constructiva:**
+   - *Bobinados:* Hilo resistivo enrollado sobre toroide.
+   - *Película resistiva:* Carbón o compuestos metálicos (cermet) depositados sobre sustrato.
+
+---
+
+### 3.2 Potenciómetros Bobinados
+
+- **Detalles constructivos:** Hilo conductor de aleaciones de alta resistividad (como níquel-cobre o níquel-cromo) bobinado de forma toroidal sobre un soporte aislante. El cursor realiza contacto frotando sobre el lomo de las espiras.
+- **Características principales:**
+  - Rango de valores nominales:
+$$50\text{ }\Omega \quad \text{a} \quad 50\text{ k}\Omega$$
+  - Tolerancia típica de precisión:
+$$\pm 5\% \quad \text{a} \quad \pm 10\% \quad (\text{precisión por debajo de } \pm 1\%)$$
+  - Potencias de disipación elevadas (comerciales de 0.5 W a 8 W, y tipos de potencia de hasta varios kW).
+  - Resistencia residual muy baja:
+$$R_d < 0.3\text{ }\Omega$$
+  - Tensión límite alta de hasta 1 kV.
+  - Temperatura máxima de operación de hasta 125 ºC (versiones de potencia hasta 200 ºC).
+
+---
+
+### 3.3 Potenciómetros de Película Resistiva
+
+- **Detalles constructivos:** Deposición por deposición o pulverización de una pasta de carbón conductor o de compuestos metal-cerámicos (cermet) sobre un sustrato plano y aislante de fibra de vidrio o baquelita.
+- **Características principales:**
+  - Amplio rango de valores nominales:
+$$50\text{ }\Omega \quad \text{a} \quad 10\text{ M}\Omega$$
+  - Tolerancia estándar:
+$$\pm 5\% \quad \text{a} \quad \pm 20\% \quad (\text{precisión en cermet metálico de } \pm 1\%)$$
+  - Potencias de disipación limitadas:
+$$0.1\text{ W} \quad \text{a} \quad 2\text{ W} \quad (\text{cermet metálico hasta } 4\text{ W})$$
+  - Tensión máxima de hasta 600 V.
+  - Temperatura máxima de operación recomendada de hasta 90 ºC.
+  - Resistencia residual de valor apreciable:
+$$\text{Rango de } 6\% \text{ a } 10\% \text{ del valor } R_n$$
+  - Excelente fiabilidad y resolución teóricamente infinita (en especial en los cermet metálicos).
+
+---
+
+### 3.4 Potenciómetros Multivuelta
+
+Diseñados para aplicaciones de alta precisión de instrumentación. Para desplazar el cursor a lo largo del elemento resistivo se requiere girar el eje de control múltiples revoluciones completas (típicamente desde 3 hasta 30 vueltas). Se basan en husillos sinfín micrométricos y pistas resistivas helicoidales en tecnología bobinada o de cermet de excelente estabilidad.
+
+---
+
+### 3.5 Potenciómetros SMD
+
+Dispositivos trimmers de tamaño ultracompacto fabricados con tecnologías de película de cermet sobre sustratos cerámicos, diseñados con terminales de contacto planos para montaje superficial automatizado en placas electrónicas.
+
+---
+
+## 4. Códigos de Designación y Símbolos
+
+### 4.1 Codificación Alfanumérica
+
+El valor nominal marcado en el cuerpo del potenciómetro sigue la misma regla alfanumérica sin punto decimal aplicada para los resistores fijos:
+- **R** para unidades (Ω):
+$$R10 = 0.1\text{ }\Omega$$
+$$1R5 = 1.5\text{ }\Omega$$
+- **K** para millares (kΩ):
+$$1K0 = 1\text{ k}\Omega$$
+$$10K = 10\text{ k}\Omega$$
+- **M** para millones (MΩ):
+$$1M0 = 1\text{ M}\Omega$$
+$$10M = 10\text{ M}\Omega$$
+
+---
+
+### 4.2 Símbolos Gráficos Normalizados
+
+1. **Símbolo de Potenciómetro:**
+   Símbolo estándar de resistor de tres terminales provisto de una flecha perpendicular en el centro que representa al cursor.
+2. **Símbolo de Resistor Ajustable:**
+   Símbolo de resistor de dos o tres terminales con una línea inclinada terminada en una pequeña barra en cruz en el extremo del cursor.
+3. **Símbolo de Resistor Variable (General):**
+   Símbolo de resistor de dos o tres terminales con una flecha inclinada que atraviesa diagonalmente el cuerpo del componente.
