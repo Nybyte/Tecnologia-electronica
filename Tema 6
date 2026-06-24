@@ -1,0 +1,580 @@
+# Tema 6: Diodos Semiconductores
+
+## Índice de Contenidos
+- [1. Materiales Semiconductores](#1-materiales-semiconductores)
+  - [1.1 Portadores de Carga](#11-portadores-de-carga)
+  - [1.2 Teoría de Bandas de Energía](#12-teoría-de-bandas-de-energía)
+  - [1.3 Semiconductores Intrínsecos (Puros)](#13-semiconductores-intrínsecos-puros)
+  - [1.4 Semiconductores Extrínsecos (Dopados)](#14-semiconductores-extrínsecos-dopados)
+    - [Semiconductor Tipo N](#semiconductor-tipo-n)
+    - [Semiconductor Tipo P](#semiconductor-tipo-p)
+- [2. La Unión P-N](#2-la-unión-p-n)
+  - [2.1 Unión P-N No Polarizada](#21-unión-p-n-no-polarizada)
+  - [2.2 Polarización Inversa](#22-polarización-inversa)
+  - [2.3 Polarización Directa](#23-polarización-directa)
+- [3. Descripción Básica del Diodo](#3-descripción-básica-del-diodo)
+  - [3.1 Símbolo y Terminales](#31-símbolo-y-terminales)
+  - [3.2 Ecuación del Diodo (Ecuación de Shockley)](#32-ecuación-del-diodo-ecuación-de-shockley)
+  - [3.3 Resistencia Dinámica (r_d)](#33-resistencia-dinámica-r_d)
+    - [Deducción Matemática de la Resistencia Dinámica](#deducción-matemática-de-la-resistencia-dinámica)
+    - [Tabla de Valores de Resistencia Dinámica (PR25/PR50 de Silicio)](#tabla-de-valores-de-resistencia-dinámica-pr25pr50-de-silicio)
+  - [3.4 Resistencia Directa Total](#34-resistencia-directa-total)
+- [4. Modelos de Aproximación del Diodo](#4-modelos-of-aproximación-del-diodo)
+  - [4.1 Diodo Ideal](#41-diodo-ideal)
+  - [4.2 Modelo de 1ª Aproximación (Fuente de Tensión)](#42-modelo-de-1ª-aproximación-fuente-de-tensión)
+  - [4.3 Modelo de 1ª Aproximación con Resistencia (Variante)](#43-modelo-de-1ª-aproximación-con-resistencia-variante)
+  - [4.4 Modelo de 2ª Aproximación](#44-modelo-de-2ª-aproximación)
+- [5. Características Técnicas y Efectos Térmicos](#5-características-técnicas-y-efectos-térmicos)
+  - [5.1 Efecto de la Temperatura sobre la Corriente Inversa (I_0)](#51-efecto-de-la-temperatura-sobre-la-corriente-inversa-i_0)
+    - [Ejemplo Práctico 1 (Variación Térmica de I_0)](#ejemplo-práctico-1-variación-térmica-de-i_0)
+  - [5.2 Efecto de la Temperatura sobre la Tensión Umbral (V_gamma)](#52-efecto-de-la-temperatura-sobre-la-tensión-umbral-v_gamma)
+    - [Ejemplo Práctico 2 (Variación Térmica de V_gamma)](#ejemplo-práctico-2-variación-térmica-de-v_gamma)
+  - [5.3 Temperatura Máxima de la Unión](#53-temperatura-máxima-de-la-unión)
+  - [5.4 Potencia Nominal en Directa e Inversa](#54-potencia-nominal-en-directa-e-inversa)
+  - [5.5 Tensión Inversa y Ruido de Ruptura](#55-tensión-inversa-y-ruido-de-ruptura)
+  - [5.6 Efecto Capacitivo (Transición y Difusión)](#56-efecto-capacitivo-transición-y-difusión)
+  - [5.7 Tiempos de Conmutación](#57-tiempos-de-conmutación)
+- [6. Tipos de Diodos](#6-tipos-de-diodos)
+- [7. Análisis de Circuitos con Diodos](#7-análisis-de-circuitos-con-diodos)
+  - [7.1 Método Analítico de Resolución](#71-método-analítico-de-resolución)
+    - [Ejemplo de Resolución Analítica](#ejemplo-de-resolución-analítica)
+  - [7.2 Método Gráfico de la Recta de Carga](#72-método-gráfico-de-la-recta-de-carga)
+  - [7.3 Resolución por Aproximaciones Sucisivas](#73-resolución-por-aproximaciones-sucisivas)
+- [8. Aplicaciones Básicas de los Diodos](#8-aplicaciones-básicas-de-los-diodos)
+- [9. Códigos de Designación y Marcado](#9-códigos-de-designación-y-marcado)
+
+---
+
+## 1. Materiales Semiconductores
+
+### 1.1 Portadores de Carga
+
+En la física de los semiconductores, el paso de corriente se explica a través de la presencia de portadores de carga microscópicos en la estructura interna de la materia:
+
+- **Átomo:** Menor partícula de un elemento químico que conserva la totalidad de sus propiedades.
+- **Electrón:** Partícula elemental de carga eléctrica negativa que orbita alrededor del núcleo del átomo.
+  - Masa del electrón:
+$$m = 9.11 \cdot 10^{-31}\text{ kg}$$
+  - Carga del electrón (en culombios):
+$$q = 1.6 \cdot 10^{-19}\text{ C}$$
+- **Hueco:** Ausencia física de un electrón en un enlace covalente. Se comporta de forma equivalente a una portadora de carga positiva con idéntica magnitud de carga que la del electrón.
+- **Ión:** Átomo que ha adquirido una carga eléctrica neta al perder electrones (ión positivo o catión) o al ganar electrones (ión negativo o anión).
+
+---
+
+### 1.2 Teoría de Bandas de Energía
+
+La capacidad de conducción eléctrica de los materiales sólidos se describe mediante el **Modelo de Bandas de Energía**, el cual establece la existencia de bandas permitidas y bandas prohibidas para el movimiento de los electrones:
+
+- **Banda de valencia (Capa de valencia):** Banda ocupada por los electrones ligados a los átomos de la estructura cristalina.
+- **Banda de conducción:** Banda de energía superior donde los electrones libres pueden moverse bajo la acción de un campo eléctrico, generando corriente.
+- **Banda prohibida (Gap, E_G):** Intervalo de energía inaccesible para los electrones que separa la banda de valencia de la de conducción.
+
+Según la anchura de la banda prohibida (E_G), los materiales se clasifican en:
+
+#### 1. Aislante
+Material que posee una banda prohibida muy ancha (generalmente del orden de varios electronvoltios):
+$$E_G \approx 6\text{ eV}$$
+La energía térmica a temperatura ambiente o la suministrada por campos externos moderados es insuficiente para hacer saltar a los electrones a la banda de conducción, impidiendo el paso de corriente.
+
+#### 2. Conductor
+Material donde la banda de valencia y la banda de conducción se encuentran solapadas físicamente a temperatura ambiente. Los electrones de valencia se mueven libremente y conducen corriente con facilidad bajo cualquier campo eléctrico.
+
+#### 3. Semiconductor
+Material donde la banda prohibida es estrecha, típicamente del orden de un electronvoltio:
+$$E_G \approx 1\text{ eV}$$
+A temperaturas de cero absoluto (0 K) se comporta como un aislante. Sin embargo, a temperatura ambiente (300 K), algunos electrones adquieren suficiente energía de agitación térmica para saltar la banda prohibida y situarse en la banda de conducción, posibilitando una pequeña corriente de paso.
+
+#### Valores de la Banda Prohibida (E_G) para semiconductores puros:
+- **Silicio (Si):**
+  - A cero absoluto (0 K):
+$$E_G = 1.21\text{ eV}$$
+  - A temperatura ambiente (300 K):
+$$E_G = 1.10\text{ eV}$$
+- **Germanio (Ge):**
+  - A cero absoluto (0 K):
+$$E_G = 0.785\text{ eV}$$
+  - A temperatura ambiente (300 K):
+$$E_G = 0.72\text{ eV}$$
+
+---
+
+### 1.3 Semiconductores Intrínsecos (Puros)
+
+Un **semiconductor intrínseco** es un cristal semiconductor puro (libre de impurezas en su red cristalina). El silicio posee 4 electrones de valencia que se comparten en enlaces covalentes con 4 átomos vecinos en una estructura tetraédrica tridimensional.
+
+A temperatura ambiente, la agitación térmica rompe algunos enlaces de la red cristalina, liberando electrones que pasan a la banda de conducción y dejando un hueco equivalente en la banda de valencia.
+
+> [!NOTE]
+> En un semiconductor intrínseco, la concentración de electrones libres en la banda de conducción es exactamente igual a la concentración de huecos libres en la banda de valencia.
+> La generación continua de pares electrón-hueco por calor se equilibra simultáneamente mediante el proceso de **recombinación** (cuando un electrón libre vuelve a caer en un hueco libre de la banda de valencia).
+> Al aplicar una diferencia de potencial externa, se establece una corriente total que es la suma del movimiento de los electrones y del desplazamiento de los huecos.
+
+---
+
+### 1.4 Semiconductores Extrínsecos (Dopados)
+
+Dado que la corriente intrínseca a temperatura ambiente es extremadamente baja (menor al nA), se realiza el **dopaje** (introducción controlada de pequeñas impurezas de átomos de otros materiales en una proporción de 1 por cada millón o cien millones de átomos) para elevar la conductividad.
+
+#### Semiconductor Tipo N
+Se dopa con impurezas **donadoras** de electrones (elementos pentavalentes del grupo V de la tabla periódica como Fósforo, Arsénico o Antimonio: P, As, Sb).
+- Al incorporarse a la red, 4 electrones del átomo dopante forman enlaces covalentes y el quinto electrón queda libre para la conducción sin crear huecos.
+- Portadores mayoritarios: Electrones libres.
+- Portadores minoritarios: Huecos.
+
+#### Semiconductor Tipo P
+Se dopa con impurezas **aceptadoras** de electrones (elementos trivalentes del grupo III de la tabla periódica como Boro, Galio o Indio: B, Ga, In).
+- El átomo dopante sólo dispone de 3 electrones de valencia, por lo que queda un enlace covalente incompleto (un hueco libre) sin necesidad de liberar un electrón.
+- Portadores mayoritarios: Huecos.
+- Portadores minoritarios: Electrones.
+
+---
+
+## 2. La Unión P-N
+
+La interconexión íntima en un mismo cristal monocristalino de una zona dopada tipo P y otra tipo N constituye la base física de los componentes de estado sólido modernos.
+
+### 2.1 Unión P-N No Polarizada
+
+Al realizar la unión de los cristales, se produce un gradiente de concentración en la frontera:
+1. Los electrones mayoritarios de la zona N se difunden hacia la zona P para recombinarse con los huecos mayoritarios.
+2. Los huecos de la zona P se difunden hacia la zona N.
+3. Este proceso de difusión y recombinación deja en la zona N iones donadores positivos fijos (que han perdido su quinto electrón) y en la zona P iones aceptadores negativos fijos (que han ganado un electrón).
+4. La región desprovista de portadores móviles y cargada de iones fijos se denomina **Región de Carga Espacial (o Zona de Transición Z)**.
+5. Los iones fijos establecen una barrera de potencial eléctrico interno que se opone a que continúe la difusión de más electrones. En equilibrio térmico, la corriente de difusión se detiene.
+
+#### Tensión de barrera interna de contacto en equilibrio a 300 K:
+- Para diodos de Germanio (Ge):
+$$V_0 \approx 0.3\text{ V}$$
+- Para diodos de Silicio (Si):
+$$V_0 \approx 0.7\text{ V}$$
+
+---
+
+### 2.2 Polarización Inversa
+
+Se produce al conectar el polo positivo de la fuente externa a la zona N del diodo y el polo negativo a la zona P.
+
+- Los portadores mayoritarios son atraídos hacia los extremos del generador, provocando un ensanchamiento de la región de carga espacial (zona Z).
+- La corriente debida a portadores mayoritarios se anula.
+- Solo circula una corriente extremadamente pequeña debida a portadores minoritarios que logran atravesar la zona Z. Esta corriente se denomina **Corriente Inversa de Saturación (I_0)**.
+- La corriente inversa es independiente de la tensión aplicada, pero es fuertemente dependiente de la temperatura.
+
+> [!WARNING]
+> Si la tensión de polarización inversa aplicada es muy elevada, el campo eléctrico interno alcanza un valor crítico capaz de romper los enlaces covalentes del cristal, liberando portadores de forma masiva en avalancha. Esto se conoce como el **efecto avalancha o ruptura del diodo (Tensión de Zener, V_Z)**.
+
+---
+
+### 2.3 Polarización Directa
+
+Se produce al conectar el polo positivo de la fuente externa a la zona P del diodo y el polo negativo a la zona N.
+
+- El campo eléctrico de la fuente externa contrarresta la barrera de potencial interno de la zona de transición.
+- Los portadores mayoritarios son repelidos por los terminales hacia la unión, estrechando la zona Z.
+- A partir de que la tensión externa supera la barrera de potencial (tensión de codo), se establece una corriente de conducción elevada que crece de forma exponencial.
+
+---
+
+## 3. Descripción Básica del Diodo
+
+### 3.1 Símbolo y Terminales
+
+El **diodo de unión** es un componente semiconductor de dos terminales que permite el paso de corriente eléctrica preferentemente en un único sentido:
+
+- **Ánodo (zona P):** Terminal positivo en directa.
+- **Cátodo (zona N):** Terminal negativo en directa.
+
+---
+
+### 3.2 Ecuación del Diodo (Ecuación de Shockley)
+
+La relación no lineal que define la intensidad de corriente que circula por el diodo (I_D) en función de la tensión externa aplicada en sus bornes (V_D) es:
+$$I_D = I_0 \cdot \left(e^{\frac{V_D}{\eta \cdot V_T}} - 1\right)$$
+donde las variables representan:
+- Intensidad de corriente que circula por el diodo (A):
+$$I_D$$
+- Caída de tensión en bornes del diodo (V):
+$$V_D$$
+- Corriente inversa de saturación (A):
+$$I_0$$
+- Coeficiente de emisión (magnitud adimensional, Ge ≈ 1 y Si ≈ 2):
+$$\eta$$
+- Tensión térmica equivalente del semiconductor (V):
+$$V_T$$
+
+La tensión térmica es función de la temperatura del cristal semiconductor y responde a la ecuación:
+$$V_T = \frac{K \cdot T}{q}$$
+donde las constantes físicas y variables representan:
+- Constante de Boltzmann ($1.3806 \cdot 10^{-23}\text{ J/K}$):
+$$K$$
+- Temperatura absoluta del semiconductor en Kelvin (K):
+$$T$$
+- Carga elemental del electrón ($1.602 \cdot 10^{-19}\text{ C}$):
+$$q$$
+
+A temperatura ambiente de referencia de 300 K (equivalente a 27 ºC), la tensión térmica posee el valor constante:
+$$V_T \approx 25.8\text{ mV} \approx 26\text{ mV}$$
+
+---
+
+### 3.3 Resistencia Dinámica (r_d)
+
+La resistencia que presenta el diodo varía de forma continua en función de su punto de polarización debido a la naturaleza exponencial de la curva de corriente.
+
+#### Deducción Matemática de la Resistencia Dinámica
+
+Para pequeñas variaciones de tensión alterna superpuestas sobre un punto de polarización en continua (Punto de reposo Q), se define la **Resistencia Dinámica (r_d)** como la derivada de la tensión respecto a la corriente en dicho punto:
+$$r_d = \frac{dV_D}{dI_D}$$
+donde la resistencia dinámica en el punto Q es:
+$$r_d$$
+
+Partiendo de la Ecuación de Shockley y despreciando el término unidad para polarización directa ($$I_D \gg I_0$$):
+$$I_D \approx I_0 \cdot e^{\frac{V_D}{\eta \cdot V_T}}$$
+
+Derivando la corriente respecto a la tensión:
+$$\frac{dI_D}{dV_D} = I_0 \cdot \left(\frac{1}{\eta \cdot V_T}\right) \cdot e^{\frac{V_D}{\eta \cdot V_T}}$$
+
+Sustituyendo el término de corriente en la derivada:
+$$\frac{dI_D}{dV_D} = \frac{I_D}{\eta \cdot V_T}$$
+
+Tomando el valor inverso para hallar la resistencia dinámica de pequeña señal:
+$$r_d = \left(\frac{dI_D}{dV_D}\right)^{-1} = \frac{\eta \cdot V_T}{I_D}$$
+
+Por tanto, en polarización directa, la resistencia dinámica del diodo es inversamente proporcional a la corriente continua de polarización que circula por él:
+$$r_d \approx \frac{\eta \cdot V_T}{I_D}$$
+
+---
+
+#### Tabla de Valores de Resistencia Dinámica (PR25/PR50 de Silicio)
+Considerando un diodo de Silicio con parámetros:
+$$I_0 = 20\text{ nA} \quad \text{y} \quad \eta = 2$$
+A temperatura de 25 ºC, la tensión térmica es:
+$$V_T = 25.6\text{ mV}$$
+
+| Tensión en el Diodo (VD en V) | Corriente en el Diodo (ID en A) | Resistencia Dinámica (rd en Ω) |
+|---|---|---|
+| 0.05 | 3.31e-8 | 1558617.7 |
+| 0.20 | 9.74e-7 | 52964.1 |
+| 0.40 | 4.94e-5 | 1044.4 |
+| 0.50 | 3.48e-4 | 148.0 |
+| 0.60 | 2.45e-3 | 21.0 |
+| 0.70 | 1.73e-2 | 2.97 |
+| 0.80 | 0.122 | 0.42 |
+| 1.00 | 6.07 | 0.008 |
+
+---
+
+### 3.4 Resistencia Directa Total
+
+En régimen de gran señal, la resistencia óhmica interna del cuerpo de los cristales y de los terminales del encapsulado de metal ($$r_D$$) adquiere relevancia. La resistencia directa total ($$R_F$$) es la suma en serie de ambos componentes:
+$$R_F = r_d + r_D$$
+- A corrientes de polarización muy bajas, predomina el término de resistencia de la unión:
+$$r_d \gg r_D \implies R_F \approx r_d$$
+- A corrientes de polarización elevadas, el término de la unión decrece a valores insignificantes y domina el término óhmico resistivo de cuerpo:
+$$r_D \gg r_d \implies R_F \approx r_D$$
+
+---
+
+## 4. Modelos de Aproximación del Diodo
+
+Para facilitar el análisis matemático de circuitos, la curva no lineal exponencial del diodo real se aproxima mediante modelos simplificados:
+
+### 4.1 Diodo Ideal
+Se considera un interruptor perfecto controlado por la polaridad de la tensión en bornes:
+- **Polarización directa ($V_D \ge 0$):** Actúa como un cortocircuito perfecto (resistencia cero y sin caída de tensión).
+$$R_F = 0\text{ }\Omega$$
+$$V_\gamma = 0\text{ V}$$
+- **Polarización inversa ($V_D < 0$):** Actúa como un circuito abierto perfecto (resistencia infinita y corriente nula).
+$$R_r = \infty\text{ }\Omega$$
+$$I_0 = 0\text{ A}$$
+
+---
+
+### 4.2 Modelo de 1ª Aproximación (Fuente de Tensión)
+Introduce el efecto de la caída de tensión constante debida a la barrera de potencial ($$V_\gamma$$):
+- **Polarización directa:** Actúa como una fuente de tensión de valor constante igual a la tensión umbral de codo.
+$$R_F = 0\text{ }\Omega$$
+$$V_\gamma = 0.7\text{ V (Silicio)} \quad / \quad V_\gamma = 0.3\text{ V (Germanio)}$$
+- **Polarización inversa:** Actúa como un circuito abierto perfecto.
+$$R_r = \infty\text{ }\Omega$$
+$$I_0 = 0\text{ A}$$
+
+---
+
+### 4.3 Modelo de 1ª Aproximación con Resistencia (Variante)
+Se aproxima mediante una resistencia equivalente en directa, omitiendo la tensión de codo:
+- **Polarización directa:**
+$$R_F \neq 0\text{ }\Omega$$
+$$V_\gamma = 0\text{ V}$$
+- **Polarización inversa:** Actúa como un circuito abierto.
+
+---
+
+### 4.4 Modelo de 2ª Aproximación
+Modelo completo linealizado a tramos. Incluye tanto la tensión umbral ($$V_\gamma$$) como la resistencia en directa ($$R_F$$):
+- **Polarización directa ($V_D \ge V_\gamma$):** Se modela como la conexión en serie de una fuente de tensión continua ($$V_\gamma$$) y una resistencia ($$R_F$$).
+$$R_F \neq 0\text{ }\Omega$$
+$$V_\gamma = 0.7\text{ V (Si)}$$
+- **Polarización inversa ($V_D < V_\gamma$):** Circuito abierto o bien una resistencia inversa de valor en la escala de megaohmios ($$M\Omega$$) para modelar la corriente de fuga.
+
+---
+
+## 5. Características Técnicas y Efectos Térmicos
+
+### 5.1 Efecto de la Temperatura sobre la Corriente Inversa ($I_0$)
+
+La corriente inversa de saturación (I_0) de la unión P-N está originada por portadores minoritarios generados por excitación térmica del cristal.
+
+> [!IMPORTANT]
+> La corriente inversa de saturación ($I_0$) es sumamente sensible a la temperatura, **duplicando su valor óhmico por cada 10 ºC de incremento de temperatura**.
+> La relación térmica se define mediante la ecuación exponencial:
+> $$I_0(T) = I_0(T_0) \cdot 2^{\frac{T - T_0}{10}}$$
+> donde las variables representan:
+> - Temperatura final de operación (ºC):
+> $$T$$
+> - Temperatura inicial de referencia (ºC):
+> $$T_0$$
+
+---
+
+#### Ejemplo Práctico 1 (Variación Térmica de I_0)
+Un diodo semiconductor posee una corriente inversa de saturación medida de:
+$$I_0 = 20\text{ nA} = 20 \cdot 10^{-9}\text{ A}$$
+a la temperatura ambiente de:
+$$T_0 = 25\text{ ºC}$$
+Calcular el nuevo valor de la corriente inversa si el semiconductor se calienta hasta alcanzar una temperatura de:
+$$T = 85\text{ ºC}$$
+
+Resolución paso a paso:
+1. Planteamiento de la fórmula de variación térmica:
+$$I_0(85\text{ }^\circ\text{C}) = I_0(25\text{ }^\circ\text{C}) \cdot 2^{\frac{85 - 25}{10}}$$
+2. Sustitución de valores numéricos:
+$$I_0(85\text{ }^\circ\text{C}) = (20 \cdot 10^{-9}) \cdot 2^{\frac{60}{10}}$$
+3. Cálculo de la potencia de dos:
+$$I_0(85\text{ }^\circ\text{C}) = (20 \cdot 10^{-9}) \cdot 2^6$$
+$$I_0(85\text{ }^\circ\text{C}) = (20 \cdot 10^{-9}) \cdot 64$$
+4. Resultado final:
+$$I_0(85\text{ }^\circ\text{C}) = 1280 \cdot 10^{-9}\text{ A} = 1280\text{ nA} = 1.28\text{ }\mu\text{A}$$
+
+---
+
+### 5.2 Efecto de la Temperatura sobre la Tensión Umbral ($V_\gamma$)
+
+La temperatura del cristal reduce la barrera de potencial de la zona de transición.
+
+> [!IMPORTANT]
+> La tensión umbral de codo disminuye de forma lineal a una tasa constante de aproximadamente **2.5 mV por cada grado Celsius de incremento de temperatura**.
+> Ecuación de variación térmica de la tensión umbral:
+> $$\frac{\Delta V_D}{\Delta T} \approx -2.5\text{ mV/}^\circ\text{C}$$
+> O de forma integrada:
+> $$V_\gamma(T) = V_\gamma(T_0) - 2.5 \cdot 10^{-3} \cdot (T - T_0)$$
+
+---
+
+#### Ejemplo Práctico 2 (Variación Térmica de V_gamma)
+Un diodo de Silicio posee una tensión de codo nominal de:
+$$V_\gamma = 0.7\text{ V}$$
+a la temperatura de referencia de:
+$$T_0 = 25\text{ ºC}$$
+Calcular la nueva tensión de codo si el componente trabaja a una temperatura de:
+$$T = 85\text{ ºC}$$
+
+Resolución paso a paso:
+1. Planteamiento de la fórmula lineal de variación de tensión:
+$$V_\gamma(85\text{ }^\circ\text{C}) = V_\gamma(25\text{ }^\circ\text{C}) - 2.5 \cdot 10^{-3} \cdot (85 - 25)$$
+2. Sustitución de valores numéricos:
+$$V_\gamma(85\text{ }^\circ\text{C}) = 0.7 - 2.5 \cdot 10^{-3} \cdot (60)$$
+3. Operación de la caída de tensión térmica:
+$$V_\gamma(85\text{ }^\circ\text{C}) = 0.7 - 0.15$$
+4. Resultado final:
+$$V_\gamma(85\text{ }^\circ\text{C}) = 0.55\text{ V}$$
+
+---
+
+### 5.3 Temperatura Máxima de la Unión
+
+Representa el límite físico térmico destructivo en la unión de silicio o germanio ($$T_j$$):
+- **Diodos de Germanio (Ge):**
+$$T_j \approx 75\text{ ºC a } 100\text{ ºC}$$
+- **Diodos de Silicio (Si):**
+$$T_j \approx 150\text{ ºC a } 200\text{ ºC}$$
+
+---
+
+### 5.4 Potencia Nominal en Directa e Inversa
+
+Representa la máxima potencia disipable por el componente en servicio continuo sin destruirse:
+
+- **En polarización directa:** La potencia disipada es el producto de la tensión de paso directa por la corriente directa:
+$$P_n = V_D \cdot I_D = (V_F + I_D \cdot r_F) \cdot I_D = V_F \cdot I_D + r_F \cdot I_D^2$$
+- **En polarización inversa:** La potencia disipada es el producto de la tensión inversa de polarización por la corriente de fuga:
+$$P_n = V_D \cdot I_0$$
+
+---
+
+### 5.5 Tensión Inversa y Ruido de Ruptura
+
+- **Tensión inversa máxima de trabajo ($$V_{R\text{ max}}$$):** Tensión máxima inversa que el componente puede soportar de forma segura en operación continua.
+- **Tensión de ruptura de avalancha ($$V_Z$$ o $$V_{BR}$$):** Umbral de voltaje inverso a partir del cual el diodo entra en conducción inversa masiva por avalancha de portadores.
+
+---
+
+### 5.6 Efecto Capacitivo (Transición y Difusión)
+
+La unión P-N se comporta de forma análoga a un condensador eléctrico cuyas placas de conducción son las zonas semiconductoras neutras P y N, y el dieléctrico es la zona de transición desprovista de portadores móviles (zona Z):
+
+1. **Capacidad de transición ($$C_T$$):** Predomina en **polarización inversa**. Al aumentar la tensión inversa, la zona Z se ensancha, lo que equivale a separar las placas del condensador y por tanto la capacidad disminuye.
+2. **Capacidad de difusión ($$C_D$$):** Predomina en **polarización directa**. Está asociada al almacenamiento temporal de portadores minoritarios acumulados en los extremos de la unión. Es directamente proporcional al valor de la corriente directa.
+
+---
+
+### 5.7 Tiempos de Conmutación
+
+Al conmutar un diodo de conducción a corte (directa a inversa), el componente no se bloquea de forma inmediata, requiriendo un **Tiempo de Recuperación Inversa (trr)** para desalojar los portadores minoritarios almacenados:
+$$t_{\text{rr}} = t_a + t_c$$
+donde las variables representan:
+- Tiempo de almacenamiento ($$t_a$$): Tiempo donde circula una corriente inversa elevada hasta agotar el exceso de portadores acumulados en la unión.
+- Tiempo de caída ($$t_c$$): Tiempo necesario para cargar la capacidad de transición y estabilizar la región de carga espacial.
+
+---
+
+## 6. Tipos de Diodos
+
+1. **Diodos Rectificadores:** Diseñados para soportar corrientes directas elevadas y tensiones inversas altas, destinados al procesado de energía (fuentes de alimentación).
+2. **Diodos Zener:** Diseñados para operar de forma estable en la zona de ruptura inversa (tensión constante), empleados para regulación de tensión.
+3. **Diodos Varicap (Varactor):** Diseñados para aprovechar la variación de la capacidad de transición ($$C_T$$) en función de la tensión inversa aplicada, empleados para sintonizadores de radiofrecuencia.
+4. **Diodos LED:** Diodos de polarización directa fabricados con materiales compuestos como Arseniuro de Galio (AsGa). Al recombinarse los portadores, emiten fotones de luz en el espectro visible o infrarrojo. Caída de tensión típica de directa:
+$$1.5\text{ V a } 2.2\text{ V}$$
+5. **Fotodiodos:** Operan en polarización inversa. La luz incidente incide en la unión generando pares electrón-hueco, estableciendo una corriente inversa proporcional a la luminosidad.
+6. **Diodo Láser:** Dispositivo que emite luz coherente de gran pureza espectral basada en la emisión estimulada de radiación en un canal reflectante.
+7. **Diodo Túnel (Esaki):** Diodo de muy alta impurificación que presenta un tramo de resistencia negativa en su característica I-V en directa, idóneo para osciladores de alta frecuencia.
+8. **Diodo Schottky:** Unión de un metal y un semiconductor tipo N (sin barrera P-N clásica). Conduce por portadores mayoritarios, lo que anula el tiempo de almacenamiento ($$t_a$$), permitiendo conmutar a frecuencias muy altas. Posee una baja tensión de codo:
+$$V_\gamma < 0.35\text{ V}$$
+
+---
+
+## 7. Análisis de Circuitos con Diodos
+
+### 7.1 Método Analítico de Resolución
+
+Consiste en resolver de forma simultánea el sistema de dos ecuaciones no lineales que definen al circuito:
+1. Ecuación característica no lineal del diodo (Shockley).
+2. Ecuación lineal de malla del circuito de alimentación (Ley de Kirchhoff de tensiones).
+
+---
+
+#### Ejemplo de Resolución Analítica
+Dado un circuito simple compuesto por una fuente de tensión constante de:
+$$V_1 = 5\text{ V}$$
+conectada en serie a una resistencia de valor:
+$$R_1 = 100\text{ }\Omega$$
+y a un diodo de Silicio con corriente inversa de saturación:
+$$I_0 = 20\text{ nA} = 20 \cdot 10^{-9}\text{ A}$$
+operando a una temperatura de 29 ºC (tensión térmica constante de $$V_T = 26\text{ mV}$$ y coeficiente $$\eta = 2$$):
+
+**Ecuaciones del sistema:**
+1. Ecuación del diodo:
+$$I_D = I_0 \cdot \left(e^{\frac{V_D}{\eta \cdot V_T}} - 1\right)$$
+2. Ecuación de Kirchhoff de la malla:
+$$V_1 = V_D + I_D \cdot R_1 \implies I_D = \frac{V_1 - V_D}{R_1}$$
+
+Sustituyendo los valores numéricos:
+1. Ecuación del diodo:
+$$I_D = (20 \cdot 10^{-9}) \cdot \left(e^{\frac{V_D}{0.052}} - 1\right)$$
+2. Ecuación de Kirchhoff:
+$$I_D = \frac{5 - V_D}{100}$$
+
+Igualando ambas corrientes para resolver la tensión del diodo:
+$$(20 \cdot 10^{-9}) \cdot \left(e^{\frac{V_D}{0.052}} - 1\right) = \frac{5 - V_D}{100}$$
+
+Este sistema no lineal se resuelve mediante métodos numéricos iterativos o programas matemáticos de simulación (PSpice), obteniendo los valores exactos de operación:
+- Tensión en bornes del diodo:
+$$V_D \approx 0.766\text{ V}$$
+- Corriente de paso del diodo:
+$$I_D \approx 42.34\text{ mA} = 0.04234\text{ A}$$
+
+---
+
+### 7.2 Método Gráfico de la Recta de Carga
+
+Consiste en dibujar la recta de carga lineal sobre la curva característica del diodo. Los puntos de corte de la recta con los ejes se determinan mediante los extremos eléctricos:
+- **Corte con el eje de tensión (I_D = 0):**
+$$V_D = V_1 = 5\text{ V}$$
+- **Corte con el eje de corriente (V_D = 0):**
+$$I_D = \frac{V_1}{R_1} = \frac{5}{100} = 50\text{ mA} = 0.05\text{ A}$$
+
+La intersección de la recta de carga con la curva exponencial define de forma visual el punto de operación de reposo Q.
+
+---
+
+### 7.3 Resolución por Aproximaciones Sucesivas
+
+1. **Primera aproximación (Diodo ideal de codo de 0.7 V):**
+   Suponiendo $$V_D \approx 0.7\text{ V}$$.
+   - Cálculo de la corriente de primera aproximación:
+$$I_D \approx \frac{V_1 - 0.7}{R_1} = \frac{5 - 0.7}{100} = \frac{4.3}{100} = 43\text{ mA} = 0.043\text{ A}$$
+2. **Segunda aproximación (Evaluando la tensión real a partir de la corriente previa):**
+   Sustituyendo la corriente obtenida de $$43\text{ mA}$$ en la ecuación inversa de Shockley:
+$$V_D = \eta \cdot V_T \cdot \ln\left(\frac{I_D}{I_0} + 1\right)$$
+$$V_D = 0.052 \cdot \ln\left(\frac{0.043}{20 \cdot 10^{-9}} + 1\right) \approx 0.757\text{ V}$$
+   - Recalculamos la corriente con la nueva caída de tensión:
+$$I_D = \frac{5 - 0.757}{100} = \frac{4.243}{100} = 42.43\text{ mA}$$
+Este método aproxima el valor real de forma sumamente rápida tras pocas iteraciones.
+
+---
+
+## 8. Aplicaciones Básicas de los Diodos
+
+1. **Rectificador de media onda:** Elimina los semiciclos de polaridad negativa de una tensión alterna senoidal.
+2. **Rectificador de onda completa:** Invierte los semiciclos negativos mediante un transformador con toma intermedia o mediante una configuración de puente de cuatro diodos (Graetz), generando una corriente unidireccional pulsante continua.
+3. **Circuitos recortadores (Limites):** Limitan o recortan porciones de una señal alterna a un nivel de tensión de referencia predeterminado.
+4. **Dobladores de tensión:** Configuración de condensadores y diodos que rectifican la entrada alterna y multiplican la amplitud de salida continua.
+5. **Demoduladores de AM:** Detectores de envolvente para recuperación de información modulada en amplitud.
+
+---
+
+## 9. Códigos de Designación y Marcado
+
+La codificación de componentes electrónicos se rige por tres estándares internacionales:
+
+### 1. JEDEC (Estándar Americano)
+Formato de designación:
+$$\text{Dígito + Letra + Número + Sufijo (opcional)}$$
+- El dígito indica el tipo de componente:
+  - 1 para Diodos.
+  - 2 para Transistores bipolares.
+  - 3 para Transistores de efecto de campo (FET).
+- La letra es siempre la **N** (unión semiconductora).
+- El número es una serie secuencial de registro (de 100 a 9999).
+- *Ejemplo:*
+$$1\text{N}4007 \quad / \quad 2\text{N}3904$$
+
+### 2. JISC (Estándar Japonés)
+Formato de designación:
+$$\text{Dígito + Dos Letras + Número}$$
+- El dígito indica el tipo (1 para diodo, 2 para transistor).
+- Las dos letras especifican la aplicación:
+  - **SA:** Transistor PNP de alta frecuencia (HF).
+  - **SB:** Transistor PNP de baja frecuencia (AF).
+  - **SC:** Transistor NPN de alta frecuencia.
+  - **SD:** Transistor NPN de baja frecuencia.
+  - **SZ:** Diodos Zener.
+- *Ejemplo:*
+$$2\text{SA}1187 \quad / \quad 2\text{SB}646$$
+
+### 3. PRO ELECTRON (Estándar Europeo)
+Formato de designación:
+$$\text{Dos Letras + Letra (opcional) + Número}$$
+- La primera letra indica el material semiconductor:
+  - **A:** Germanio.
+  - **B:** Silicio.
+  - **C:** Arseniuro de Galio (AsGa).
+  - **R:** Materiales compuestos.
+- La segunda letra indica la aplicación del dispositivo:
+  - **A:** Diodo de señal o de baja potencia.
+  - **B:** Diodo varicap.
+  - **Y:** Diodo rectificador.
+  - **Z:** Diodo Zener.
+- La tercera letra opcional indica una serie industrial o profesional (generalmente W, X, Y o Z).
+- *Ejemplo:*
+$$\text{BC}108\text{A} \quad / \quad \text{BAW}68 \quad / \quad \text{BF}239$$
