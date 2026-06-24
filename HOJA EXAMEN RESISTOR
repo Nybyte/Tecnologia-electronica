@@ -1,0 +1,170 @@
+# Hoja de Datos Nº 5: Resistor de Película de Carbón
+
+## Índice de Contenidos
+- [1. Especificaciones Mecánicas y Dimensiones](#1-especificaciones-mecánicas-y-dimensiones)
+- [2. Tabla de Características Técnicas de la Serie PR](#2-tabla-de-características-técnicas-de-la-serie-pr)
+- [3. Ecuación y Cálculo del Valor Crítico](#3-ecuación-y-cálculo-del-valor-crítico)
+  - [3.1 Fórmula Constitutiva](#31-fórmula-constitutiva)
+  - [3.2 Comprobación de Valores Comerciales](#32-comprobación-de-valores-comerciales)
+- [4. Caracterización Gráfica y Parámetros de Operación](#4-caracterización-gráfica-y-parámetros-de-operación)
+  - [4.1 Curva de Potencia Disipable (Power Derating)](#41-curva-de-potencia-disipable-power-derating)
+  - [4.2 Coeficiente de Temperatura (TCR)](#42-coeficiente-de-temperatura-tcr)
+  - [4.3 Nivel de Ruidos de Conducción](#43-nivel-de-ruidos-de-conducción)
+  - [4.4 Respuesta a la Alta Frecuencia](#44-respuesta-a-la-alta-frecuencia)
+
+---
+
+## 1. Especificaciones Mecánicas y Dimensiones
+
+El resistor de película de carbón de terminales axiales responde al siguiente esquema físico dimensional:
+
+- **L:** Longitud del cuerpo del resistor (excluyendo terminales).
+- **D:** Diámetro exterior máximo del cuerpo del resistor.
+- **l:** Longitud de los terminales de cobre para soldadura.
+- **d:** Diámetro del hilo conductor del terminal.
+- **Rmin:** Radio mínimo de curvatura o distancia de montaje recomendada.
+
+---
+
+## 2. Tabla de Características Técnicas de la Serie PR
+
+| Tipo de Resistor | Potencia Nominal (WR en W) | Valores Óhmicos Mínimo (Ω) | Valores Óhmicos Máximo (Ω) | L (mm) | D (mm) | l (mm) | d (mm) | Rmin (mm) | Tensión Límite (VR en V) | Valor Crítico Comercial (Ω) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **PR25** | 0.25 | 10 | 1M | 6.2 ± 0.4 | 2.3 ± 0.2 | 31.90 ± 0.5 | 0.7 ± 0.02 | 10 | 250 | 270K |
+| **PR33** | 0.33 | 10 | 2.7M | 9.2 ± 0.4 | 3.2 ± 0.2 | 30.40 ± 0.5 | 0.7 ± 0.02 | 12.5 | 350 | 390K |
+| **PR50** | 0.50 | 10 | 10M | 10.5 ± 0.4 | 3.8 ± 0.2 | 29.75 ± 0.5 | 0.8 ± 0.02 | 13.5 | 500 | 510K |
+| **PR01** | 1.00 | 10 | 10M | 15.8 ± 0.5 | 6.8 ± 0.4 | 32.10 ± 0.5 | 0.8 ± 0.02 | 19.5 | 750 | 560K |
+| **PR02** | 2.00 | 10 | 10M | 23.9 ± 0.5 | 8.9 ± 0.4 | 28.05 ± 0.5 | 0.9 ± 0.02 | 27.5 | 750 | 300K |
+
+### Especificaciones de Tolerancia y Temperatura:
+- **Tolerancias de fabricación disponibles:**
+$$\pm 2\% \quad / \quad \pm 5\% \quad / \quad \pm 10\%$$
+- **Gama nominal de temperaturas de trabajo continuo:**
+-55 ºC a 125 ºC
+
+---
+
+## 3. Ecuación y Cálculo del Valor Crítico
+
+### 3.1 Fórmula Constitutiva
+
+El valor crítico de resistencia se define como el punto óhmico donde coinciden las limitaciones dieléctricas y térmicas del resistor. Se calcula mediante la ecuación:
+$$R_{\text{crítico}} = \frac{V_R^2}{W_R}$$
+donde las variables representan:
+- Tensión límite en voltios (V):
+$$V_R$$
+- Potencia nominal de disipación en vatios (W):
+$$W_R$$
+
+---
+
+### 3.2 Comprobación de Valores Comerciales
+La tabla de características técnicas proporciona el valor crítico comercial normalizado que es igual o inmediatamente superior al valor crítico analítico calculado:
+
+#### 1. Resistor Tipo PR25:
+- Tensión nominal límite:
+$$V_R = 250\text{ V}$$
+- Potencia nominal:
+$$W_R = 0.25\text{ W}$$
+- Cálculo de resistencia crítica teórica:
+$$R_{\text{crítico}} = \frac{250^2}{0.25} = \frac{62500}{0.25} = 250000\text{ }\Omega = 250\text{ k}\Omega$$
+- Valor comercial normalizado inmediato superior:
+$$270\text{ k}\Omega$$
+donde la unidad de resistencia comercial es:
+$$\Omega$$
+
+#### 2. Resistor Tipo PR33:
+- Tensión nominal límite:
+$$V_R = 350\text{ V}$$
+- Potencia nominal:
+$$W_R = 0.33\text{ W}$$
+- Cálculo de resistencia crítica teórica:
+$$R_{\text{crítico}} = \frac{350^2}{0.33} = \frac{122500}{0.33} \approx 371212\text{ }\Omega \approx 371.2\text{ k}\Omega$$
+- Valor comercial normalizado inmediato superior:
+$$390\text{ k}\Omega$$
+donde la unidad de resistencia comercial es:
+$$\Omega$$
+
+#### 3. Resistor Tipo PR50:
+- Tensión nominal límite:
+$$V_R = 500\text{ V}$$
+- Potencia nominal:
+$$W_R = 0.50\text{ W}$$
+- Cálculo de resistencia crítica teórica:
+$$R_{\text{crítico}} = \frac{500^2}{0.50} = \frac{250000}{0.50} = 500000\text{ }\Omega = 500\text{ k}\Omega$$
+- Valor comercial normalizado inmediato superior:
+$$510\text{ k}\Omega$$
+donde la unidad de resistencia comercial es:
+$$\Omega$$
+
+#### 4. Resistor Tipo PR01:
+- Tensión nominal límite:
+$$V_R = 750\text{ V}$$
+- Potencia nominal:
+$$W_R = 1.00\text{ W}$$
+- Cálculo de resistencia crítica teórica:
+$$R_{\text{crítico}} = \frac{750^2}{1} = 562500\text{ }\Omega = 562.5\text{ k}\Omega$$
+- Valor comercial normalizado más próximo:
+$$560\text{ k}\Omega$$
+donde la unidad de resistencia comercial es:
+$$\Omega$$
+
+#### 5. Resistor Tipo PR02:
+- Tensión nominal límite:
+$$V_R = 750\text{ V}$$
+- Potencia nominal:
+$$W_R = 2.00\text{ W}$$
+- Cálculo de resistencia crítica teórica:
+$$R_{\text{crítico}} = \frac{750^2}{2} = \frac{562500}{2} = 281250\text{ }\Omega = 281.25\text{ k}\Omega$$
+- Valor comercial normalizado inmediato superior:
+$$300\text{ k}\Omega$$
+donde la unidad de resistencia comercial es:
+$$\Omega$$
+
+---
+
+## 4. Caracterización Gráfica y Parámetros de Operación
+
+### 4.1 Curva de Potencia Disipable (Power Derating)
+
+Esta gráfica describe la reducción porcentual de la potencia máxima de disipación segura (P_max (%)) admitida por el componente en función de la elevación de la temperatura ambiente (theta_amb).
+
+- **Rango ideal:** Para temperaturas ambiente inferiores a 70 ºC, el componente opera de forma segura disipando el 100 % de su potencia nominal (P_n).
+- **Rango de derating lineal:** A partir de 70 ºC, la potencia disipable se reduce linealmente debido a los límites de acumulación de calor térmico interno de la película de carbón.
+- **Temperatura límite absoluta:** La potencia admisible se reduce a cero a la temperatura de 125 ºC.
+- **Comportamiento por familias:**
+  - **Curva A:** Aplicable a los tamaños de mayor potencia (PR01 y PR02).
+  - **Curva B:** Aplicable a los vatajes más bajos (PR25, PR33 y PR50).
+
+---
+
+### 4.2 Coeficiente de Temperatura (TCR)
+
+Muestra la evolución del coeficiente de variación de resistencia por temperatura (TCR) expresado en partes por millón por grado Celsius (ppm/ºC) frente al valor de la resistencia nominal (R_N):
+
+- Para valores de resistencia bajos (por debajo de 10 kΩ), el TCR permanece en valores NTC (coeficiente de temperatura negativo) moderados y relativamente estables en el rango:
+-200 a -350 ppm/ºC
+- A medida que el valor nominal progresa hacia la escala de megaohmios (de 1 MΩ a 10 MΩ), el coeficiente se vuelve mucho más inestable y negativo, alcanzando la tasa:
+$$-800\text{ ppm/}^\circ\text{C}$$
+
+---
+
+### 4.3 Nivel de Ruidos de Conducción
+
+Esta gráfica describe la tensión de ruido generada por el paso de corriente expresada en microvoltios de ruido RMS por cada voltio continuo de polarización aplicado (μV/V), graficada frente al valor óhmico nominal del resistor (R_N):
+
+- El nivel de ruido de conducción es directamente proporcional al valor de la resistencia, incrementándose notablemente para valores superiores a:
+$$10\text{ k}\Omega$$
+donde la unidad de resistencia límite de ruido es:
+$$\Omega$$
+- Se evidencia una fuerte dependencia con el tamaño físico (volumen) del componente: para un mismo valor de resistencia, las curvas de resistores más pequeños (2.3 x 6.2 mm) presentan un nivel de ruido sustancialmente superior que las curvas de resistores de mayor volumen (8.9 x 23.9 mm).
+
+---
+
+### 4.4 Respuesta a la Alta Frecuencia
+
+Esta curva representa la variación del cociente de impedancia efectiva en alta frecuencia frente a la resistencia óhmica pura en corriente continua (R_HF / R_DC (%)), graficada frente a la frecuencia de operación de la señal (de 10^5 Hz a 10^9 Hz):
+
+- A frecuencias por debajo de 1 MHz, la respuesta es ideal (100 %) para todos los valores óhmicos.
+- A frecuencias de trabajo superiores a 1 MHz, la impedancia efectiva cae por debajo del 100 % debido al efecto de la capacitancia parásita paralela del espiralado de la película de carbón.
+- La atenuación de impedancia en alta frecuencia es severa y comienza a frecuencias mucho más bajas en resistores de valor nominal alto (por ejemplo, a partir de 100 kHz para 10 MΩ, frente a más de 10 MHz para 1 kΩ).
