@@ -1,0 +1,326 @@
+# Tema 9: Transistores Unipolares
+
+## Índice de Contenidos
+- [1. Introducción](#1-introducción)
+  - [1.1 Concepto de Transistor Unipolar (FET)](#11-concepto-de-transistor-unipolar-fet)
+  - [1.2 Clasificación de la Familia FET](#12-clasificación-de-la-familia-fet)
+- [2. JFET (Junction Field Effect Transistor)](#2-jfet-junction-field-effect-transistor)
+  - [2.1 Estructura Interna del JFET](#21-estructura-interna-del-jfet)
+  - [2.2 Principio de Funcionamiento del JFET Canal N](#22-principio-de-funcionamiento-del-jfet-canal-n)
+  - [2.3 Curva Característica del JFET](#23-curva-característica-del-jfet)
+  - [2.4 Regiones de Funcionamiento del JFET](#24-regiones-de-funcionamiento-del-jfet)
+  - [2.5 Comparativa de Ventajas e Inconvenientes frente a los BJT](#25-comparativa-de-ventajas-e-inconvenientes-frente-a-los-bjt)
+- [3. MOSFET (Metal-Oxide-Semiconductor FET)](#3-mosfet-metal-oxide-semiconductor-fet)
+  - [3.1 MOSFET de Enriquecimiento](#31-mosfet-de-enriquecimiento)
+    - [3.1.1 Estructura Interna](#311-estructura-interna)
+    - [3.1.2 Principio de Funcionamiento y Canal Inducido](#312-principio-de-funcionamiento-y-canal-inducido)
+    - [3.1.3 Curva Característica](#313-curva-característica)
+    - [3.1.4 Regiones de Funcionamiento](#314-regiones-de-funcionamiento)
+  - [3.2 MOSFET de Empobrecimiento](#32-mosfet-de-empobrecimiento)
+    - [3.2.1 Estructura Interna](#321-estructura-interna)
+    - [3.2.2 Principio de Funcionamiento (Deplexión y Acumulación)](#322-principio-de-funcionamiento-deplexión-y-acumulación)
+    - [3.2.3 Curva Característica](#323-curva-característica)
+- [4. Códigos de Designación y Símbolos](#4-códigos-de-designación-y-símbolos)
+  - [4.1 Códigos de Marcado](#41-códigos-de-marcado)
+    - [Estándar JEDEC (EE.UU.)](#estándar-jedec-eeuu)
+    - [Estándar JISC (Japón)](#estándar-jisc-japón)
+    - [Estándar PRO ELECTRON (Europa)](#estándar-pro-electron-europa)
+  - [4.2 Símbolos Eléctricos de la Familia FET](#42-símbolos-eléctricos-de-la-familia-fet)
+  - [4.3 Cápsulas y Encapsulados](#43-cápsulas-y-encapsulados)
+
+---
+
+## 1. Introducción
+
+### 1.1 Concepto de Transistor Unipolar (FET)
+
+Los transistores unipolares se conocen comúnmente por sus siglas en inglés: **FET** (*Field-Effect Transistor*), que significa transistor de efecto de campo. 
+
+Son dispositivos semiconductores de tres terminales utilizados para la amplificación, conmutación y regulación de señales eléctricas. A diferencia de los transistores bipolares (BJT), los FET presentan diferencias fundamentales en su comportamiento físico y eléctrico:
+- **Control por tensión:** Los BJT son dispositivos controlados por corriente (una pequeña corriente de base controla una gran corriente de colector), mientras que los FET son dispositivos controlados por tensión (la tensión aplicada en la puerta controla la corriente a través de un canal eléctrico mediante un campo eléctrico interno).
+- **Conducción unipolar:** En los BJT, la corriente se compone del flujo tanto de electrones como de huecos (portadores mayoritarios y minoritarios). En los FET, la corriente es transportada por un único tipo de portador de carga (los portadores mayoritarios del canal), lo que justifica el término unipolar.
+- **Impedancia de entrada:** Debido a que el terminal de control (puerta) se encuentra polarizado en inversa o aislado eléctricamente, los transistores FET presentan una impedancia de entrada extremadamente alta en corriente continua, del orden de megaohmios, reduciendo la corriente de control a valores despreciables.
+
+---
+
+### 1.2 Clasificación de la Familia FET
+
+Los transistores de efecto de campo se clasifican principalmente según la estructura y método de aislamiento de su terminal de control (Puerta):
+
+1. **JFET (Junction Field Effect Transistor):** Transistor de efecto de campo de unión. El aislamiento de la puerta se logra mediante una unión P-N polarizada en inversa. Se divide en:
+   - JFET de Canal N
+   - JFET de Canal P
+2. **MOSFET (Metal-Oxide-Semiconductor Field Effect Transistor):** Transistor de efecto de campo de metal-óxido-semiconductor. La puerta está completamente aislada del canal conductor por una delgada capa dieléctrica de dióxido de silicio ($$SiO_2$$). Se subdivide en:
+   - **De Enriquecimiento (o Acumulación):** No existe canal conductor físico fabricado inicialmente; este se crea aplicando una tensión de puerta adecuada.
+     - Canal N (NMOS)
+     - Canal P (PMOS)
+   - **De Empobrecimiento (o Deplexión):** Cuenta con un canal físico implantado de fábrica que conduce corriente a tensión de puerta cero. La tensión de puerta puede ensanchar o estrechar dicho canal.
+     - Canal N
+     - Canal P
+
+---
+
+## 2. JFET (Junction Field Effect Transistor)
+
+### 2.1 Estructura Interna del JFET
+
+La estructura básica de un JFET de **canal N** consta de:
+- Una barra o canal conductor de material semiconductor tipo N ligeramente dopado.
+- Dos contactos óhmicos metálicos no rectificadores en los extremos denominados **Fuente (S)** (*Source*) e **Drenador (D)** (*Drain*).
+- A ambos lados del canal, se implantan dos regiones de tipo P fuertemente dopadas ($$p^+$$) conectadas eléctricamente entre sí para constituir el terminal de **Puerta (G)** (*Gate*).
+
+La estructura de un JFET de **canal P** es simétrica a la anterior: el canal conductor es de material tipo P y las regiones de puerta son de tipo N fuertemente dopadas ($$n^+$$).
+
+---
+
+### 2.2 Principio de Funcionamiento del JFET Canal N
+
+El análisis físico se detalla para el dispositivo de canal N (el de canal P funciona de manera idéntica invirtiendo las polaridades de tensión e intensidad):
+
+- **Transistor sin polarizar ($$V_{GS} = 0\text{ V}, V_{DS} = 0\text{ V}$$):**
+En las uniones P-N formadas entre la puerta y el canal se crea una zona de deplexión o de carga espacial (zona Z) despoblada de portadores libres, cuyo ancho inicial depende del dopaje.
+
+- **Aplicación de tensión de drenador ($$V_{DS} > 0\text{ V}$$) con puerta a masa ($$V_{GS} = 0\text{ V}$$):**
+  1. Se establece una diferencia de potencial a lo largo del canal que genera una corriente de electrones fluyendo desde la fuente hacia el drenador ($$I_D$$).
+  2. Debido a que la corriente circula a través de la resistencia óhmica del canal, el potencial eléctrico del canal aumenta linealmente conforme avanzamos desde la fuente ($$0\text{ V}$$) hacia el drenador ($$V_{DS}$$).
+  3. Esto provoca que la unión P-N de la puerta (conectada a $$0\text{ V}$$) esté más polarizada en inversa cerca del drenador que de la fuente. Como consecuencia, las zonas de carga espacial crecen asimétricamente, haciéndose más anchas en el extremo del drenador y estrechando el canal conductor útil.
+  4. Para valores pequeños de tensión drenador-fuente ($$V_{DS}$$), el estrechamiento es despreciable y el canal se comporta como una resistencia constante (región óhmica o lineal), cumpliendo la Ley de Ohm.
+  5. Al seguir aumentando la tensión ($$V_{DS}$$), la resistencia del canal se incrementa de forma no lineal debido al estrechamiento progresivo.
+  6. Al alcanzar una tensión límite de drenador, las zonas de deplexión se tocan virtualmente en el extremo del drenador. Este fenómeno físico se denomina **estrangulamiento** (*pinch-off*). La tensión a la cual ocurre se denomina tensión de saturación:
+$$V_{DS\text{sat}} = V_{GS} - V_{GS\text{off}}$$
+donde la tensión de corte o estrangulamiento del componente es:
+$$V_{GS\text{off}}$$
+  7. Si se incrementa la tensión ($$V_{DS}$$) por encima del valor de saturación, la corriente de drenador ($$I_D$$) no aumenta, manteniéndose prácticamente constante en un valor máximo denominado corriente de saturación:
+$$I_{DSS}$$
+
+- **Aplicación de tensión inversa en la puerta ($$V_{GS} < 0\text{ V}$$):**
+Al hacer la puerta negativa respecto a la fuente, las uniones P-N de control se polarizan en inversa incluso para una tensión drenador-fuente nula. Esto ensancha las zonas de deplexión iniciales y reduce el canal físico desde el principio:
+  - La resistencia del canal se eleva, por lo que la pendiente de la corriente en la zona lineal disminuye.
+  - La saturación (estrangulamiento) se alcanza para valores de tensión drenador-fuente ($$V_{DS}$$) inferiores.
+  - Si la tensión de puerta disminuye por debajo del valor límite:
+$$V_{GS} \le V_{GS\text{off}}$$
+las zonas de deplexión cierran por completo el canal útil, impidiendo todo paso de corriente. El diodo de puerta permanece en inversa, por lo que la corriente de puerta es nula:
+$$I_G \approx 0\text{ A}$$
+$$I_D \approx I_S$$
+
+---
+
+### 2.3 Curva Característica del JFET
+
+La curva característica representa la corriente de salida del drenador ($$I_D$$) frente a la tensión drenador-fuente ($$V_{DS}$$) para diferentes valores constantes de tensión de puerta ($$V_{GS}$$).
+
+---
+
+### 2.4 Regiones de Funcionamiento del JFET
+
+1. **Zona de Corte:**
+   - **Condición:**
+$$V_{GS} < V_{GS\text{off}} \equiv V_T$$
+   - **Comportamiento:** El canal se encuentra completamente cerrado por las zonas de deplexión. El transistor actúa como un circuito abierto.
+   - **Corriente:**
+$$I_D = 0\text{ A}$$
+
+2. **Zona Óhmica (o Lineal):**
+   - **Condición:** Tensión drenador-fuente inferior al valor de estrangulamiento:
+$$V_{DS} < V_{GS} - V_T$$
+con:
+$$V_{GS} > V_T$$
+   - **Comportamiento:** El transistor actúa como una resistencia variable controlada por la tensión de puerta. La corriente responde linealmente de acuerdo con la Ley de Ohm.
+
+3. **Zona de Saturación:**
+   - **Condición:** Tensión drenador-fuente superior al valor de estrangulamiento:
+$$V_{DS} \ge V_{GS} - V_T$$
+con:
+$$V_{GS} > V_T$$
+   - **Comportamiento:** El canal se encuentra estrangulado. El JFET actúa como una fuente de corriente ideal controlada exclusivamente por la tensión de puerta ($$V_{GS}$$).
+   - **Ecuación característica (Ecuación de Schockley):**
+$$I_D = I_{DSS} \cdot \left(1 - \frac{V_{GS}}{V_T}\right)^2$$
+donde la constante de corriente de saturación con puerta a masa es:
+$$I_{DSS}$$
+y la tensión de estrangulamiento es:
+$$V_T \equiv V_{GS\text{off}}$$
+
+4. **Zona de Ruptura:**
+   - **Condición:** La tensión inversa entre la puerta y el canal cerca del drenador supera la tensión de avalancha del material semiconductor:
+$$V_{DG} > V_R \implies V_{DS} - V_{GS} \ge V_R$$
+   - **Comportamiento:** La corriente del drenador se incrementa sin control de forma exponencial, pudiendo destruir el componente. El JFET no debe operar en esta región.
+
+---
+
+### 2.5 Comparativa de Ventajas e Inconvenientes frente a los BJT
+
+- **Ventajas del JFET:**
+  - **Impedancia de entrada extremadamente alta:** Del orden de cientos de megaohmios ($$10^6\text{ }\Omega$$ a $$10^8\text{ }\Omega$$), lo que evita cargar a las etapas previas del circuito.
+  - **Mayor estabilidad térmica:** Al carecer de corrientes de portadores minoritarios significativas, no sufre el fenómeno de embalamiento térmico típico de los BJT.
+  - **Menor tamaño físico:** Ocupa menos espacio sobre el silicio de los circuitos integrados, permitiendo una mayor densidad de integración.
+  - **Menor nivel de ruido:** Es ideal para las etapas de entrada de amplificadores de instrumentación y audio.
+- **Inconvenientes del JFET:**
+  - **Menor ganancia:** Presenta una menor sensibilidad de control (la transconductancia $$g_m$$ es menor que en los BJT).
+  - **Peor comportamiento en alta frecuencia:** Debido a las capacidades parásitas de la unión P-N de control polarizada en inversa.
+
+---
+
+## 3. MOSFET (Metal-Oxide-Semiconductor FET)
+
+### 3.1 MOSFET de Enriquecimiento
+
+#### 3.1.1 Estructura Interna
+
+La estructura de un MOSFET de enriquecimiento de **canal N** consta de:
+- Un sustrato de silicio tipo P (conectado al terminal **Sustrato, SS**). Habitualmente, el sustrato se cortocircuita internamente a la fuente.
+- Dos islas difundidas tipo N fuertemente dopadas ($$n^+$$) que forman los terminales de **Fuente (S)** y **Drenador (D)**.
+- Una capa de aislante extremadamente delgada de dióxido de silicio ($$SiO_2$$) depositada sobre la superficie del semiconductor entre la fuente y el drenador.
+- Una placa metálica conductora colocada sobre el óxido que constituye el terminal de **Puerta (G)**.
+- La puerta se encuentra físicamente **aislada eléctricamente** del canal y del sustrato.
+
+---
+
+#### 3.1.2 Principio de Funcionamiento y Canal Inducido
+
+- **Caso $$V_{GS} = 0\text{ V}$$:**
+Aunque apliquemos una tensión drenador-fuente positiva ($$V_{DS} > 0\text{ V}$$), no puede circular corriente a través del sustrato tipo P debido a que existen dos uniones P-N en oposición (corte absoluto).
+- **Caso $$V_{GS} > 0\text{ V}$$ con $$V_{DS} = 0\text{ V}$$:**
+  1. El potencial positivo en la placa de la puerta genera un campo eléctrico que atraviesa el óxido aislante.
+  2. Este campo repele los huecos del sustrato tipo P alejándolos de la superficie bajo la puerta, y a su vez atrae a los electrones libres minoritarios del sustrato hacia la interfaz semiconductor-óxido.
+  3. Para valores de tensión pequeños de puerta, se crea una zona de deplexión en la superficie del sustrato.
+  4. Al aumentar la tensión de puerta por encima de la tensión de umbral o *threshold* ($$V_T$$):
+$$V_{GS} > V_T$$
+la acumulación de electrones atraídos en la interfaz es tan elevada que la capa de material tipo P sufre una inversión local de conductividad, creándose una zona rica en electrones (canal N inducido) que conecta eléctricamente las islas de la fuente y el drenador.
+- **Caso $$V_{GS} > V_T$$ con $$V_{DS} > 0\text{ V}$$:**
+  1. Al aplicar una tensión positiva de drenador, comienza a circular corriente ($$I_D$$) por el canal inducido.
+  2. Debido a la caída de tensión en el canal, la diferencia de potencial local entre la puerta y el canal ($$V_{GS} - V(x)$$) decrece de fuente a drenador.
+  3. Esto estrecha el canal del lado del drenador. Si la tensión de drenador se eleva hasta el valor de saturación:
+$$V_{DS\text{sat}} = V_{GS} - V_T$$
+el canal inducido se estrangula cerca del drenador.
+  4. Para tensiones mayores, la corriente de drenador se mantiene constante.
+
+---
+
+#### 3.1.3 Curva Característica
+
+La corriente de colector en saturación se controla mediante el potencial de puerta, partiendo de cero para tensiones inferiores a la tensión umbral ($$V_T$$).
+
+---
+
+#### 3.1.4 Regiones de Funcionamiento
+
+- **Región de Corte:**
+  - **Condición:**
+$$V_{GS} \le V_T$$
+  - **Corriente:**
+$$I_D = 0\text{ A}$$
+- **Región Óhmica:**
+  - **Condición:**
+$$V_{DS} < V_{GS} - V_T$$
+con:
+$$V_{GS} > V_T$$
+- **Región de Saturación:**
+  - **Condición:**
+$$V_{DS} \ge V_{GS} - V_T$$
+con:
+$$V_{GS} > V_T$$
+  - **Ecuación característica de corriente:**
+$$I_D = K \cdot \left(V_{GS} - V_T\right)^2$$
+donde la constante física de conducción del canal del transistor (en amperios por voltio al cuadrado) es:
+$$K$$
+
+---
+
+### 3.2 MOSFET de Empobrecimiento
+
+#### 3.2.1 Estructura Interna
+
+Su estructura física es idéntica a la del MOSFET de enriquecimiento, pero cuenta con una diferencia clave: durante el proceso de fabricación se implanta físicamente un canal conductor delgado de material semiconductor tipo N que conecta la fuente y el drenador de forma permanente bajo el óxido de puerta.
+
+---
+
+#### 3.2.2 Principio de Funcionamiento (Deplexión y Acumulación)
+
+- **Funcionamiento con tensión de puerta nula ($$V_{GS} = 0\text{ V}$$):**
+Al aplicar tensión de drenador ($$V_{DS} > 0\text{ V}$$), circula corriente de forma natural a través del canal físico existente. Esta corriente de referencia se denomina:
+$$I_{DSS}$$
+- **Modo de Empobrecimiento o Deplexión ($$V_{GS} < 0\text{ V}$$):**
+La tensión negativa aplicada en la puerta repele a los electrones del canal físico de tipo N hacia el sustrato, creando zonas de deplexión que estrechan el canal. La resistencia de conducción aumenta y la corriente disminuye. Si se baja la tensión por debajo de la tensión de estrangulamiento:
+$$V_{GS} \le V_{GS\text{off}}$$
+el canal físico se vacía por completo de portadores libres, interrumpiendo el flujo de corriente ($$I_D = 0\text{ A}$$).
+- **Modo de Enriquecimiento o Acumulación ($$V_{GS} > 0\text{ V}$$):**
+La tensión de puerta positiva atrae electrones libres adicionales hacia el canal físico preexistente, ensanchándolo y aumentando su conductividad óhmica. La corriente de drenador se eleva por encima del valor nominal de saturación ($$I_{DSS}$$).
+
+---
+
+#### 3.2.3 Curva Característica
+
+Las curvas características del MOSFET de empobrecimiento son continuas y permiten operar al dispositivo con tensiones de puerta tanto positivas como negativas, abarcando las regiones de empobrecimiento y acumulación. Sus ecuaciones de modelado en saturación son idénticas a las del JFET (ecuación de Schockley).
+
+---
+
+## 4. Códigos de Designación y Símbolos
+
+### 4.1 Códigos de Marcado
+
+Los componentes comerciales activos de la familia FET se identifican mediante códigos estandarizados definidos por las principales organizaciones reguladoras internacionales:
+
+#### Estándar JEDEC (EE.UU.)
+- **Formato de codificación:**
+Digit, Letter, Number, optional suffix
+- **Estructura del código:**
+  - El primer dígito especifica el número de terminales o uniones menos uno. Para transistores FET de tres terminales se utiliza el número:
+$$3$$
+  - La letra intermedia es siempre la letra N, indicando material de unión semiconductora:
+$$\text{N}$$
+  - El número correlativo que sigue identifica al componente en el registro del fabricante (comprendido entre 100 y 9999).
+  *Ejemplo:* **3N153** (Transistor FET de canal N).
+
+#### Estándar JISC (Japón)
+- **Formato de codificación:**
+Digit, Two letters, Number, optional suffix
+- **Estructura del código:**
+  - El dígito inicial es habitualmente:
+$$2$$
+para transistores estándar o:
+$$3$$
+para transistores FET especiales.
+- Las dos letras siguientes especifican detalladamente el tipo de aplicación del componente:
+  - **SJ:** Transistores FET o MOSFET de canal P.
+  - **SK:** Transistores FET o MOSFET de canal N.
+  - El número de serie correlativo varía en el rango de 10 a 9999.
+  *Ejemplo:* **2SK30** (Transistor JFET de canal N).
+
+#### Estándar PRO ELECTRON (Europa)
+- **Formato de codificación:**
+Two letters, optional Letter, Number
+- **Estructura del código:**
+  - La primera letra define el material semiconductor del que está fabricado el cristal:
+    - **A:** Germanio.
+    - **B:** Silicio.
+    - **C:** Arseniuro de galio.
+    - **R:** Materiales compuestos.
+  - La segunda letra define la aplicación principal o naturaleza del componente. Para transistores de efecto de campo de pequeña señal y conmutación se emplean las letras:
+    - **F:** Transistor de alta frecuencia (HF), pequeña señal.
+    - **S:** Transistor de conmutación de baja potencia.
+    - **U:** Transistor de potencia para conmutación.
+  - La tercera letra (opcional) indica aplicaciones profesionales o industriales (generalmente letras W, X, Y o Z).
+  - El número correlativo final identifica al dispositivo (entre 100 y 9999).
+  *Ejemplo:* **BF245** (Transistor JFET de canal N de silicio).
+
+---
+
+### 4.2 Símbolos Eléctricos de la Familia FET
+
+Los símbolos gráficos representan esquemáticamente la estructura física interna y el sentido de conducción del canal:
+- **JFET Canal N:** La flecha de la puerta apunta **hacia dentro** del canal (indicando una unión P-N donde la puerta P inyecta hacia el canal N).
+- **JFET Canal P:** La flecha de la puerta apunta **hacia fuera** del canal.
+- **MOSFET de Enriquecimiento (Canal N):** El canal conductor se dibuja como una línea discontinua de tres segmentos independientes para simbolizar que no existe conducción física continua a tensión de puerta cero. La flecha del sustrato (SS) apunta hacia el canal.
+- **MOSFET de Enriquecimiento (Canal P):** Línea de canal discontinua. La flecha del sustrato apunta hacia fuera del canal.
+- **MOSFET de Empobrecimiento:** La línea vertical que representa al canal conductor se dibuja como una línea continua gruesa para denotar la presencia física del canal implantado de fábrica.
+
+---
+
+### 4.3 Cápsulas y Encapsulados
+
+Los transistores FET comparten la misma gama de encapsulados estándar utilizados en los transistores bipolares para su montaje físico sobre placas de circuito:
+- **TO-92:** Encapsulado plástico pequeño de tres pines, de uso generalizado en aplicaciones de pequeña señal y bajo consumo.
+- **TO-18 y TO-39:** Encapsulados metálicos cilíndricos con pestaña de alineación, empleados para disipar mejor el calor y blindar frente a interferencias electromagnéticas.
+- **TO-126 y TO-220:** Diseñados para potencias medias y altas, cuentan con una lengüeta o cara metálica plana para atornillar el componente directamente sobre un disipador de calor.
+- **TO-3:** Cápsula metálica de potencia en forma de rombo, para alta corriente y disipación térmica.
+- **Encapsulados SMD:** Formatos de montaje superficial (como SOT-23, SOT-223) empleados para miniaturizar las placas de circuito electrónico.
