@@ -1,0 +1,279 @@
+### Conductancia Térmica ($G_{\text{th}}$)
+Se define como la facilidad que presenta un medio al paso de calor, siendo el valor inverso de la resistencia térmica:
+$$G_{\text{th}} = \frac{1}{R_{\text{th}}}$$
+donde la conductancia térmica es:
+$$G_{\text{th}}$$
+
+Para una transmisión de calor simplificada, la resistencia térmica asociada a una transferencia por superficie es:
+$$R_{\text{th}} = \frac{1}{h \cdot A}$$
+donde el coeficiente global de transmisión de calor es:
+$$h$$
+
+---
+
+### 3.2 Equilibrio Térmico en Resistores
+
+Considerando un resistor lineal de valor nominal:
+$$R_n$$
+atravesado por una corriente constante:
+$$I$$
+las pérdidas de potencia en forma térmica por efecto Joule son:
+$$P = I^2 \cdot R_n$$
+
+Alcanzado el equilibrio térmico estacionario ($P = Q$), la elevación de temperatura del resistor es proporcional a la potencia eléctrica disipada multiplicada por su resistencia térmica característica respecto al ambiente:
+$$\Delta T = T_c - T_a = P \cdot R_{\text{th}}$$
+
+---
+
+### 3.3 Curva de Disipación (Derating)
+
+Despejando la temperatura de equilibrio del componente:
+$$T_c = T_a + P \cdot R_{\text{th}}$$
+Se deduce de forma directa que cualquier aumento en la temperatura ambiente ($T_a$) provocará un incremento de idéntico valor en la temperatura interna del componente ($T_c$).
+
+Sabiendo que no se debe superar la temperatura máxima del componente ($T_{\text{c}} \le T_{\text{máx}}$), la potencia máxima aplicable ($P_{\text{máx}}$) a una temperatura ambiente determinada viene dada por:
+$$T_{\text{máx}} = T_a + P_{\text{máx}} \cdot R_{\text{th}} \implies P_{\text{máx}} = \frac{T_{\text{máx}} - T_a}{R_{\text{th}}}$$
+
+Esta dependencia lineal se representa mediante la **Curva de Disipación (o de reducción de potencia - Power Derating Curve)**:
+- Para temperaturas ambiente por debajo de la temperatura de referencia nominal ($T_a \le T_R$), el dispositivo puede disipar el $100\%$ de su potencia nominal ($P_{\text{máx}} = P_n$).
+- Para temperaturas ambiente superiores a la de referencia ($T_a > T_R$), la potencia admisible decae linealmente con una pendiente de valor:
+$$\text{Pendiente} = -\frac{1}{R_{\text{th}}}$$
+- La potencia disipable se reduce a cero cuando la temperatura ambiente alcanza la temperatura de operación máxima ($T_a = T_{\text{máx}}$).
+
+La ecuación analítica para la reducción lineal de potencia es:
+$$P_{\text{máx}} = P_n \cdot \frac{T_{\text{máx}} - T_a}{T_{\text{máx}} - T_R}$$
+donde la potencia nominal máxima disipable a la temperatura de referencia es:
+$$P_n$$
+
+---
+
+### 3.4 Analogía Eléctrica en Régimen Estacionario
+
+Para simplificar el análisis térmico en ingeniería de sistemas, se establece una equivalencia matemática directa entre las variables térmicas y eléctricas de un circuito en régimen estacionario (corriente continua):
+
+| Magnitud Térmica | Unidad | Magnitud Eléctrica | Unidad |
+|---|---|---|---|
+| **Diferencia de temperatura** ($$\Delta T$$) | ºC o K | **Tensión** ($$V$$) | Voltios (V) |
+| **Potencia calorífica disipada** ($$Q$$ o $$P$$) | Vatios (W) | **Intensidad de corriente** ($$I$$) | Amperios (A) |
+| **Resistencia térmica** ($$R_{\text{th}}$$ o $$\theta$$) | ºC/W | **Resistencia eléctrica** ($$R$$) | Ohmios ($$\Omega$$) |
+
+Esta equivalencia permite aplicar la analogía de la Ley de Ohm para circuitos térmicos:
+$$T_c - T_a = P \cdot R_{\text{th}} \quad \longleftrightarrow \quad V = I \cdot R$$
+
+---
+
+## 4. Comportamiento Térmico en Régimen Discontinuo
+
+### 4.1 Respuesta ante una Activación Periódica
+
+Cuando la potencia eléctrica aplicada a un componente no es continua, sino periódica y discontinua (tren de pulsos), las variaciones de temperatura experimentadas por el componente son dinámicas:
+
+- **Calentamiento:** Durante el pulso activo ($t_p$) donde el componente disipa potencia activa:
+$$P_1 = \frac{V_1^2}{R}$$
+- **Enfriamiento:** Durante el tiempo de inactividad del periodo restante ($T - t_p$) donde la potencia disipada cae a:
+$$P_2 = 0$$
+
+> [!IMPORTANT]
+> **Picos de Temperatura:**
+> El pico de temperatura máxima transitoria alcanzado por un pulso único de corta duración puede ser sensiblemente menor que la temperatura que se alcanzaría en régimen permanente estacionario aplicando esa misma potencia de forma continua.
+> Sin embargo, la aplicación de un tren repetitivo de impulsos incrementará la temperatura media del dispositivo si el periodo de enfriamiento es insuficiente para disipar el calor acumulado en el ciclo previo.
+
+La energía disipada en forma calorífica durante un periodo de conmutación es:
+$$E_{\text{disipada}} = P \cdot t_p$$
+donde la energía disipada es:
+$$E_{\text{disipada}}$$
+
+La energía máxima disipable admisible en el mismo periodo es:
+$$E_{\text{máx}} = P_{\text{máx}} \cdot T$$
+donde la energía máxima es:
+$$E_{\text{máx}}$$
+
+Para no dañar el componente en funcionamiento continuo de conmutación, la potencia media del tren de pulsos debe ser inferior a la potencia límite permitida:
+$$P < P_{\text{máx}} \cdot \left(\frac{T}{t_p}\right) \implies P < \frac{P_{\text{máx}}}{\delta}$$
+donde el ciclo de trabajo o factor de marcha es:
+$$\delta = \frac{t_p}{T}$$
+
+#### Generalización para cualquier señal periódica:
+Integrando la energía disipada en un ciclo completo de periodo:
+$$T$$
+se debe cumplir la desigualdad energética:
+$$E_{\text{disipada}} = \int_{0}^{T} \frac{V(t)^2}{R_n} dt < P_{\text{máx}} \cdot T$$
+
+Despejando, la tensión eficaz aplicada debe cumplir la condición:
+$$\frac{V_{\text{eficaz}}^2}{R_n} < P_{\text{máx}}$$
+donde la tensión eficaz de la señal periódica es:
+$$V_{\text{eficaz}}$$
+
+---
+
+### 4.2 Respuesta Transitoria
+
+El balance energético instantáneo de un componente en régimen térmico transitorio (calentamiento o enfriamiento rápido) responde a la ecuación diferencial:
+$$E_{\text{eléctrica disipada}} = E_{\text{evacuada}} + E_{\text{acumulada}}$$
+
+Planteamiento diferencial:
+$$P \cdot dt = \frac{T_c - T_a}{R_{\text{th}}} \cdot dt + m \cdot c \cdot dT_c$$
+
+Dividiendo la expresión entre el diferencial de tiempo ($dt$) se obtiene:
+$$P = \frac{T_c - T_a}{R_{\text{th}}} + C_{\text{th}} \cdot \frac{dT_c}{dt}$$
+donde las nuevas variables físicas representan:
+- Capacidad térmica del componente en julios por grado Celsius ($\text{J/ºC}$):
+$$C_{\text{th}} = m \cdot c$$
+- Masa del componente en gramos ($g$):
+$$m$$
+- Calor específico del material en julios por gramo y grado Celsius ($\text{J} \cdot \text{g}^{-1} \cdot \text{ºC}^{-1}$):
+$$c$$
+- Incremento diferencial de temperatura en el tiempo:
+$$\frac{dT_c}{dt}$$
+
+#### Solución de la ecuación para una variación de potencia en escalón
+Resolviendo la ecuación diferencial con la condición inicial de reposo ($T_c(0) = T_a$), la temperatura transitoria del componente responde a la expresión:
+$$T_c(t) = T_a + P \cdot R_{\text{th}} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
+donde la constante de tiempo térmica del sistema (en segundos) es:
+$$\tau = R_{\text{th}} \cdot C_{\text{th}}$$
+
+#### Impedancia Térmica Dinámica ($Z_{\text{th}}$)
+Por analogía con los circuitos de corriente alterna, la respuesta térmica transitoria se simplifica mediante el parámetro de la **Impedancia Térmica ($Z_{\text{th}}$)**:
+$$Z_{\text{th}}(t) = R_{\text{th}} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
+donde la impedancia térmica transitoria es:
+$$Z_{\text{th}}(t)$$
+
+De esta forma, la evolución temporal de la temperatura del componente es:
+$$T_c(t) = T_a + P \cdot Z_{\text{th}}(t)$$
+
+---
+
+## 5. Características Térmicas de Otros Componentes
+
+### 5.1 Componentes Pasivos
+
+1. **Resistores:** Son los componentes pasivos con mayor disipación térmica intencionada (efectuando la transformación Joule de la potencia eléctrica).
+2. **Inductores (Bobinas):** Disipan potencia debido a las pérdidas óhmicas en el hilo conductor de cobre (efecto Joule) y las pérdidas magnéticas en el núcleo de hierro (corrientes de Foucault e histéresis).
+3. **Condensadores:** Disipan cantidades despreciables de calor gracias a su resistencia de aislamiento extremadamente alta y pérdidas dieléctricas casi nulas a frecuencias estándar.
+
+---
+
+### 5.2 Componentes Activos (Semiconductores)
+
+Los dispositivos activos basados en silicio (diodos, transistores BJT, MOSFET, tiristores, circuitos integrados) soportan temperaturas máximas de unión física próximas a los:
+$$T_j = 150\text{ ºC} \quad \text{a} \quad 175\text{ ºC}$$
+donde la temperatura en la unión semiconductora es:
+$$T_j$$
+
+En estos dispositivos, la generación de calor se concentra en la región activa de la unión de silicio. Para evacuar este calor al ambiente exterior, el flujo térmico realiza un doble tránsito en serie, encontrándose con dos resistencias térmicas principales:
+
+1. **Resistencia térmica unión-cápsula ($R_{\text{th jc}}$):** Oposición a la transferencia por conducción desde el silicio interno hasta la envoltura plástica o metálica del componente.
+2. **Resistencia térmica cápsula-ambiente ($R_{\text{th ca}}$):** Oposición al flujo térmico desde la envoltura exterior del componente hasta el aire circundante mediante convección y radiación.
+
+La resistencia térmica total equivalente de la unión al ambiente en conexión serie es:
+$$R_{\text{th ja}} = R_{\text{th jc}} + R_{\text{th ca}}$$
+donde la resistencia unión-ambiente es:
+$$R_{\text{th ja}}$$
+
+#### Circuito Térmico Equivalente:
+```
+    Tj
+    o
+    |
+   [ ]  Rthjc (Unión a cápsula)
+    |
+    +---- Tc (Cápsula)
+    |
+   [ ]  Rthca (Cápsula a ambiente)
+    |
+    o
+   Ta (Ambiente)
+```
+
+---
+
+## 6. Dispositivos de Refrigeración de Componentes
+
+### 6.1 Disipadores de Calor
+
+Los **disipadores de calor** son componentes mecánicos fabricados con metales de muy alta conductividad térmica (generalmente aluminio extruido o inyectado, y cobre) que se acoplan firmemente sobre el encapsulado de los dispositivos para disminuir la resistencia térmica total equivalente y acelerar la disipación.
+
+#### Reglas de diseño y montaje de disipadores:
+- **Aumento de la radiación:** La superficie metálica del disipador debe ser rugosa y estar anodizada o pintada de color negro mate para maximizar el factor de emisión por radiación ($E$).
+- **Optimización del contacto físico:** Las superficies de contacto del disipador y del componente deben ser completamente planas, lisas y estar libres de óxidos o grasas residuales.
+- **Uso de compuestos térmicos:** Se debe intercalar una fina película de grasa de silicona térmica (pasta conductora térmica) para desplazar el aire atrapado en los poros microscópicos y mejorar la conducción.
+- **Aislamiento eléctrico:** Si la cápsula metálica del componente está conectada a un terminal activo (ej. el colector en encapsulados TO-3 o el drenador en TO-220), se deben añadir láminas aislantes eléctricas (mica, silicona elastomérica o alúmina) y arandelas de plástico. Estos elementos eléctricos aislantes incrementan levemente la resistencia térmica del conjunto, por lo que su uso debe limitarse a casos estrictamente necesarios.
+
+---
+
+### 6.2 Equilibrio Térmico con Disipadores
+
+Al incorporar un disipador al conjunto, el camino físico de evacuación de calor del componente se modifica. En el circuito térmico equivalente serie, se introducen nuevos parámetros de resistencia térmica:
+
+- Para componentes pasivos (resistores), la resistencia cápsula-ambiente ($R_{\text{th ca}}$) se convierte en:
+$$R_{\text{th ca}} = R_{\text{th cd}} + R_{\text{th da}}$$
+- Para componentes activos (semiconductores), la resistencia total unión-ambiente ($R_{\text{th ja}}$) pasa a ser:
+$$R_{\text{th ja}} = R_{\text{th jc}} + R_{\text{th cd}} + R_{\text{th da}}$$
+donde las nuevas variables representan:
+- Resistencia térmica cápsula-disipador (resistencia de contacto de montaje) en ºC/W:
+$$R_{\text{th cd}}$$
+- Resistencia térmica disipador-ambiente en ºC/W:
+$$R_{\text{th da}}$$
+
+#### Circuito Térmico Equivalente Completo (Componentes Activos):
+```
+    Tj
+    o
+    |
+   [ ]  Rthjc (Unión a cápsula)
+    |
+    +---- Tc (Cápsula)
+    |
+   [ ]  Rthcd (Contacto / Interfaz de montaje)
+    |
+    +---- Td (Disipador)
+    |
+   [ ]  Rthda (Disipador a ambiente)
+    |
+    o
+   Ta (Ambiente)
+```
+
+La aplicación de este circuito permite calcular con precisión las temperaturas estacionarias en cualquier punto físico del montaje en función de la potencia disipada ($P$):
+- Temperatura en la unión semiconductora (ºC):
+$$T_j = T_a + P \cdot R_{\text{th ja}} = T_a + P \cdot \left(R_{\text{th jc}} + R_{\text{th cd}} + R_{\text{th da}}\right)$$
+- Temperatura en la cápsula del componente (ºC):
+$$T_c = T_a + P \cdot R_{\text{th ca}} = T_a + P \cdot \left(R_{\text{th cd}} + R_{\text{th da}}\right)$$
+- Temperatura medida en el cuerpo del disipador (ºC):
+$$T_d = T_a + P \cdot R_{\text{th da}}$$
+
+---
+
+### 6.3 Cálculo Térmico de Disipadores
+
+#### Parámetros típicos de resistencia de contacto ($R_{\text{th cd}}$):
+La resistencia cápsula-disipador ($R_{\text{th cd}}$) oscila habitualmente entre los límites:
+$$0.25\text{ ºC/W} \quad \text{y} \quad 1.5\text{ ºC/W}$$
+dependiendo del tipo de encapsulado del transistor y de las condiciones del contacto físico:
+
+| Tipo de Encapsulado | Contacto Seco Directo (ºC/W) | Contacto Directo con Pasta Térmica (ºC/W) | Montaje con Lámina de Mica (ºC/W) | Montaje con Mica y Pasta Térmica (ºC/W) |
+|---|---|---|---|---|
+| **TO-3** | 0.25 | 0.12 | 0.80 | 0.40 |
+| **TO-3 (Plástico)** | 0.40 | 0.20 | 1.00 | 0.70 |
+| **TO-220** | 0.80 | 0.50 | 1.40 | 1.20 |
+| **TO-202** | 0.80 | 0.50 | 1.40 | 1.20 |
+| **TO-126** | 1.40 | 1.00 | 2.00 | 1.50 |
+| **TO-90** | 0.50 | 0.30 | 1.20 | 0.90 |
+| **TO-59** | 1.20 | 0.70 | 2.10 | 1.50 |
+| **SOT-48** | 1.80 | 1.50 | - | - |
+| **TO-66** | 1.10 | 0.65 | 1.80 | 1.40 |
+
+#### Parámetros típicos del disipador-ambiente ($R_{\text{th da}}$):
+- Perfiles comerciales de disipador de aletas pequeños:
+$$R_{\text{th da}} \approx 15\text{ a } 50\text{ ºC/W}$$
+- Grandes bloques disipadores de aluminio inyectado:
+$$R_{\text{th da}} \approx 5\text{ ºC/W} \quad \text{o menor}$$
+
+#### Dimensionamiento y cálculo de la resistencia de disipador requerida
+Para garantizar de forma segura que la unión o cápsula del componente se mantenga por debajo del límite máximo seguro de temperatura, la resistencia térmica del disipador debe cumplir las siguientes inecuaciones de diseño:
+
+1. **Para componentes pasivos (resistores limitados por temperatura de cápsula $T_c$):**
+$$R_{\text{th da}} \le \frac{T_c - T_a}{P} - R_{\text{th cd}}$$
+
+2. **Para componentes activos (semiconductores limitados por la temperatura de unión $T_j$):**
+$$R_{\text{th da}} \le \frac{T_j - T_a}{P} - R_{\text{th jc}} - R_{\text{th cd}}$$
