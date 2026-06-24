@@ -1,0 +1,218 @@
+# Tema 7: Diodos Zener
+
+## Índice de Contenidos
+- [1. Descripción Básica](#1-descripción-básica)
+  - [1.1 Concepto de Diodo Zener](#11-concepto-de-diodo-zener)
+  - [1.2 Curva Característica en Inversa](#12-curva-característica-en-inversa)
+  - [1.3 Efecto Avalancha](#13-efecto-avalancha)
+  - [1.4 Efecto Zener](#14-efecto-zener)
+  - [1.5 Resistencia Zener](#15-resistencia-zener)
+- [2. Modelos de Aproximación](#2-modelos-de-aproximación)
+  - [2.1 Zener Ideal](#21-zener-ideal)
+  - [2.2 Modelo de 1ª Aproximación (Con Resistencia Zener)](#22-modelo-de-1ª-aproximación-con-resistencia-zener)
+- [3. Características Técnicas e Influencia Térmica](#3-características-técnicas-e-influencia-térmica)
+  - [3.1 Efecto de la Temperatura sobre la Tensión Zener](#31-efecto-de-la-temperatura-sobre-la-tensión-zener)
+    - [Ejemplo Práctico (Cálculo de Tensión Zener Térmica)](#ejemplo-práctico-cálculo-de-tensión-zener-térmica)
+  - [3.2 Temperatura Máxima](#32-temperatura-máxima)
+  - [3.3 Potencia Nominal en Directa e Inversa](#33-potencia-nominal-en-directa-e-inversa)
+- [4. Aplicaciones Básicas del Diodo Zener](#4-aplicaciones-básicas-del-diodo-zener)
+  - [4.1 Estabilizador de Tensión (Regulador Zener)](#41-estabilizador-de-tensión-regulador-zener)
+  - [4.2 Supresor de Sobretensiones (Protección)](#42-supresor-de-sobretensiones-protección)
+- [5. Códigos de Designación y Símbolos](#5-códigos-de-designación-y-símbolos)
+
+---
+
+## 1. Descripción Básica
+
+### 1.1 Concepto de Diodo Zener
+
+El **diodo Zener** es una unión P-N de silicio diseñada especialmente para trabajar en la zona de ruptura por avalancha o ruptura Zener en polarización inversa de forma controlada y segura, sin llegar a destruirse.
+
+> [!NOTE]
+> A diferencia de los diodos rectificadores comunes (que se dañan al alcanzar la tensión de ruptura), el diodo Zener aprovecha la región de ruptura para mantener una tensión casi constante en sus bornes frente a grandes variaciones de la corriente inversa que circula por él.
+
+La estructura interna consta de un ánodo (zona P) y un cátodo (zona N) con dopajes muy específicos que determinan la tensión de ruptura deseada.
+
+---
+
+### 1.2 Curva Característica en Inversa
+
+El comportamiento del diodo Zener en polarización directa es idéntico al de un diodo rectificador de silicio estándar (conducción exponencial a partir de la tensión de codo de 0.7 V).
+
+En polarización inversa, la curva de corriente presenta tres estados bien diferenciados:
+
+1. **Zona de bloqueo (no conducción):** Para tensiones inversas inferiores a la tensión de ruptura, solo circula una corriente inversa de saturación (I_0) de valor despreciable.
+2. **Codo de ruptura:** Al alcanzar la tensión nominal Zener (V_Z), el diodo entra en conducción inversa.
+3. **Zona de regulación (conducción inversa):** La tensión en el diodo se mantiene prácticamente constante e independiente de la corriente en bornes de la unión. Para asegurar esta regulación estable, la corriente inversa debe encontrarse dentro de los límites:
+   - **Izmin:** Intensidad mínima requerida para superar el codo de ruptura y asegurar una regulación estable.
+   - **Izmax:** Intensidad máxima permitida por disipación térmica para no destruir el dispositivo.
+
+---
+
+### 1.3 Efecto Avalancha
+
+El **efecto avalancha** es el mecanismo de ruptura dominante en diodos que poseen un nivel de dopaje relativamente bajo en su unión P-N.
+
+- **Física del proceso:** Al aplicar una tensión inversa elevada, los portadores minoritarios en la zona de transición adquieren una energía cinética extremadamente alta. Al chocar contra los átomos de la red cristalina, rompen enlaces covalentes y liberan nuevos electrones que a su vez se aceleran y liberan más portadores (efecto multiplicador en avalancha).
+- **Tensión de ruptura:** Ocurre habitualmente para tensiones mayores a 6 V:
+$$V_Z > 6\text{ V}$$
+- **Coeficiente de temperatura:** Posee un signo **positivo**. Un incremento de temperatura provoca vibraciones en la red cristalina que aumentan la probabilidad de choques antes de que las portadoras adquieran energía de ruptura, por lo que se requiere una tensión mayor para iniciar la avalancha.
+
+---
+
+### 1.4 Efecto Zener
+
+El **efecto Zener** es el mecanismo de ruptura dominante en diodos que poseen una densidad de dopaje muy elevada en su unión P-N.
+
+- **Física del proceso:** Debido a la alta concentración de impurezas, la anchura de la región de carga espacial (zona Z) es extremadamente delgada. Al aplicar una tensión inversa (incluso baja), se genera un campo eléctrico interno de enorme magnitud en la unión capaz de romper directamente los enlaces covalentes y arrancar electrones de valencia para la conducción.
+- **Tensión de ruptura:** Ocurre habitualmente para tensiones menores a 6 V:
+$$V_Z < 6\text{ V}$$
+- **Coeficiente de temperatura:** Posee un signo **negativo**. Al calentarse el cristal, la energía de los electrones de valencia aumenta, facilitando que el campo eléctrico los libere a tensiones menores.
+
+---
+
+### 1.5 Resistencia Zener
+
+En la zona de regulación de la curva real, la tensión no es estrictamente constante frente a cambios en la intensidad (la línea no es totalmente vertical). Pequeños incrementos en la intensidad de corriente provocan ligeras variaciones de tensión en el componente.
+
+Este comportamiento se modela mediante el parámetro de la **Resistencia Zener (R_Z)**:
+$$R_Z = \frac{\Delta V_Z}{\Delta I_Z}$$
+donde la resistencia Zener (en ohmios) se define en bloque LaTeX independiente:
+$$R_Z$$
+y las variables representan los diferenciales de tensión e intensidad:
+$$\Delta V_Z$$
+$$\Delta I_Z$$
+
+---
+
+## 2. Modelos de Aproximación
+
+### 2.1 Zener Ideal
+
+Consiste en aproximar el comportamiento mediante interruptores y fuentes de tensión ideales:
+
+- **Polarización directa ($$V_D \ge 0$$):** Cortocircuito perfecto.
+$$R_F = 0\text{ }\Omega$$
+$$V_\gamma = 0\text{ V}$$
+- **Polarización inversa en bloqueo ($$-V_{Zo} < V_D < 0$$):** Circuito abierto perfecto.
+$$R_Z = \infty\text{ }\Omega$$
+$$I_0 = 0\text{ A}$$
+- **Polarización inversa en regulación ($$-V_{Zo} \ge V_D$$):** Se comporta como una fuente de tensión ideal de valor constante igual a la tensión Zener nominal:
+$$V_D = -V_{Zo}$$
+$$R_Z = 0\text{ }\Omega$$
+donde la tensión Zener nominal en el origen es:
+$$V_{Zo}$$
+
+---
+
+### 2.2 Modelo de 1ª Aproximación (Con Resistencia Zener)
+
+Introduce la pendiente de la zona de regulación mediante una resistencia serie:
+
+- **Polarización directa:** Cortocircuito.
+- **Polarización inversa en bloqueo:** Circuito abierto.
+- **Polarización inversa en regulación (ruptura):** Se modela como la conexión en serie de una fuente de tensión constante ($V_{Zo}$) y la resistencia Zener ($R_Z$):
+$$V_Z = V_{Zo} + I_Z \cdot R_Z$$
+donde la tensión Zener real en bornes es:
+$$V_Z$$
+y la intensidad Zener que circula es:
+$$I_Z$$
+
+---
+
+## 3. Características Técnicas e Influencia Térmica
+
+### 3.1 Efecto de la Temperatura sobre la Tensión Zener
+
+La tensión Zener nominal ($$V_{Zo}$$) varía en función de la temperatura del componente. Dependiendo del efecto dominante (Zener o avalancha), la tensión aumentará o disminuirá.
+
+La ecuación constitutiva que define la tensión final en función del coeficiente de temperatura es:
+$$V_{Zo}(T_c) = V_{Zo}(T_0) + \alpha \cdot \left(T_c - T_0\right)$$
+donde las variables representan:
+- Coeficiente de temperatura expresado en milivatios por Kelvin (mV/K) o en porcentaje por Kelvin (%/K):
+$$\alpha$$
+- Temperatura final de la unión (ºC o K):
+$$T_c$$
+- Temperatura de referencia de la especificación (ºC o K):
+$$T_0$$
+
+Si el coeficiente de temperatura viene expresado de forma relativa en porcentaje por Kelvin, la ecuación es:
+$$V_{Zo}(T_c) = V_{Zo}(T_0) \cdot \left(1 + \alpha \cdot \left(T_c - T_0\right)\right)$$
+
+---
+
+#### Ejemplo Práctico (Cálculo de Tensión Zener Térmica)
+Un diodo Zener posee una tensión nominal de:
+$$V_{Zo} = 4.7\text{ V}$$
+a la temperatura de referencia de:
+$$T_0 = 25\text{ C}$$
+con un coeficiente de variación de temperatura de:
+$$\alpha = -3\text{ mV/K} = -0.003\text{ V/K}$$
+Calcular la tensión de regulación del diodo cuando se calienta hasta una temperatura de:
+$$T_c = 85\text{ C}$$
+
+Resolución paso a paso:
+1. Planteamiento de la fórmula de variación térmica:
+$$V_{Zo}(85\text{ }^\circ\text{C}) = V_{Zo}(25\text{ }^\circ\text{C}) + \alpha \cdot \left(T_c - T_0\right)$$
+2. Sustitución de valores numéricos:
+$$V_{Zo}(85\text{ }^\circ\text{C}) = 4.7 + (-0.003) \cdot (85 - 25)$$
+3. Operación de la resta de temperaturas:
+$$V_{Zo}(85\text{ }^\circ\text{C}) = 4.7 + (-0.003) \cdot 60$$
+4. Cálculo de la caída de tensión:
+$$V_{Zo}(85\text{ }^\circ\text{C}) = 4.7 - 0.18$$
+5. Resultado final de tensión Zener:
+$$V_{Zo}(85\text{ }^\circ\text{C}) = 4.52\text{ V}$$
+
+---
+
+### 3.2 Temperatura Máxima
+
+La temperatura de la unión del diodo Zener ($$T_j$$) no debe superar los límites físicos del silicio bajo ninguna condición de carga:
+- Rango típico de operación máxima:
+150 ºC a 200 ºC
+
+---
+
+### 3.3 Potencia Nominal en Directa e Inversa
+
+La potencia total disipada por el componente en régimen estacionario responde a las siguientes ecuaciones según su sentido de polarización:
+
+- **Polarización directa:**
+$$P_n = V_D \cdot I_D = V_F \cdot I_D + r_F \cdot I_D^2$$
+- **Polarización inversa (modo regulación):**
+$$P_n = V_Z \cdot I_Z = \left(V_{Zo} + I_Z \cdot R_Z\right) \cdot I_Z = V_{Zo} \cdot I_Z + R_Z \cdot I_Z^2$$
+donde la potencia nominal disipada es:
+$$P_n$$
+
+---
+
+## 4. Aplicaciones Básicas del Diodo Zener
+
+### 4.1 Estabilizador de Tensión (Regulador Zener)
+
+El circuito regulador Zener básico emplea una resistencia en serie (R1) para limitar la corriente de la fuente de entrada y una resistencia en paralelo (R2) que actúa como la carga del circuito:
+
+El circuito se resuelve mediante el análisis de la recta de carga de Kirchhoff:
+$$V_1 = V_D + I_D \cdot R_1 \implies I_D = \frac{V_1 - V_D}{R_1}$$
+donde la tensión de alimentación de entrada es:
+$$V_1$$
+la corriente del circuito es:
+$$I_D$$
+y la resistencia limitadora serie es:
+$$R_1$$
+
+---
+
+### 4.2 Supresor de Sobretensiones (Protección)
+
+Se conecta en paralelo inverso con la línea de alimentación sensible. Si ocurre un pico transitorio de alta tensión superior a la tensión Zener ($$V_Z$$), el diodo entra instantáneamente en conducción inversa derivando la corriente destructiva hacia tierra y manteniendo la tensión de la línea en un rango seguro para proteger el resto de los componentes.
+
+---
+
+## 5. Códigos de Designación y Símbolos
+
+Los códigos de marcado responden a los estándares internacionales (JEDEC, JISC, Pro Electron):
+- **Pro Electron (Estándar Europeo):** Típicamente dos letras, una letra de tolerancia, el voltaje Zener y sufijo.
+  *Ejemplo:* **BZX79B2V4** (B: Silicio, Z: Diodo Zener, B: Tolerancia de ±2%, 2V4: Tensión Zener de 2.4 V).
+- **JEDEC:** Código del tipo **1N47XX** para diodos Zener de 1 W de potencia nominal.
+- El símbolo gráfico es similar al de un diodo común, pero con las alas del cátodo dobladas en forma de Z.
