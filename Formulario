@@ -1,0 +1,295 @@
+
+
+### Resistencia Crítica
+Valor óhmico que define si el resistor está limitado por potencia máxima o por tensión máxima:
+$$R_c = \frac{V_{Lim}^2}{P_N}$$
+donde la tensión límite dieléctrica es:
+$$V_{Lim}$$
+y la potencia nominal es:
+$$P_N$$
+
+#### Criterio de Selección de Tensión de Trabajo
+- **Si $$R_N < R_c$$ (Limitado por disipación térmica):**
+$$V_{max} = \sqrt{P_N \cdot R_N}$$
+- **Si $$R_N > R_c$$ (Limitado por ruptura eléctrica):**
+$$V_{max} = V_{Lim}$$
+
+---
+
+### Derivas por Coeficientes de Tensión y Temperatura
+
+#### Coeficiente de Temperatura (TCR)
+$$R(T) = R_0 \cdot \left(1 + \alpha \cdot \Delta T\right)$$
+donde el coeficiente de temperatura es:
+$$\alpha$$
+
+#### Coeficiente de Tensión
+$$R(V) = R_N \cdot \left(1 + \beta \cdot \Delta V\right)$$
+donde el coeficiente de tensión es:
+$$\beta$$
+
+---
+
+### Voltaje de Ruido en Resistores
+
+#### Ruido Térmico (Johnson-Nyquist)
+$$v_n^2 = 4 \cdot k \cdot T \cdot R \cdot \Delta f$$
+donde la densidad de ruido cuadrático medio es:
+$$v_n^2$$
+la constante de Boltzmann es:
+$$k$$
+la temperatura absoluta (en Kelvin) es:
+$$T$$
+y el ancho de banda es:
+$$\Delta f$$
+
+#### Ruido de Conducción (Ruido de Volumen)
+$$e_C^2 = K_c^2 \cdot V^2 \cdot \frac{\Delta f}{f_m}$$
+donde la constante de ruido de volumen es:
+$$K_c$$
+la tensión continua en bornes es:
+$$V$$
+y la frecuencia media del espectro es:
+$$f_m$$
+
+#### Ruido Total Acumulado
+$$v_{t}^2 = v_n^2 + e_C^2$$
+
+---
+
+## 4. Potenciómetros y Resistencias Variables
+
+### Divisor de Tensión Lineal con Potenciómetro
+$$V_{salida} = k \cdot x \cdot V_{entrada}$$
+donde la fracción de recorrido es:
+$$k$$
+y la posición física del cursor móvil (entre 0 y 1) es:
+$$x$$
+
+---
+
+### Resistencia Total Real
+Considerando las resistencias residuales extremas de contacto:
+$$R_{total} = R_N + R_{d1} + R_{d2} \approx R_N + 2 \cdot R_d$$
+donde la resistencia de contacto del terminal es:
+$$R_d$$
+
+---
+
+### Resolución en Potenciómetros Bobinados
+Paso mínimo discreto de resistencia al mover el cursor por las espiras:
+$$\text{Resolución} = \frac{1}{N}$$
+donde el número total de espiras físicas es:
+$$N$$
+
+---
+
+### Potencia y Corriente en el Cursor
+La potencia máxima disipable en bornes del cursor varía con la posición del cursor:
+$$P_x = I_{max}^2 \cdot R_x$$
+La intensidad máxima de corriente segura que puede atravesar el terminal del cursor es constante:
+$$I_{max} = \sqrt{\frac{P_N}{R_N}}$$
+
+---
+
+## 5. Diodos Semiconductores
+
+### Ecuación del Diodo de Shockley
+$$I_D = I_s \cdot \left(e^{\frac{V_D}{n \cdot V_T}} - 1\right)$$
+donde las variables representan:
+- Corriente en el diodo:
+$$I_D$$
+- Corriente de saturación inversa:
+$$I_s$$
+- Tensión en bornes del diodo:
+$$V_D$$
+- Factor de idealidad:
+$$n$$
+- Tensión térmica:
+$$V_T$$
+
+#### Tensión Térmica
+$$V_T = \frac{k \cdot T}{q}$$
+A la temperatura ambiente típica de 25 ºC:
+$$V_T \approx 25\text{ mV}$$
+donde la carga del electrón es:
+$$q$$
+
+---
+
+### Modelos de Aproximación en Directa
+
+- **Modelo Ideal:**
+  - Si conduce ($$V_D \ge 0\text{ V}$$):
+$$V_D = 0\text{ V}$$
+  - Si bloquea ($$V_D < 0\text{ V}$$):
+$$I_D = 0\text{ A}$$
+
+- **Modelo de 1ª Aproximación (Tensión de codo):**
+  - Si conduce ($$I_D > 0\text{ A}$$):
+$$V_D = V_\gamma \approx 0.7\text{ V}$$
+
+- **Modelo de 2ª Aproximación (Con resistencia interna):**
+  - Si conduce ($$I_D > 0\text{ A}$$):
+$$V_D = V_\gamma + I_D \cdot r_d$$
+donde la resistencia interna del diodo es:
+$$r_d$$
+
+---
+
+### Resistencia Dinámica (en el punto Q)
+Resistencia de alterna del diodo polarizado:
+$$r_d = \frac{n \cdot V_T}{I_Q}$$
+donde la corriente de reposo del diodo es:
+$$I_Q$$
+
+---
+
+## 6. Diodos Zener
+
+### Resistencia Zener en la Zona de Regulación
+$$R_Z = \frac{\Delta V_Z}{\Delta I_Z}$$
+donde la resistencia Zener es:
+$$R_Z$$
+
+---
+
+### Modelo del Zener en Regulación Inversa
+El diodo polarizado en inversa en la región de ruptura se modela como:
+$$V_Z = V_{Zo} + I_Z \cdot R_Z$$
+donde la tensión Zener en el codo de ruptura es:
+$$V_{Zo}$$
+y la corriente inversa del Zener es:
+$$I_Z$$
+
+---
+
+### Deriva Térmica de la Tensión Zener
+
+#### Ecuación Lineal Absoluta
+$$V_{Zo}(T_c) = V_{Zo}(T_0) + \alpha \cdot \left(T_c - T_0\right)$$
+donde el coeficiente térmico (en mV/K o V/K) es:
+$$\alpha$$
+
+#### Ecuación Lineal Relativa
+$$V_{Zo}(T_c) = V_{Zo}(T_0) \cdot \left(1 + \alpha \cdot \left(T_c - T_0\right)\right)$$
+donde el coeficiente de temperatura relativo (en %/K) es:
+$$\alpha$$
+
+---
+
+### Potencia Disipada por el Zener (Modo Regulación)
+$$P_n = V_{Zo} \cdot I_Z + R_Z \cdot I_Z^2$$
+
+---
+
+## 7. Transistores de Unión Bipolar (BJT)
+
+### Ecuaciones de Corriente en Región Activa (CC)
+$$I_E = I_B + I_C$$
+$$I_C = \alpha \cdot I_E + I_{CBo}$$
+$$I_C = \beta \cdot I_B + \left(\beta + 1\right) \cdot I_{CBo}$$
+donde las ganancias de corriente y la corriente inversa son:
+- Ganancia en base común:
+$$\alpha$$
+- Ganancia en emisor común:
+$$\beta$$
+- Corriente de saturación inversa base-colector con emisor abierto:
+$$I_{CBo}$$
+
+---
+
+### Relación entre Parámetros Alfa y Beta
+$$\beta = \frac{\alpha}{1 - \alpha}$$
+$$\alpha = \frac{\beta}{\beta + 1}$$
+
+---
+
+### Impedancias de Entrada y Salida Dinámicas (CC)
+
+#### Impedancia de Entrada (Emisor Común)
+$$R_e = \frac{\Delta V_{BE}}{\Delta I_B}$$
+
+#### Impedancia de Salida (Emisor Común)
+$$R_s = \frac{\Delta V_{CE}}{\Delta I_C}$$
+
+---
+
+### Modelo para el Divisor de Tensión con Resistencia de Emisor (Estabilidad)
+Corriente de colector estable en el punto Q:
+$$I_C \approx \frac{V_{BB} - V_{BE}}{R_e + \frac{R_b}{\beta}}$$
+donde la resistencia equivalente de Thévenin en la base es:
+$$R_b = R_1 \parallel R_2 = \frac{R_1 \cdot R_2}{R_1 + R_2}$$
+y la tensión equivalente de Thévenin es:
+$$V_{BB} = V_{CC} \cdot \frac{R_2}{R_1 + R_2}$$
+
+---
+
+### Modelos de Pequeña Señal a Bajas Frecuencias (Parámetros h)
+
+#### Ecuaciones del Modelo Simplificado
+$$v_{be} \approx h_{ie} \cdot i_b$$
+$$i_c \approx h_{fe} \cdot i_b$$
+donde las impedancias y ganancias de alterna son:
+- Impedancia de entrada en pequeña señal:
+$$h_{ie}$$
+- Ganancia de corriente en pequeña señal:
+$$h_{fe}$$
+
+---
+
+### Amplificador en Emisor Común (EC)
+
+#### Con Resistencia de Emisor Desacoplada (con condensador de bypass)
+- **Ganancia de tensión ($A_v$):**
+$$A_v = -\frac{\left(R_L \parallel R_c\right) \cdot h_{fe}}{h_{ie}}$$
+- **Ganancia de corriente ($A_i$):**
+$$A_i = -h_{fe}$$
+- **Impedancia de entrada ($Z_i$):**
+$$Z_i = h_{ie}$$
+- **Impedancia de salida ($Z_o$, sin considerar R_c):**
+$$Z_o = \infty\text{ }\Omega$$
+
+#### Sin Resistencia de Emisor Desacoplada (sin condensador de bypass)
+- **Ganancia de tensión ($A_v$):**
+$$A_v = -\frac{\left(R_L \parallel R_c\right) \cdot h_{fe}}{h_{ie} + R_e \cdot \left(h_{fe} + 1\right)}$$
+Si se cumple la aproximación $$R_e \cdot (h_{fe} + 1) \gg h_{ie}$$:
+$$A_v \approx -\frac{R_L \parallel R_c}{R_e}$$
+- **Impedancia de entrada ($Z_i$):**
+$$Z_i = h_{ie} + R_e \cdot \left(h_{fe} + 1\right)$$
+- **Impedancia de salida ($Z_o$, sin considerar R_c):**
+$$Z_o = \infty\text{ }\Omega$$
+
+---
+
+## 8. Transistores de Efecto de Campo (JFET y MOSFET)
+
+### JFET (Junction FET)
+
+#### Ecuación de Corriente en Saturación (Ley de Schockley)
+$$I_D = I_{DSS} \cdot \left(1 - \frac{V_{GS}}{V_T}\right)^2$$
+donde la corriente de saturación es:
+$$I_{DSS}$$
+la tensión de puerta es:
+$$V_{GS}$$
+y la tensión de estrangulamiento es:
+$$V_T \equiv V_{GS\text{off}}$$
+
+#### Tensión de Estrangulamiento (Pinch-off) en bornes del Drenador
+$$V_{DS\text{sat}} = V_{GS} - V_T$$
+donde la tensión de saturación drenador-fuente es:
+$$V_{DS\text{sat}}$$
+
+---
+
+### MOSFET de Enriquecimiento (Enhancement)
+
+#### Ecuación de Corriente en Saturación
+$$I_D = K \cdot \left(V_{GS} - V_T\right)^2$$
+donde la constante física de conducción es:
+$$K$$
+y la tensión umbral de conducción de puerta es:
+$$V_T$$
+
+#### Tensión de Estrangulamiento en bornes del Drenador
+$$V_{DS\text{sat}} = V_{GS} - V_T$$
