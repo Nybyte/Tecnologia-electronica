@@ -1,0 +1,399 @@
+# Tema 1: Introducción y Conceptos Generales
+
+## Índice de Contenidos
+- [1. Presentación](#1-presentación)
+  - [1.1 Definición de Electrónica](#11-definición-de-electrónica)
+  - [1.2 Circuito Electrónico](#12-circuito-electrónico)
+  - [1.3 Circuito Impreso](#13-circuito-impreso)
+  - [1.4 Objetivos de la Asignatura](#14-objetivos-de-la-asignatura)
+- [2. Análisis de Circuitos Electrónicos](#2-análisis-de-circuitos-electrónicos)
+  - [2.1 Ley de Ohm e Impedancia](#21-ley-de-ohm-e-impedancia)
+    - [Enunciado de la Ley de Ohm](#enunciado-de-la-ley-de-ohm)
+    - [Ejemplo de Aplicación de la Ley de Ohm](#ejemplo-de-aplicación-de-la-ley-de-ohm)
+    - [Asociación de Resistencias](#asociación-de-resistencias)
+      - [Conexión en Serie](#conexión-en-serie)
+      - [Conexión en Paralelo](#conexión-en-paralelo)
+    - [Concepto de Impedancia y Admitancia](#concepto-de-impedancia-y-admitancia)
+    - [Relación de Tensión e Intensidad en Componentes RLC](#relación-de-tensión-e-intensidad-en-componentes-rlc)
+  - [2.2 Potencia Eléctrica](#22-potencia-eléctrica)
+    - [Ecuaciones de Potencia](#ecuaciones-de-potencia)
+  - [2.3 Leyes de Kirchhoff](#23-leyes-de-kirchhoff)
+    - [1ª Ley de Kirchhoff: Ley de las Corrientes (LCK)](#1ª-ley-de-kirchhoff-ley-de-las-corrientes-lck)
+    - [2ª Ley de Kirchhoff: Ley de las Tensiones (LVK)](#2ª-ley-de-kirchhoff-ley-de-las-tensiones-lvk)
+  - [2.4 Teorema de Superposición](#24-teorema-de-superposición)
+    - [Método para Anular Fuentes](#método-para-anular-fuentes)
+  - [2.5 Teoremas de Thevenin y Norton](#25-teoremas-de-thevenin-y-norton)
+    - [Teorema de Thevenin](#teorema-de-thevenin)
+      - [Cálculo Analítico del Circuito de Ejemplo](#cálculo-analítico-del-circuito-de-ejemplo)
+    - [Teorema de Norton](#teorema-de-norton)
+      - [Cálculo Analítico del Circuito de Ejemplo (Equivalente de Norton)](#cálculo-analítico-del-circuito-de-ejemplo-equivalente-de-norton)
+
+---
+
+## 1. Presentación
+
+### 1.1 Definición de Electrónica
+
+> [!NOTE]
+> **Definición de la RAE (Real Academia Española):**
+> Estudio y aplicación del comportamiento de los electrones en diversos medios, como el vacío, los gases y los semiconductores, sometidos a la acción de campos eléctricos y magnéticos.
+
+> [!NOTE]
+> **Definición de Wikipedia:**
+> La electrónica es la rama de la física y especialización de la ingeniería, que estudia y emplea sistemas cuyo funcionamiento se basa en la conducción y el control del flujo microscópico de los electrones u otras partículas cargadas eléctricamente.
+
+---
+
+### 1.2 Circuito Electrónico
+
+Un **circuito electrónico** es una red eléctrica que consiste en la interconexión de dos o más elementos en circuito cerrado y que contiene, al menos, un componente electrónico.
+
+Un **componente electrónico** se define como un dispositivo físico con dos o más terminales a través de los cuales puede fluir carga eléctrica.
+
+#### Ejemplos de Componentes Electrónicos:
+- Pulsadores
+- Interruptores
+- Resistencias
+- Bobinas (Inductores)
+- Condensadores (Capacitores)
+- Fuentes de energía (tensión o corriente)
+- Semiconductores (diodos, transistores, circuitos integrados)
+
+#### Formas de realizar la conexión eléctrica entre componentes:
+1. **Mediante hilos y cables de cobre:** Usado típicamente en prototipos rápidos o conexiones de potencia.
+2. **Circuitos impresos (PCB):** Placa rígida aislante con orificios para insertar las patillas de los componentes discretos y pistas de cobre depositadas sobre la placa que realizan la interconexión eléctrica de forma compacta y fiable.
+
+---
+
+### 1.3 Circuito Impreso
+
+El desarrollo de un circuito impreso abarca dos etapas principales:
+1. **Diseño del circuito impreso:** Se realiza mediante herramientas de software especializadas (ej. PSpice, Altium Designer, Eagle, KiCad), donde se definen el esquema eléctrico, el ruteado de las pistas de cobre y la disposición física de los componentes.
+2. **Fabricación del circuito impreso:** Proceso químico y mecánico donde se graba el cobre sobre la placa de fibra de vidrio (o baquelita), se taladran los orificios y se sueldan los componentes.
+
+#### Clasificación por tipo de tecnología de componentes:
+- **Componentes Discretos tradicionales (Through-Hole):** Sus terminales atraviesan físicamente la placa a través de taladros para ser soldados en la cara opuesta.
+- **Componentes SMD (Surface Mount Device):** Se sueldan directamente sobre almohadillas de cobre en la superficie de la placa, sin necesidad de perforaciones, permitiendo una densidad de integración mucho mayor.
+
+---
+
+### 1.4 Objetivos de la Asignatura
+
+La asignatura de Tecnología Electrónica busca que el estudiante:
+- Conozca a fondo los aspectos funcionales, paramétricos, constructivos y de fiabilidad de los principales componentes electrónicos del mercado.
+- Desarrolle capacidades técnicas para identificar, seleccionar y dimensionar los componentes idóneos de acuerdo con los requisitos particulares de un diseño o aplicación industrial.
+
+---
+
+## 2. Análisis de Circuitos Electrónicos
+
+### 2.1 Ley de Ohm e Impedancia
+
+#### Enunciado de la Ley de Ohm
+La Ley de Ohm establece que la intensidad de corriente que circula por un elemento conductor es directamente proporcional a la tensión aplicada e inversamente proporcional a la resistencia eléctrica de dicho elemento.
+
+Ecuación matemática de la Ley de Ohm:
+$$I = \frac{E}{R}$$
+donde las variables representan:
+- Intensidad de corriente en amperios (A):
+$$I$$
+- Fuerza electromotriz / Tensión en voltios (V):
+$$E$$
+- Resistencia eléctrica en ohmios ($\Omega$):
+$$R$$
+
+#### Ejemplo de Aplicación de la Ley de Ohm
+Calcula la intensidad de corriente que circula por una resistencia de valor:
+$$R = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+cuando se le aplica una tensión de alimentación de:
+$$E = 12\text{ V}$$
+
+Resolución paso a paso:
+1. Planteamiento de la fórmula:
+$$I = \frac{E}{R}$$
+2. Sustitución de valores numéricos:
+$$I = \frac{12}{1000}$$
+3. Resultado en amperios:
+$$I = 0.012\text{ A}$$
+4. Conversión a miliamperios:
+$$I = 12\text{ mA}$$
+
+---
+
+#### Asociación de Resistencias
+
+##### Conexión en Serie
+En una asociación en serie, las resistencias se conectan una a continuación de la otra, de modo que por todas ellas circula la misma intensidad de corriente. La resistencia total equivalente es la suma de los valores de cada una de las resistencias individuales.
+
+Fórmula general para resistencias en serie:
+$$R_{\text{total}} = R_1 + R_2 + \dots + R_n$$
+
+**Ejemplo de cálculo:**
+Dadas tres resistencias conectadas en serie con valores:
+$$R_1 = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+$$R_2 = 200\text{ }\Omega$$
+$$R_3 = 4.7\text{ k}\Omega = 4700\text{ }\Omega$$
+
+Cálculo de la resistencia total equivalente:
+$$R_{\text{total}} = 1000 + 200 + 4700$$
+$$R_{\text{total}} = 5900\text{ }\Omega = 5.9\text{ k}\Omega$$
+
+##### Conexión en Paralelo
+En una asociación en paralelo, los terminales de entrada de todas las resistencias se conectan al mismo nodo y los de salida a otro nodo común, por lo que todas experimentan la misma caída de tensión. El inverso de la resistencia equivalente es igual a la suma de los inversos de las resistencias individuales.
+
+Fórmula general para resistencias en paralelo:
+$$\frac{1}{R_{\text{total}}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}$$
+
+O bien, despejando la resistencia total:
+$$R_{\text{total}} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}}$$
+
+**Ejemplo de cálculo:**
+Dadas dos resistencias idénticas conectadas en paralelo con valores:
+$$R_1 = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+$$R_2 = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+
+Cálculo de la resistencia total equivalente:
+$$R_{\text{total}} = \frac{1}{\frac{1}{1000} + \frac{1}{1000}}$$
+$$R_{\text{total}} = \frac{1}{\frac{2}{1000}}$$
+$$R_{\text{total}} = \frac{1000}{2}$$
+$$R_{\text{total}} = 500\text{ }\Omega$$
+
+---
+
+#### Concepto de Impedancia y Admitancia
+En el análisis de circuitos en corriente alterna (CA), la oposición al paso de la corriente se generaliza bajo el concepto de **impedancia**, la cual posee una magnitud compleja que incluye efectos resistivos y reactivos.
+
+Para un circuito pasivo excitado por una señal senoidal, la relación entre tensión e intensidad en el dominio de la frecuencia compleja se define como:
+$$Z = \frac{E}{I}$$
+donde la impedancia representa:
+$$Z$$
+
+La **admitancia** es la magnitud inversa a la impedancia, que representa la facilidad que presenta un circuito al paso de la corriente eléctrica:
+$$Y = \frac{1}{Z}$$
+donde la admitancia representa:
+$$Y$$
+
+---
+
+#### Relación de Tensión e Intensidad en Componentes RLC
+
+##### 1. Resistencia ($$R$$)
+La corriente y la tensión en una resistencia pura están siempre en fase. La relación en el dominio del tiempo es:
+$$i = \frac{v}{R}$$
+
+##### 2. Inductancia / Bobina ($$L$$)
+La reactancia inductiva se opone a los cambios de corriente. Produce un desfase donde la corriente se retrasa 90 grados respecto a la tensión.
+- Reactancia inductiva en el dominio complejo:
+$$X_L = j \omega L$$
+- Relación constitutiva en el dominio del tiempo:
+$$v = L \frac{di}{dt}$$
+
+##### 3. Condensador / Capacidad ($$C$$)
+La reactancia capacitiva se opone a los cambios de tensión. Produce un desfase donde la corriente se adelanta 90 grados respecto a la tensión.
+- Reactancia capacitiva en el dominio complejo:
+$$X_C = \frac{1}{j \omega C}$$
+- Relación constitutiva en el dominio del tiempo:
+$$i = C \frac{dv}{dt}$$
+
+---
+
+### 2.2 Potencia Eléctrica
+
+La **potencia eléctrica** es el trabajo desarrollado por unidad de tiempo. Desde una perspectiva circuital, representa la cantidad de energía eléctrica entregada o absorbida por un elemento o dispositivo en un intervalo de tiempo determinado.
+
+> [!NOTE]
+> La unidad de medida de la potencia eléctrica en el Sistema Internacional es el **Watio (W)**.
+
+#### Ecuaciones de Potencia
+La expresión general para la potencia eléctrica instantánea es el producto de la tensión por la intensidad de corriente:
+$$P = V \cdot I$$
+
+Haciendo uso de la Ley de Ohm, podemos deducir expresiones alternativas en función de los parámetros del elemento:
+
+1. Si sustituimos la tensión:
+$$V = I \cdot R$$
+en la ecuación de potencia:
+$$P = (I \cdot R) \cdot I$$
+obtenemos:
+$$P = I^2 \cdot R$$
+
+2. Si sustituimos la intensidad:
+$$I = \frac{V}{R}$$
+en la ecuación de potencia:
+$$P = V \cdot \left(\frac{V}{R}\right)$$
+obtenemos:
+$$P = \frac{V^2}{R}$$
+
+---
+
+### 2.3 Leyes de Kirchhoff
+
+Las Leyes de Kirchhoff son dos postulados fundamentales de la teoría de circuitos que se derivan de las leyes de conservación de la carga y de la energía.
+
+#### 1ª Ley de Kirchhoff: Ley de las Corrientes (LCK)
+
+> [!IMPORTANT]
+> **Postulado:**
+> La suma algebraica de las corrientes que confluyen en un nodo (o punto de unión común de varios conductores) es igual a cero en cualquier instante de tiempo.
+> $$\sum_{K=1}^{n} I_K = 0$$
+
+Equivalentemente: La suma de corrientes que entran a un nodo es igual a la suma de corrientes que salen de dicho nodo.
+$$\sum I_{\text{entrantes}} = \sum I_{\text{salientes}}$$
+
+**Ejemplo de aplicación práctica:**
+Considerando un nodo (llamémosle Nodo 1) donde concurren tres ramas:
+- Rama 1: Entra una corriente de valor:
+$$I_1 = 18\text{ mA}$$
+- Rama 2: Sale una corriente de valor:
+$$I_2 = 9\text{ mA}$$
+- Rama 3: Sale una corriente de valor:
+$$I_3 = 9\text{ mA}$$
+
+Verificación del postulado de Kirchhoff:
+$$\sum I_{\text{entrantes}} = I_1 = 18\text{ mA}$$
+$$\sum I_{\text{salientes}} = I_2 + I_3 = 9\text{ mA} + 9\text{ mA} = 18\text{ mA}$$
+$$18\text{ mA} = 18\text{ mA}$$
+$$\sum_{K=1}^{3} I_K = I_1 - I_2 - I_3 = 18 - 9 - 9 = 0\text{ mA}$$
+
+---
+
+#### 2ª Ley de Kirchhoff: Ley de las Tensiones (LVK)
+
+> [!IMPORTANT]
+> **Postulado:**
+> La suma algebraica de las diferencias de potencial eléctrico (tensiones) a lo largo de cualquier trayectoria cerrada o malla en un circuito es igual a cero.
+> $$\sum_{K=1}^{n} V_K = 0$$
+
+Equivalentemente: La suma de las elevaciones de tensión provistas por las fuentes es igual a la suma de las caídas de tensión en los elementos pasivos de la malla.
+$$\sum V_{\text{fuentes}} = \sum V_{\text{caídas}}$$
+
+**Ejemplo de aplicación práctica:**
+Analizando una malla simple alimentada por una fuente de tensión constante de valor:
+$$B_1 = 10\text{ V}$$
+conectada a dos resistencias en serie:
+$$R_1 = 1\text{ k}\Omega$$
+$$R_2 = 100\text{ }\Omega$$
+
+Donde las caídas de tensión medidas en simulación son:
+- Caída de tensión en la resistencia 1:
+$$V_{R1} = 8.17\text{ V}$$
+- Caída de tensión en la resistencia 2:
+$$V_{R2} = 0.817\text{ V}$$
+- Tensión residual o medida en el nodo de salida respecto a otra referencia:
+$$E_1 = 1.817\text{ V}$$
+
+Verificación del postulado de Kirchhoff sumando las caídas de tensión:
+$$V_{\text{caídas}} = V_{R1} + V_{R2} + (E_1 \text{ o pérdidas})$$
+$$V_{\text{caídas}} = 8.17 + 0.817 + 1.013 = 10\text{ V}$$
+$$10\text{ V} = 10\text{ V}$$
+
+---
+
+### 2.4 Teorema de Superposición
+
+> [!IMPORTANT]
+> **Enunciado:**
+> En cualquier red eléctrica lineal compuesta por múltiples fuentes independientes, la corriente o tensión en cualquier elemento de la red es igual a la suma algebraica de las corrientes o tensiones producidas individualmente por cada una de las fuentes, actuando de forma aislada mientras se anulan todas las demás.
+
+#### Método para Anular Fuentes
+Para aislar el efecto de una fuente individual, debemos desactivar las demás fuentes independientes del circuito siguiendo estas reglas:
+- **Fuentes independientes de Tensión:** Se anulan reemplazándolas por un cortocircuito (conexión directa o conductor ideal, lo que equivale a fijar su tensión en $$0\text{ V}$$).
+- **Fuentes independientes de Corriente:** Se anulan reemplazándolas por un circuito abierto (corte físico del conductor, lo que equivale a fijar su corriente en $$0\text{ A}$$).
+
+---
+
+### 2.5 Teoremas de Thevenin y Norton
+
+#### Teorema de Thevenin
+
+> [!IMPORTANT]
+> **Enunciado:**
+> Cualquier circuito lineal activo de dos terminales (A y B) se puede sustituir, desde la perspectiva de su carga externa, por un circuito equivalente más simple compuesto únicamente por una fuente de tensión ideal (tensión de Thevenin, $V_{\text{th}}$) conectada en serie con una única resistencia (resistencia de Thevenin, $R_{\text{th}}$).
+
+##### Cálculo Analítico del Circuito de Ejemplo
+Analicemos la red lineal de la simulación de PSpice con los siguientes parámetros:
+- Fuente de tensión de entrada:
+$$V_{\text{in}} = 72\text{ V}$$
+- Rama de entrada con resistencia en serie:
+$$R_{\text{in}} = 2\text{ k}\Omega$$
+- Red de resistencias interna en escalera:
+  - Tres resistencias en derivación vertical conectadas a tierra, de valor:
+$$R_{\text{v}} = 2\text{ k}\Omega$$
+  - Dos resistencias de acoplamiento horizontal en serie, de valor:
+$$R_{\text{h}} = 1\text{ k}\Omega$$
+  - Una resistencia de salida en serie antes del terminal A, de valor:
+$$R_{\text{out}} = 500\text{ }\Omega$$
+  - El terminal B se toma directamente de la referencia a tierra.
+
+Queremos calcular el equivalente de Thevenin en bornes A y B en circuito abierto (corriente de salida $$I_{\text{out}} = 0$$).
+
+**Paso 1: Cálculo de la tensión de Thevenin ($$V_{\text{th}}$$)**
+Como no circula corriente a través de la resistencia de salida de $$500\text{ }\Omega$$, la tensión de circuito abierto es igual al potencial en el último nodo vertical anterior, al cual llamaremos Nodo 3 ($$V_3$$).
+$$V_{\text{th}} = V_3$$
+
+Podemos simplificar el circuito de izquierda a derecha usando el Teorema de Thevenin por etapas:
+
+1. **Primera etapa (Fuente y divisor formado por la primera resistencia de $$2\text{ k}\Omega$$ en serie y la primera de $$2\text{ k}\Omega$$ vertical):**
+   - Tensión equivalente:
+$$V_{\text{th1}} = 72\text{ V} \cdot \left(\frac{2\text{ k}\Omega}{2\text{ k}\Omega + 2\text{ k}\Omega}\right) = 36\text{ V}$$
+   - Resistencia equivalente:
+$$R_{\text{th1}} = 2\text{ k}\Omega \parallel 2\text{ k}\Omega = 1\text{ k}\Omega$$
+
+2. **Segunda etapa (Añadiendo la resistencia horizontal de $$1\text{ k}\Omega$$ y la segunda resistencia vertical de $$2\text{ k}\Omega$$):**
+   - La resistencia en serie total antes de la segunda derivación es:
+$$R_{\text{s2}} = R_{\text{th1}} + 1\text{ k}\Omega = 1\text{ k}\Omega + 1\text{ k}\Omega = 2\text{ k}\Omega$$
+   - Calculamos el nuevo equivalente de Thevenin en el Nodo 2:
+     - Tensión equivalente:
+$$V_{\text{th2}} = 36\text{ V} \cdot \left(\frac{2\text{ k}\Omega}{2\text{ k}\Omega + 2\text{ k}\Omega}\right) = 18\text{ V}$$
+     - Resistencia equivalente:
+$$R_{\text{th2}} = 2\text{ k}\Omega \parallel 2\text{ k}\Omega = 1\text{ k}\Omega$$
+
+3. **Tercera etapa (Añadiendo la segunda resistencia horizontal de $$1\text{ k}\Omega$$ y la tercera resistencia vertical de $$2\text{ k}\Omega$$):**
+   - La resistencia en serie total antes de la tercera derivación es:
+$$R_{\text{s3}} = R_{\text{th2}} + 1\text{ k}\Omega = 1\text{ k}\Omega + 1\text{ k}\Omega = 2\text{ k}\Omega$$
+   - Calculamos el equivalente de Thevenin en el Nodo 3:
+     - Tensión equivalente (que resulta ser la tensión en circuito abierto $$V_{\text{th}}$$):
+$$V_{\text{th}} = V_{\text{th3}} = 18\text{ V} \cdot \left(\frac{2\text{ k}\Omega}{2\text{ k}\Omega + 2\text{ k}\Omega}\right) = 9\text{ V}$$
+     - Resistencia equivalente en el Nodo 3:
+$$R_{\text{th3}} = 2\text{ k}\Omega \parallel 2\text{ k}\Omega = 1\text{ k}\Omega$$
+
+4. **Resultado Final (Añadiendo la resistencia de salida de $$500\text{ }\Omega$$ en serie hacia el terminal A):**
+   - La tensión no varía al no circular corriente en circuito abierto:
+$$V_{\text{th}} = 9\text{ V}$$
+   - La resistencia total de Thevenin vista desde A-B es:
+$$R_{\text{th}} = R_{\text{th3}} + R_{\text{out}} = 1\text{ k}\Omega + 500\text{ }\Omega = 1500\text{ }\Omega = 1.5\text{ k}\Omega$$
+
+Por tanto, el equivalente de Thevenin de esta red es:
+- Tensión de Thevenin:
+$$V_{\text{th}} = 9\text{ V}$$
+- Resistencia de Thevenin:
+$$R_{\text{th}} = 1.5\text{ k}\Omega$$
+
+---
+
+#### Teorema de Norton
+
+> [!IMPORTANT]
+> **Enunciado:**
+> Cualquier circuito lineal activo de dos terminales (A y B) se puede sustituir, desde la perspectiva de su carga externa, por un circuito equivalente compuesto únicamente por una fuente de corriente ideal (corriente de Norton, $I_{\text{n}}$) conectada en paralelo con una única resistencia (resistencia de Norton, $R_{\text{n}}$).
+
+##### Cálculo Analítico del Circuito de Ejemplo (Equivalente de Norton)
+Utilizando el circuito equivalente de Thevenin obtenido anteriormente, podemos realizar una transformación directa de fuente para obtener el circuito equivalente de Norton.
+
+Las relaciones de conversión son:
+- Resistencia de Norton (es idéntica a la de Thevenin):
+$$R_{\text{n}} = R_{\text{th}} = 1.5\text{ k}\Omega$$
+- Corriente de Norton (corriente de cortocircuito entre los terminales A y B):
+$$I_{\text{n}} = \frac{V_{\text{th}}}{R_{\text{th}}}$$
+
+Sustituyendo los valores de Thevenin:
+$$I_{\text{n}} = \frac{9\text{ V}}{1.5\text{ k}\Omega}$$
+$$I_{\text{n}} = \frac{9}{1500}$$
+$$I_{\text{n}} = 0.006\text{ A}$$
+$$I_{\text{n}} = 6\text{ mA}$$
+
+Por tanto, el circuito equivalente de Norton consiste en:
+- Una fuente de corriente constante de valor:
+$$I_{\text{n}} = 6\text{ mA}$$
+- Conectada en paralelo con una resistencia de valor:
+$$R_{\text{n}} = 1.5\text{ k}\Omega$$
