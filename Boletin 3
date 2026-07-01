@@ -1,0 +1,225 @@
+# Boletín 3: Potenciómetros (Problemas Resueltos)
+
+## Índice de Contenidos
+* [Problema 1: Potenciómetro de dos tramos](#problema-1-potenciómetro-de-dos-tramos)
+* [Problema 2: Potencias y porcentajes](#problema-2-potencias-y-porcentajes)
+* [Problema 3: Validación del potenciómetro en un circuito](#problema-3-validación-del-potenciómetro-en-un-circuito)
+* [Problema 4: Diseño con posiciones y serie E-24](#problema-4-diseño-con-posiciones-y-serie-e-24)
+
+---
+
+## Problema 1: Potenciómetro de dos tramos
+
+### Enunciado
+Una resistencia variable con cursor deslizante (desplazamiento rectilíneo), presenta un primer tramo de 2cm de longitud con ley de variación logarítmica positiva, y un segundo tramo de 2cm de longitud con ley logarítmica negativa. Para un desplazamiento l=0.4cm. la resistencia es de 9 $\Omega$. Calcular:
+1. La ley de variación de la resistencia con el desplazamiento.
+2. Valor de la resistencia del primer tramo.
+3. Valor de la resistencia del segundo tramo, si para un desplazamiento de 3cm la resistencia es de 130103 $\Omega$.
+4. Determinar el error de conformidad, sabiendo que la desviación más significativa respecto a la ley ideal es de 2500 $\Omega$.
+
+### Datos
+* **Longitud primer tramo:** $l_1 = 2\text{ cm}$
+* **Longitud segundo tramo:** $l_2 = 2\text{ cm}$
+* **Longitud total:** $l_{total} = 4\text{ cm}$
+* **Lectura 1 (primer tramo):** $R(0.4) = 9\text{ }\Omega \quad (\text{en } l = 0.4\text{ cm})$
+* **Lectura 2 (segundo tramo):** $R(3) = 130103\text{ }\Omega \quad (\text{en } l = 3\text{ cm})$
+* **Desviación máxima respecto a ley ideal:** $e_{desv} = 2500\text{ }\Omega$
+
+### Resolución
+
+#### Paso 1: Plantear las ecuaciones generales
+* **Ley primer tramo:**
+  $$R(l) = 10^{\frac{l}{k_1}} - 1 \quad (\text{para } 0\text{ cm} \le l \le 2\text{ cm})$$
+* **Ley segundo tramo:**
+  $$R(l) = R_1 + k_2 \cdot \log((l-2)+1) \quad (\text{para } 2\text{ cm} \le l \le 4\text{ cm})$$
+
+#### Paso 2: Calcular la constante del primer tramo k1
+Ecuación en 0.4 cm:
+$$9\text{ }\Omega = 10^{\frac{0.4}{k_1}} - 1$$
+$$10 = 10^{\frac{0.4}{k_1}}$$
+
+Exponente de base 10:
+$$\frac{0.4}{k_1} = 1 \implies k_1 = 0.4$$
+
+Ecuación final del primer tramo:
+$$R(l) = 10^{\frac{l}{0.4}} - 1$$
+
+#### Paso 3: Calcular la resistencia al final del primer tramo R1
+Resistencia en el límite 2 cm:
+$$R_1 = R(2) = 10^{\frac{2}{0.4}} - 1 = 10^5 - 1 = 99999\text{ }\Omega$$
+
+#### Paso 4: Calcular la constante del segundo tramo k2
+Ecuación en 3 cm:
+$$130103\text{ }\Omega = 99999\text{ }\Omega + k_2 \cdot \log((3-2)+1)$$
+$$30104\text{ }\Omega = k_2 \cdot \log(2)$$
+$$30104\text{ }\Omega = k_2 \cdot 0.30103 \implies k_2 = 100003$$
+
+Ecuación final del segundo tramo:
+$$R(l) = 99999 + 100003 \cdot \log((l-2)+1)$$
+
+#### Paso 5: Calcular el error de conformidad
+Resistencia nominal total a 4 cm:
+$$R_n = R(4) = 99999 + 100003 \cdot \log((4-2)+1) = 99999 + 100003 \cdot \log(3) = 147712.56\text{ }\Omega$$
+
+Error de conformidad porcentual:
+$$\text{Error} = \frac{2500\text{ }\Omega}{147712.56\text{ }\Omega} \cdot 100 = 1.69\%$$
+
+---
+
+## Problema 2: Potencias y porcentajes
+
+### Enunciado
+La intensidad nominal a 25 ºC de un potenciómetro es de 10 mA. La ley de variación de su resistencia es $R(x) = 10^4 \cdot \log(x + 1)\Omega$, siendo x el recorrido del cursor expresado en cm y siendo su rango de variación 0 a 9cm. Suponiendo una temperatura ambiente de 25 ºC, calcular:
+1. Potencia nominal del potenciómetro.
+2. Potencia que puede disipar el potenciómetro cuando se utiliza como reostato con el cursor en las posiciones 10%, 50%, 70% del recorrido, dejando la borna extrema correspondiente al 100% del recorrido en circuito abierto.
+
+### Datos
+* **Corriente nominal:** $I_N = 10\text{ mA} = 0.01\text{ A}$
+* **Recorrido máximo:** $x_{max} = 9\text{ cm}$
+* **Ley de variación de resistencia:** $R(x) = 10^4 \cdot \log(x+1)\text{ }\Omega$
+
+### Resolución
+
+#### Paso 1: Calcular la potencia nominal PN
+Resistencia nominal a 9 cm:
+$$R_N = R(9) = 10^4 \cdot \log(9+1) = 10000\text{ }\Omega$$
+
+Potencia nominal PN:
+$$P_N = I_N^2 \cdot R_N = (0.01\text{ A})^2 \cdot 10000\text{ }\Omega = 1\text{ W}$$
+
+#### Paso 2: Calcular las potencias disipadas al 10%, 50% y 70%
+* **Al 10% de recorrido ($x_{10\%} = 0.9\text{ cm}$):**
+  $$P(10\%) = I_N^2 \cdot R(0.9) = (0.01\text{ A})^2 \cdot (10^4 \cdot \log(0.9+1)) = 0.27\text{ W}$$
+* **Al 50% de recorrido ($x_{50\%} = 4.5\text{ cm}$):**
+  $$P(50\%) = I_N^2 \cdot R(4.5) = (0.01\text{ A})^2 \cdot (10^4 \cdot \log(4.5+1)) = 0.74\text{ W}$$
+* **Al 70% de recorrido ($x_{70\%} = 6.3\text{ cm}$):**
+  $$P(70\%) = I_N^2 \cdot R(6.3) = (0.01\text{ A})^2 \cdot (10^4 \cdot \log(6.3+1)) = 0.86\text{ W}$$
+
+---
+
+## Problema 3: Validación del potenciómetro en un circuito
+
+### Enunciado
+El potenciómetro conectado en el circuito de la figura, tiene las siguientes características:
+- Ley de variación lineal.
+- Resistencia nominal 10k$\Omega$.
+- Potencia nominal 1W.
+- Resistencia de contacto del cursor 0.1$\Omega$.
+
+Se pide:
+1. ¿Se puede utilizar el potenciómetro en el circuito indicado?
+2. ¿Cuál sería la máxima potencia que se disiparía en el cursor del potenciómetro?
+3. ¿Qué potencia puede disipar el potenciómetro, sin sufrir deterioro, cuando el cursor se coloque en el 60% de su recorrido?
+
+> **NOTA:** Suponga un sentido de desplazamiento del cursor tal que al 100% del recorrido ofrezca su resistencia mínima en el circuito.
+
+### Datos
+* **Resistencia nominal:** $R_N = 10\text{ k}\Omega = 10000\text{ }\Omega$
+* **Potencia nominal:** $P_N = 1\text{ W}$
+* **Resistencia de contacto:** $R_{c} = 0.1\text{ }\Omega$
+* **Resistencia de carga serie:** $R_L = 1\text{ k}\Omega = 1000\text{ }\Omega$
+* **Tensión del circuito:** $V = 10\text{ V}$
+
+### Resolución
+
+#### Paso 1: Comprobación de seguridad en corriente
+Corriente nominal soportada:
+$$I_N = \sqrt{\frac{P_N}{R_N}} = \sqrt{\frac{1\text{ W}}{10000\text{ }\Omega}} = 10\text{ mA}$$
+
+Corriente máxima real en el circuito (ocurre cuando R del potenciómetro es mínima a x = 100%):
+$$I_{max} = \frac{V}{R_L + R_c} = \frac{10\text{ V}}{1000\text{ }\Omega + 0.1\text{ }\Omega} = 9.99\text{ mA}$$
+
+Comparación de seguridad:
+$$I_{max} < I_N \implies 9.99\text{ mA} < 10\text{ mA} \implies \text{Sí es válido}$$
+
+#### Paso 2: Potencia máxima disipada en el cursor
+Potencia máxima en el contacto:
+$$P_{cursor} = I_{max}^2 \cdot R_c = (9.99\text{ mA})^2 \cdot 0.1\text{ }\Omega = 10\text{ }\mu\text{W}$$
+
+#### Paso 3: Potencia máxima de disipación segura al 60%
+Pista activa que limita corriente al 60% de recorrido:
+$$\text{Pista Activa} = 100\% - 60\% = 40\%$$
+
+Potencia admisible del potenciómetro:
+$$P_{MAX} = P_N \cdot 40\% = 1\text{ W} \cdot 0.40 = 0.4\text{ W}$$
+
+---
+
+## Problema 4: Diseño con posiciones y serie E-24
+
+### Enunciado
+Se desea construir una resistencia variable por puntos, con una resistencia nominal ($R_N$) de 25k $\Omega$ y una potencia nominal ($P_N$) de 1W, para ser utilizado como potenciómetro por pasos en una etapa amplificadora de audio. Para ello se dispone de un conmutador de 8 posiciones y de resistencias fijas de la serie E-24 (5%). Calcular el valor de las resistencias fijas más idóneas e indicar cómo han de conectarse al citado conmutador. 
+
+> **Nota:** Se ha de tener en cuenta que el oído humano presenta una respuesta logarítmica y que la serie E-24 presenta los siguientes valores:
+
+| | | | | | | | | | | | |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1.0 | 1.1 | 1.2 | 1.3 | 1.5 | 1.6 | 1.8 | 2.0 | 2.2 | 2.4 | 2.7 | 3.0 |
+| 3.3 | 3.6 | 3.9 | 4.3 | 4.7 | 5.1 | 5.6 | 6.2 | 6.8 | 7.5 | 8.2 | 9.1 |
+
+### Datos
+* **Resistencia nominal:** $R_N = 25\text{ k}\Omega = 25000\text{ }\Omega$
+* **Potencia nominal:** $P_N = 1\text{ W}$
+* **Ley de variación logarítmica:** $R(x) = 10^{\frac{x}{k}} - 1$
+* **Número de pasos:** $x_{max} = 7 \quad (\text{de 0 a 7})$
+
+### Resolución
+
+#### Paso 1: Calcular la constante del potenciómetro k
+Resistencia final a x = 7:
+$$25000\text{ }\Omega = 10^{\frac{7}{k}} - 1$$
+$$25001 = 10^{\frac{7}{k}}$$
+
+Constante de escala k:
+$$\frac{7}{k} = \log(25001) \implies k = 1.5916$$
+
+Ecuación teórica:
+$$R(x) = 10^{\frac{x}{1.5916}} - 1\text{ }\Omega$$
+
+#### Paso 2: Calcular la intensidad nominal
+Intensidad máxima:
+$$I = \sqrt{\frac{P_N}{R_N}} = \sqrt{\frac{1\text{ W}}{25000\text{ }\Omega}} = 6.32\text{ mA}$$
+
+#### Paso 3: Calcular las resistencias fijas comerciales y sus encapsulados
+
+##### Paso 1 ($R_1$):
+* Resistencia acumulada teórica a x = 1: $R(1) = 10^{\frac{1}{1.5916}} - 1 = 3.24\text{ }\Omega$
+* Resistencia del primer paso: $\Delta R_1 = R(1) = 3.24\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_1 = 3.3\text{ }\Omega$
+* Potencia disipada: $P_1 = I^2 \cdot R_1 = (6.32\text{ mA})^2 \cdot 3.3\text{ }\Omega = 132\text{ }\mu\text{W} \implies \textbf{Encapsulado } 1/8\text{ W}$
+
+##### Paso 2 ($R_2$):
+* Resistencia acumulada teórica a x = 2: $R(2) = 10^{\frac{2}{1.5916}} - 1 = 17.05\text{ }\Omega$
+* Resistencia del segundo paso: $\Delta R_2 = R(2) - R(1) = 17.05 - 3.24 = 13.81\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_2 = 13\text{ }\Omega$
+* Potencia disipada: $P_2 = I^2 \cdot R_2 = (6.32\text{ mA})^2 \cdot 13\text{ }\Omega = 520\text{ }\mu\text{W} \implies \textbf{Encapsulado } 1/8\text{ W}$
+
+##### Paso 3 ($R_3$):
+* Resistencia acumulada teórica a x = 3: $R(3) = 10^{\frac{3}{1.5916}} - 1 = 75.71\text{ }\Omega$
+* Resistencia del tercer paso: $\Delta R_3 = R(3) - R(2) = 75.71 - 17.05 = 58.66\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_3 = 62\text{ }\Omega$
+* Potencia disipada: $P_3 = I^2 \cdot R_3 = (6.32\text{ mA})^2 \cdot 62\text{ }\Omega = 2.48\text{ mW} \implies \textbf{Encapsulado } 1/8\text{ W}$
+
+##### Paso 4 ($R_4$):
+* Resistencia acumulada teórica a x = 4: $R(4) = 10^{\frac{4}{1.5916}} - 1 = 324.9\text{ }\Omega$
+* Resistencia del cuarto paso: $\Delta R_4 = R(4) - R(3) = 324.9 - 75.71 = 249.19\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_4 = 240\text{ }\Omega$
+* Potencia disipada: $P_4 = I^2 \cdot R_4 = (6.32\text{ mA})^2 \cdot 240\text{ }\Omega = 9.6\text{ mW} \implies \textbf{Encapsulado } 1/8\text{ W}$
+
+##### Paso 5 ($R_5$):
+* Resistencia acumulada teórica a x = 5: $R(5) = 10^{\frac{5}{1.5916}} - 1 = 1384\text{ }\Omega$
+* Resistencia del quinto paso: $\Delta R_5 = R(5) - R(4) = 1384 - 324.9 = 1059.1\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_5 = 1.1\text{ k}\Omega = 1100\text{ }\Omega$
+* Potencia disipada: $P_5 = I^2 \cdot R_5 = (6.32\text{ mA})^2 \cdot 1100\text{ }\Omega = 44\text{ mW} \implies \textbf{Encapsulado } 1/8\text{ W}$
+
+##### Paso 6 ($R_6$):
+* Resistencia acumulada teórica a x = 6: $R(6) = 10^{\frac{6}{1.5916}} - 1 = 5884\text{ }\Omega$
+* Resistencia del sexto paso: $\Delta R_6 = R(6) - R(5) = 5884 - 1384 = 4500\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_6 = 4.3\text{ k}\Omega = 4300\text{ }\Omega$
+* Potencia disipada: $P_6 = I^2 \cdot R_6 = (6.32\text{ mA})^2 \cdot 4300\text{ }\Omega = 172\text{ mW} \implies \textbf{Encapsulado } 1/4\text{ W}$
+
+##### Paso 7 ($R_7$):
+* Resistencia acumulada teórica a x = 7: $R(7) = 25000\text{ }\Omega$
+* Resistencia del séptimo paso: $\Delta R_7 = R(7) - R(6) = 25000 - 5884 = 19116\text{ }\Omega$
+* **Valor E-24 seleccionado:** $R_7 = 20\text{ k}\Omega = 20000\text{ }\Omega$
+* Potencia disipada: $P_7 = I^2 \cdot R_7 = (6.32\text{ mA})^2 \cdot 20000\text{ }\Omega = 0.8\text{ W} \implies \textbf{Encapsulado } 1\text{ W}$
