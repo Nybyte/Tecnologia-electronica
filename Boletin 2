@@ -1,0 +1,472 @@
+# Boletín 2: Resistencias (Problemas Resueltos)
+
+## Índice de Contenidos
+* [Problema 1: Medición de Temperatura con PT100](#problema-1-medición-de-temperatura-con-pt100)
+* [Problema 2: Resistor Lineal y Coeficiente de Temperatura](#problema-2-resistor-lineal-y-coeficiente-de-temperatura)
+* [Problema 3: Límites de Tensión y Potencia](#problema-3-límites-de-tensión-y-potencia)
+* [Problema 4: Resistencia Crítica en Series Comerciales](#problema-4-resistencia-crítica-en-series-comerciales)
+* [Problema 5: Influencia de la Temperatura Ambiente](#problema-5-influencia-de-la-temperatura-ambiente)
+* [Problema 6: Tensión de Ruido Térmico en Paralelo](#problema-6-tensión-de-ruido-térmico-en-paralelo)
+* [Problema 7: Ruido de Conducción (Exceso de Ruido)](#problema-7-ruido-de-conducción-exceso-de-ruido)
+* [Problema 8: Análisis Completo con Hoja de Características](#problema-8-análisis-completo-con-hoja-de-características)
+* [Problema 9: Identificación de Fallas mediante Gráficas](#problema-9-identificación-de-fallas-mediante-gráficas)
+* [Problema 10: Código de Colores en Resistencias](#problema-10-código-de-colores-en-resistencias)
+* [Problema 11: Selección de Resistor Óptimo](#problema-11-selección-de-resistor-óptimo)
+* [Problema 12: Cálculos Prácticos de Ingeniería](#problema-12-cálculos-prácticos-de-ingeniería)
+
+---
+
+## Problema 1: Medición de Temperatura con PT100
+
+### Enunciado
+Un hilo de material conductor de platino es utilizado en un sistema para medir la temperatura, conectado de la forma que se muestra en la Figura 1. ¿Cuál es la temperatura del cuerpo si se sabe que el voltímetro está midiendo 1 V?
+
+### Datos
+Resistencia a 0 ºC:
+$$R_0 = 100\text{ }\Omega$$
+Coef. de temperatura:
+$$\alpha = 0.004\text{ }^{\circ}\text{C}^{-1}$$
+Resistencia serie:
+$$R = 300\text{ }\Omega$$
+Tensión fuente:
+$$V_p = 2\text{ V}$$
+Lectura voltímetro:
+$$V_R = 1\text{ V}$$
+
+### Resolución
+Corriente en la malla:
+$$I = \frac{V_R}{R} = \frac{1\text{ V}}{300\text{ }\Omega} = 3.33\text{ mA}$$
+Tensión en bornes de la PT100:
+$$V_{Pt} = V_p - V_R = 2\text{ V} - 1\text{ V} = 1\text{ V}$$
+Resistencia PT100 a Tc:
+$$R_{Pt} = \frac{V_{Pt}}{I} = \frac{1\text{ V}}{3.33\text{ mA}} = 300\text{ }\Omega$$
+Temperatura del cuerpo Tc:
+$$R_{Pt} = R_0 \cdot (1 + \alpha \cdot T_c)$$
+$$300\text{ }\Omega = 100\text{ }\Omega \cdot (1 + 0.004\text{ }^{\circ}\text{C}^{-1} \cdot T_c)$$
+$$3 = 1 + 0.004 \cdot T_c$$
+$$2 = 0.004 \cdot T_c$$
+$$T_c = 500\text{ }^{\circ}\text{C}$$
+
+---
+
+## Problema 2: Resistor Lineal y Coeficiente de Temperatura
+
+### Enunciado
+Se tiene un resistor lineal fijo de 200 Ω y su resistencia térmica es de 50 ºC/W. La temperatura ambiente es de 25 ºC. Por la resistencia circula una corriente de 100 mA. Se pide:
+1. Temperatura en el cuerpo del resistor, suponiendo un coeficiente de temperatura nulo.
+2. Valor de la resistencia, sabiendo que el coeficiente de temperatura es de 500 ppm/ºC.
+
+### Datos
+Resistencia nominal:
+$$R_N = 200\text{ }\Omega$$
+Resistencia térmica:
+$$R_{th} = 50\text{ }^{\circ}\text{C/W}$$
+Temperatura ambiente:
+$$T_a = 25\text{ }^{\circ}\text{C}$$
+Corriente de malla:
+$$I = 100\text{ mA} = 0.1\text{ A}$$
+Coef. de temperatura:
+$$\alpha = 500\text{ ppm/}^{\circ}\text{C} = 0.0005\text{ }^{\circ}\text{C}^{-1}$$
+
+### Resolución
+
+#### Apartado 1: Temperatura del cuerpo con coef. nulo
+Potencia disipada:
+$$P = I^2 \cdot R_N = (0.1\text{ A})^2 \cdot 200\text{ }\Omega = 2\text{ W}$$
+Temperatura del cuerpo Tc:
+$$T_c = T_a + P \cdot R_{th} = 25\text{ }^{\circ}\text{C} + 2\text{ W} \cdot 50\text{ }^{\circ}\text{C/W} = 125\text{ }^{\circ}\text{C}$$
+
+#### Apartado 2: Valor de la resistencia real
+Calentamiento dinámico:
+$$T_c - T_a = I^2 \cdot R \cdot R_{th}$$
+Ecuación térmica del resistor:
+$$R = R_N \cdot (1 + \alpha \cdot (T_c - T_a))$$
+Sustituyendo calentamiento:
+$$R = R_N \cdot (1 + \alpha \cdot I^2 \cdot R \cdot R_{th})$$
+$$R = R_N + R_N \cdot \alpha \cdot I^2 \cdot R_{th} \cdot R$$
+$$R \cdot (1 - R_N \cdot \alpha \cdot I^2 \cdot R_{th}) = R_N$$
+$$R = \frac{R_N}{1 - R_N \cdot \alpha \cdot I^2 \cdot R_{th}}$$
+Denominador térmico:
+$$R_N \cdot \alpha \cdot I^2 \cdot R_{th} = 200\text{ }\Omega \cdot 0.0005\text{ }^{\circ}\text{C}^{-1} \cdot 0.01\text{ A}^2 \cdot 50\text{ }^{\circ}\text{C/W} = 0.05$$
+Resistencia final R:
+$$R = \frac{200\text{ }\Omega}{1 - 0.05} = 210.53\text{ }\Omega$$
+
+---
+
+## Problema 3: Límites de Tensión y Potencia
+
+### Enunciado
+Se dispone de una resistencia con las siguientes características: RN = 1MΩ, PN = 0.5W a 25 ºC y VMAX = 350V. Si la temperatura ambiente fuese igual a la temperatura nominal. ¿Funcionaría correctamente en un circuito en el que tuviera que disipar una potencia de 0.25 W? ¿Y si tuviera que disipar 0.1 W? ¿Cuál sería la potencia máxima a la cual funcionaría correctamente?
+
+### Datos
+Resistencia nominal:
+$$R_N = 1\text{ M}\Omega = 10^6\text{ }\Omega$$
+Potencia nominal:
+$$P_N = 0.5\text{ W}$$
+Tensión límite máxima:
+$$V_{MAX} = 350\text{ V}$$
+Temperatura ambiente:
+$$T_{amb} = 25\text{ }^{\circ}\text{C}$$
+
+### Resolución
+Resistencia crítica:
+$$R_c = \frac{V_{MAX}^2}{P_N} = \frac{350^2}{0.5} = 245\text{ k}\Omega$$
+Comparación óhmica:
+$$R_N > R_c \implies 1\text{ M}\Omega > 245\text{ k}\Omega$$
+Limitación del componente:
+$$\text{Limitado por tensión}$$
+Potencia máxima real admisible:
+$$P_{CMAX} = \frac{V_{MAX}^2}{R_N} = \frac{350^2}{10^6} = 0.12\text{ W}$$
+
+### Respuestas
+¿Funcionará a 0.25 W?:
+$$\text{NO}$$
+¿Funcionará a 0.1 W?:
+$$\text{SÍ}$$
+Potencia máxima real:
+$$P_{CMAX} = 0.12\text{ W}$$
+
+---
+
+## Problema 4: Resistencia Crítica en Series Comerciales
+
+### Enunciado
+Las características de serie de un tipo de resistencias son: PN = 0.5 W (TN=25 ºC) y VMAX = 500 V. Si la temperatura ambiente fuese de 25 ºC. ¿A qué potencia y tensión podrían trabajar unas resistencias de ese tipo cuyos valores nominales fueran de 1 MΩ y 100 kΩ respectivamente?
+
+### Datos
+Potencia nominal de la gama:
+$$P_N = 0.5\text{ W}$$
+Tensión máxima de la gama:
+$$V_{MAX} = 500\text{ V}$$
+Temperatura ambiente:
+$$T_{amb} = 25\text{ }^{\circ}\text{C}$$
+
+### Resolución
+Resistencia crítica común:
+$$R_c = \frac{V_{MAX}^2}{P_N} = \frac{500^2}{0.5} = 500\text{ k}\Omega$$
+
+#### Caso A: Resistencia nominal de 1 MΩ
+Comparación de valores:
+$$R_N > R_c \implies 1\text{ M}\Omega > 500\text{ k}\Omega$$
+Limitación:
+$$\text{Limitado por tensión}$$
+Tensión de trabajo máxima:
+$$V = V_{MAX} = 500\text{ V}$$
+Potencia de trabajo máxima:
+$$P = \frac{V_{MAX}^2}{R_N} = \frac{500^2}{10^6} = 0.25\text{ W}$$
+
+#### Caso B: Resistencia nominal de 100 kΩ
+Comparación de valores:
+$$R_N < R_c \implies 100\text{ k}\Omega < 500\text{ k}\Omega$$
+Limitación:
+$$\text{Limitado por potencia}$$
+Potencia de trabajo máxima:
+$$P = P_N = 0.5\text{ W}$$
+Tensión de trabajo máxima:
+$$V = \sqrt{P_N \cdot R_N} = \sqrt{0.5 \cdot 100000} = 223.61\text{ V}$$
+
+---
+
+## Problema 5: Influencia de la Temperatura Ambiente
+
+### Enunciado
+Se dispone de una resistencia normalizada según la serie E12, con RN = 470 kΩ. Las características de la serie son: PN = 1/4 W a 25 ºC, VMAX = 300 V, coeficiente de temperatura de -1000 ppm/ºC y TMAX = 120 ºC. Se pide:
+1. Tensión máxima que puede soportar a 25 ºC de temperatura ambiente.
+2. Intensidad máxima que puede soportar a 25 ºC de temperatura ambiente.
+3. Tensión máxima que puede soportar a 60 ºC de temperatura ambiente.
+4. Intensidad máxima que puede soportar a 60 ºC de temperatura ambiente.
+
+### Datos
+Resistencia nominal:
+$$R_N = 470\text{ k}\Omega$$
+Potencia nominal:
+$$P_N = 0.25\text{ W}$$
+Tensión máxima:
+$$V_{MAX} = 300\text{ V}$$
+Coef. de temperatura:
+$$\alpha = -1000\text{ ppm/}^{\circ}\text{C} = -0.001\text{ }^{\circ}\text{C}^{-1}$$
+Temperatura de operación máxima:
+$$T_{MAX} = 120\text{ }^{\circ}\text{C}$$
+
+### Resolución
+Resistencia térmica:
+$$R_{th} = \frac{T_{MAX} - T_N}{P_N} = \frac{120 - 25}{0.25} = 380\text{ }^{\circ}\text{C/W}$$
+
+#### Apartado 1: Tensión máxima a 25 ºC
+Resistencia crítica a 25 ºC:
+$$R_c = \frac{V_{MAX}^2}{P_N} = \frac{300^2}{0.25} = 360\text{ k}\Omega$$
+Comparación:
+$$R_N > R_c \implies 470\text{ k}\Omega > 360\text{ k}\Omega \implies \text{Limitado por tensión}$$
+Tensión de trabajo máxima:
+$$V_{MAX} = 300\text{ V}$$
+
+#### Apartado 2: Intensidad máxima a 25 ºC
+Equilibrio térmico cuadrático:
+$$R = R_N \cdot (1 + \alpha \cdot \Delta T) = R_N \cdot \left(1 + \alpha \cdot \frac{V^2}{R} \cdot R_{th}\right)$$
+$$R^2 - R_N \cdot R - R_N \cdot \alpha \cdot V^2 \cdot R_{th} = 0$$
+Sustituyendo valores:
+$$R^2 - 470000 \cdot R - [470000 \cdot (-0.001) \cdot 300^2 \cdot 380] = 0$$
+$$R^2 - 470000 \cdot R + 1.6074 \cdot 10^{10} = 0$$
+Resistencia real de equilibrio:
+$$R = 432866\text{ }\Omega$$
+Corriente máxima real:
+$$I_{MAX} = \frac{V_{MAX}}{R} = \frac{300\text{ V}}{432866\text{ }\Omega} = 693.06\text{ }\mu\text{A}$$
+
+#### Apartado 3: Tensión máxima a 60 ºC
+Salto térmico corporal permitido:
+$$\Delta T = T_{MAX} - T_{amb} = 120 - 60 = 60\text{ }^{\circ}\text{C}$$
+Potencia máxima por derating:
+$$P_{admissible} = \frac{\Delta T}{R_{th}} = \frac{60}{380} = 0.158\text{ W}$$
+Resistencia a 120 ºC:
+$$R = R_N \cdot (1 + \alpha \cdot (120 - 25)) = 470000 \cdot (1 - 0.095) = 425350\text{ }\Omega$$
+Tensión máxima admisible:
+$$V_{MAX} = \sqrt{P_{admissible} \cdot R} = \sqrt{0.158 \cdot 425350} = 259.24\text{ V}$$
+
+#### Apartado 4: Intensidad máxima a 60 ºC
+Intensidad máxima real:
+$$I_{MAX} = \frac{V_{MAX}}{R} = \frac{259.24\text{ V}}{425350\text{ }\Omega} = 609.47\text{ }\mu\text{A}$$
+
+---
+
+## Problema 6: Tensión de Ruido Térmico en Paralelo
+
+### Enunciado
+Dos resistores de capa metálica, uno de 10 kΩ a 0 ºC y otro de 30 kΩ a 100 ºC están conectados en paralelo. Determinar la tensión de ruido asociada a la combinación de ambas resistencias, sabiendo que el ancho de banda es de 10 kHz.
+
+### Datos
+Resistor 1:
+$$R_1 = 10\text{ k}\Omega = 10000\text{ }\Omega \quad (\text{a } T_1 = 0\text{ }^{\circ}\text{C} = 273.15\text{ K})$$
+Resistor 2:
+$$R_2 = 30\text{ k}\Omega = 30000\text{ }\Omega \quad (\text{a } T_2 = 100\text{ }^{\circ}\text{C} = 373.15\text{ K})$$
+Ancho de banda:
+$$\Delta f = 10\text{ kHz} = 10000\text{ Hz}$$
+Constante de Boltzmann:
+$$k_B = 1.38 \cdot 10^{-23}\text{ J/K}$$
+
+### Resolución
+Resistencia del paralelo:
+$$R_{eq} = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{10000 \cdot 30000}{10000 + 30000} = 7500\text{ }\Omega$$
+Tensión de ruido eficaz equivalente:
+$$V_{n,RMS} = \sqrt{4 \cdot k_B \cdot \Delta f \cdot \left(\frac{T_1}{R_1} + \frac{T_2}{R_2}\right)} \cdot R_{eq}$$
+Cálculo bajo el radical:
+$$4 \cdot 1.38 \cdot 10^{-23} \cdot 10000 \cdot \left(\frac{273.15}{10000} + \frac{373.15}{30000}\right) = 2.1944 \cdot 10^{-20}\text{ V}^2\text{/}\Omega^2$$
+Tensión de ruido eficaz:
+$$V_{n,RMS} = \sqrt{2.1944 \cdot 10^{-20}} \cdot 7500 = 1.109\text{ }\mu\text{V}$$
+
+---
+
+## Problema 7: Ruido de Conducción (Exceso de Ruido)
+
+### Enunciado
+Con el mismo circuito de medición de temperatura del PROBLEMA 1, se considera que la resistencia de 300 Ω del circuito de medida tiene un nivel de ruido de 5 µV/V, y que el voltímetro de medida tiene un ancho de banda de 0 a 10 Hz. Calcular la tensión de ruido que afectará a la medida cuando el voltímetro esté midiendo 1 V.
+
+### Datos
+Resistencia de medida:
+$$R = 300\text{ }\Omega$$
+Tensión continua medida en bornes:
+$$V_{DC} = 1\text{ V}$$
+Nivel de ruido propio:
+$$\text{Nivel de ruido} = 5\text{ }\mu\text{V/V}$$
+Ancho de banda del filtro:
+$$\Delta f = 10\text{ Hz}$$
+
+### Resolución
+Voltaje eficaz de ruido de conducción:
+$$V_{r,RMS} = \frac{\text{Nivel de ruido} \cdot V_{DC}}{\sqrt{2}}$$
+$$V_{r,RMS} = \frac{5\text{ }\mu\text{V/V} \cdot 1\text{ V}}{\sqrt{2}} = 3.535\text{ }\mu\text{V}$$
+
+---
+
+## Problema 8: Análisis Completo con Hoja de Características
+
+### Enunciado
+Se dispone de una resistencia de película de carbón, de cuya hoja de características se saben los siguientes datos:
+* PN = 1W
+* RN = 400 kΩ para TA = 25 ºC
+* VMAX = 600 V y TMAX = 130 ºC
+* Coeficiente de temperatura α = -1500 ppm/ºC
+
+1. La tensión máxima y la potencia máxima que puede soportar a 25 ºC. Suponer peor caso.
+2. Temperatura del componente, valor de la resistencia y potencia que puede disipar si se alimenta a 473V.
+3. Calcule el valor eficaz de la tensión de ruido del resistor, si trabaja en un rango de frecuencias de 10kHz a 30kHz, la temperatura ambiente es de 25 ºC y está sometido a una tensión de 473V y 600V.
+
+### Datos
+Resistencia nominal a 25 ºC:
+$$R_N = 400\text{ k}\Omega$$
+Potencia nominal:
+$$P_N = 1\text{ W}$$
+Límite de tensión:
+$$V_{MAX} = 600\text{ V}$$
+Temperatura límite de catálogo:
+$$T_{MAX} = 130\text{ }^{\circ}\text{C}$$
+Coeficiente de temperatura:
+$$\alpha = -1500\text{ ppm/}^{\circ}\text{C} = -0.0015\text{ }^{\circ}\text{C}^{-1}$$
+Resistencia térmica:
+$$R_{th} = \frac{130 - 25}{1\text{ W}} = 105\text{ }^{\circ}\text{C/W}$$
+
+### Resolución
+
+#### Apartado 1: Peor caso a 25 ºC
+Tensión de peor caso:
+$$V_{MAX} = 580\text{ V}$$
+Potencia de peor caso:
+$$P_{MAX} = 1\text{ W}$$
+
+#### Apartado 2: Alimentación a 473 V
+Ecuación térmica cuadrática:
+$$R^2 - R_N \cdot R - (R_{th} \cdot \alpha \cdot V^2 \cdot R_N) = 0$$
+Sustituyendo valores:
+$$R^2 - 400000 \cdot R - [105 \cdot (-0.0015) \cdot 473^2 \cdot 400000] = 0$$
+$$R^2 - 400000 \cdot R + 1.4095 \cdot 10^{10} = 0$$
+Valor de resistencia estabilizada:
+$$R = 361\text{ k}\Omega$$
+Potencia real disipada:
+$$P_C = \frac{V^2}{R} = \frac{473^2}{361000} = 0.62\text{ W}$$
+Temperatura estabilizada del cuerpo:
+$$T_C = T_{amb} + (P_C \cdot R_{th}) = 25\text{ }^{\circ}\text{C} + (0.62\text{ W} \cdot 105\text{ }^{\circ}\text{C/W}) = 90\text{ }^{\circ}\text{C}$$
+
+#### Apartado 3: Tensión de ruido a 473 V y 600 V
+Tensión de ruido eficaz a 473 V:
+$$e_{RMS}^2(t) = 0.145\text{ nV}^2$$
+Tensión de ruido eficaz a 600 V:
+$$e_{RMS}^2(t) = 0\text{ nV}^2 \quad (\text{componente destruido al superar el límite de } 580\text{ V})$$
+
+---
+
+## Problema 9: Identificación de Fallas mediante Gráficas
+
+### Enunciado
+En la Figura 2 se muestran diversas resistencias de película de carbón, cada una con su propio valor nominal y situada a una temperatura ambiente concreta. Por las del tipo PR01 circula una corriente de 1.2mA y por las del tipo PR25 circula una corriente de 0.6mA. Sin tener en cuenta los efectos de la temperatura ni las tolerancias de fabricación, ¿qué resistencias no funcionarían correctamente?
+
+### Datos
+Intensidad en PR01:
+$$I_{PR01} = 1.2\text{ mA} = 0.0012\text{ A}$$
+Intensidad en PR25:
+$$I_{PR25} = 0.6\text{ mA} = 0.0006\text{ A}$$
+
+### Resolución y Criterios
+1. **Pérdida por efecto Joule:** Calculamos la potencia disipada en bornes de cada resistor usando $P = I^2 \cdot R_N$.
+2. **Comparación con derating:** Evaluamos si el valor de potencia disipada excede el límite permitido por la curva de derating de la Figura 2 para la respectiva temperatura ambiente y tipo de encapsulado.
+   * **Ejemplo PR01 ($680\text{ k}\Omega$):**
+   $$P = (0.0012\text{ A})^2 \cdot 680000\text{ }\Omega = 0.979\text{ W}$$
+   Falla a $40\text{ }^{\circ}\text{C}$ y $60\text{ }^{\circ}\text{C}$ porque la potencia admisible de la curva A cae por debajo de este valor.
+   * **Ejemplo PR25 ($680\text{ k}\Omega$):**
+   $$P = (0.0006\text{ A})^2 \cdot 680000\text{ }\Omega = 0.245\text{ W}$$
+   Falla a $80\text{ }^{\circ}\text{C}$ porque la curva B limita la disipación a menos de $0.2\text{ W}$.
+
+### Resistencias que no funcionarán (marcadas en la Figura 3)
+Fallas PR01:
+$$680\text{ k}\Omega \text{ a } 40\text{ }^{\circ}\text{C}$$
+$$680\text{ k}\Omega \text{ a } 60\text{ }^{\circ}\text{C}$$
+$$560\text{ k}\Omega \text{ a } 60\text{ }^{\circ}\text{C}$$
+Fallas PR25:
+$$680\text{ k}\Omega \text{ a } 80\text{ }^{\circ}\text{C}$$
+$$470\text{ k}\Omega \text{ a } 80\text{ }^{\circ}\text{C}$$
+$$470\text{ k}\Omega \text{ a } 100\text{ }^{\circ}\text{C}$$
+$$330\text{ k}\Omega \text{ a } 100\text{ }^{\circ}\text{C}$$
+
+---
+
+## Problema 10: Código de Colores en Resistencias
+
+### Enunciado
+Obtener el valor óhmico y tolerancia de las resistencias cuyos anillos tienen los siguientes colores:
+1. Marrón-verde-marrón-oro.
+2. Amarillo-violeta-amarillo-plata.
+3. Violeta-verde-oro-oro.
+4. Marrón-amarillo-naranja-rojo-marrón.
+5. Rojo-rojo-azul-negro-rojo.
+
+### Resolución de los casos
+
+#### Caso 1: Marrón (1), Verde (5), Marrón ($\times 10^1$), Oro ($\pm 5\%$)
+$$Valor = 15 \cdot 10^1 = 150\text{ }\Omega \pm 5\%$$
+
+#### Caso 2: Amarillo (4), Violeta (7), Amarillo ($\times 10^4$), Plata ($\pm 10\%$)
+$$Valor = 47 \cdot 10^4 = 470\text{ k}\Omega \pm 10\%$$
+
+#### Caso 3: Violeta (7), Verde (5), Oro ($\times 10^{-1}$), Oro ($\pm 5\%$)
+$$Valor = 75 \cdot 0.1 = 7.5\text{ }\Omega \pm 5\%$$
+
+#### Caso 4: Marrón (1), Amarillo (4), Naranja (3), Rojo ($\times 10^2$), Marrón ($\pm 1\%$)
+$$Valor = 143 \cdot 10^2 = 14.3\text{ k}\Omega \pm 1\%$$
+
+#### Caso 5: Rojo (2), Rojo (2), Azul (6), Negro ($\times 10^0$), Rojo ($\pm 2\%$)
+$$Valor = 226 \cdot 1 = 226\text{ }\Omega \pm 2\%$$
+
+---
+
+## Problema 11: Selección de Resistor Óptimo
+
+### Enunciado
+Para una aplicación concreta, se debe elegir un resistor de película de carbón, del menor tamaño posible, de tal forma que cumpla el mayor número posible de las siguientes especificaciones:
+1. Valor óhmico nominal de 10kΩ.
+2. Potencia nominal de 1/4 W.
+3. Tensión de trabajo de 35V.
+4. A 100 ºC de temperatura ambiente debe poder disipar 1/8 W.
+5. Tolerancia del ± 2%.
+6. La variación máxima de la resistencia con la temperatura de funcionamiento (25 ºC a 125 ºC) no debe superar los 150 Ω.
+7. El valor óhmico debe permanecer estable en todo el ancho de banda de utilización, que es de 50MHz.
+8. La máxima tensión de ruido de conducción admisible es de 10 µV.
+
+### Datos y Requisitos
+Resistencia nominal:
+$$R_N = 10\text{ k}\Omega$$
+Frecuencia de trabajo:
+$$f = 50\text{ MHz}$$
+Potencia requerida a 100 ºC:
+$$P = \frac{1}{8}\text{ W} = 0.125\text{ W}$$
+
+### Análisis de la Hoja de Datos
+* **Evaluación del tamaño PR25 ($0.25\text{ W}$ nominal):**
+  La curva B de derating a $100\text{ }^{\circ}\text{C}$ permite el $35\%$ de la potencia nominal:
+  $$P_{PR25}(100\text{ }^{\circ}\text{C}) = 0.25\text{ W} \cdot 0.35 = 0.0875\text{ W}$$
+  Como el límite es menor al requerido ($0.0875\text{ W} < 0.125\text{ W}$), la PR25 se quema y queda descartada.
+* **Evaluación del tamaño PR50 ($0.50\text{ W}$ nominal):**
+  La curva B de derating a $100\text{ }^{\circ}\text{C}$ permite el $35\%$ de la potencia nominal:
+  $$P_{PR50}(100\text{ }^{\circ}\text{C}) = 0.50\text{ W} \cdot 0.35 = 0.175\text{ W}$$
+  Como cumple la limitación ($0.175\text{ W} \ge 0.125\text{ W}$), es apta térmicamente.
+* **Estabilidad a 50 MHz:**
+  A $50\text{ MHz}$, la curva de respuesta de alta frecuencia para $10\text{ k}\Omega$ muestra una relación cercana al $100\%$ de conducción sin caídas de impedancia.
+
+### Solución Óptima
+Modelo de menor tamaño válido:
+$$\text{PR50 (10 k}\Omega\text{)}$$
+
+---
+
+## Problema 12: Cálculos Prácticos de Ingeniería
+
+### Enunciado
+Todas las resistencias de los diferentes apartados de este ejercicio son de película de carbón, y sus características técnicas se muestran en la Hoja de Datos correspondiente. En base a estos datos, se pide:
+1. Escoger la resistencia de mínimo tamaño, perteneciente a la serie E12 (±10%), con resistencia nominal de 330Ω, para que funcione correctamente a 25 ºC de temperatura ambiente, estando sometida a una tensión de 10V.
+2. Calcular la máxima potencia y la máxima tensión que soportaría un resistor del tipo PR01, con una resistencia nominal de 560Ω, siendo la temperatura ambiente de 60 ºC.
+3. Calcular el valor óhmico máximo y mínimo de una resistencia del tipo PR01, de la serie E12, de 1kΩ de valor nominal, sometida a una tensión de 20V y a una temperatura ambiente de 60 ºC.
+
+### Resolución de los apartados
+
+#### Apartado 1: Selección de tamaño para 330 Ω a 10 V
+Potencia nominal disipada:
+$$P = \frac{V^2}{R_N} = \frac{10^2}{330} = 0.303\text{ W}$$
+Valor de peor tolerancia en E12 ($\pm 10\%$):
+$$R_{MIN} = 330\text{ }\Omega \cdot 0.9 = 297\text{ }\Omega$$
+Potencia disipada en el peor caso:
+$$P_{MAX} = \frac{V^2}{R_{MIN}} = \frac{10^2}{297} = 0.336\text{ W}$$
+Selección del componente:
+El modelo PR33 ($0.33\text{ W}$) es insuficiente por margen de seguridad. Elegimos el superior:
+$$\text{PR50}$$
+
+#### Apartado 2: Límites de un PR01 (560 Ω) a 60 ºC
+Factor de degradación a 60 ºC (Curva A):
+$$\text{Factor} = 76.5\%$$
+Potencia máxima admisible a 60 ºC:
+$$P_{MAX} = 1\text{ W} \cdot 0.765 = 0.765\text{ W}$$
+Tensión máxima admisible a 60 ºC:
+$$V_{MAX} = \sqrt{P_{MAX} \cdot R_N} = \sqrt{0.765 \cdot 560} = 20.47\text{ V}$$
+
+#### Apartado 3: Límites reales para PR01 (1 kΩ) a 20 V y 60 ºC
+Equilibrio dinámico considerando autocalentamiento y tolerancias extremas de catálogo:
+Valor óhmico máximo real de equilibrio:
+$$R_{MAX} = 1098.3\text{ }\Omega \quad (\text{con } T_C = 90.95\text{ }^{\circ}\text{C})$$
+Valor óhmico mínimo real de equilibrio:
+$$R_{MIN} = 892.42\text{ }\Omega \quad (\text{con } T_C = 98.10\text{ }^{\circ}\text{C})$$
