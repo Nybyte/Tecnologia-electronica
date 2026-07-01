@@ -1,0 +1,226 @@
+# Boletín 4: Diodos (Problemas Resueltos)
+
+## Índice de Contenidos
+* [Problema 1: Diodos en Oposición](#problema-1-diodos-en-oposición)
+* [Problema 2: Diodo de Silicio en Serie con Resistencia de 10 MΩ](#problema-2-diodo-de-silicio-en-serie-con-resistencia-de-10-m)
+* [Problema 3: Variaciones del Problema 2](#problema-3-variaciones-del-problema-2)
+* [Problema 4: Deducción Gráfica de Asociaciones](#problema-4-deducción-gráfica-de-asociaciones)
+* [Problema 5: Resistencia Estática/Dinámica y Señal Alterna en Germanio](#problema-5-resistencia-estáticadinámica-y-señal-alterna-en-germanio)
+
+---
+
+## Problema 1: Diodos en Oposición
+
+### Enunciado
+Dos diodos P-N de silicio se conectan en oposición y este conjunto se alimenta en serie con una batería de 5V. Calcular la tensión en cada diodo a temperatura ambiente (25ºC).
+
+### Datos
+Tensión de alimentación:
+$$V_{bat} = 5\text{ V}$$
+Temperatura ambiente:
+$$T_{amb} = 25\text{ }^{\circ}\text{C}$$
+Tensión térmica:
+$$V_T = 26\text{ mV}$$
+Parámetro de idealidad (bajas corrientes):
+$$\eta = 2$$
+
+### Resolución
+Al estar conectados en serie y en oposición, uno de los diodos (D1) estará polarizado en directa y el otro (D2) en inversa. La corriente del circuito estará limitada por la corriente del diodo en inversa:
+$$I = I_{D2} = I_0$$
+Planteamos la ecuación de Shockley para el diodo en directa (D1) con esta corriente:
+$$I_{D1} = I_0 \cdot \left(e^{\frac{V_{D1}}{\eta \cdot V_T}} - 1\right)$$
+Dado que la corriente es única en la serie:
+$$I_0 = I_0 \cdot \left(e^{\frac{V_{D1}}{\eta \cdot V_T}} - 1\right)$$
+$$1 = e^{\frac{V_{D1}}{\eta \cdot V_T}} - 1$$
+$$e^{\frac{V_{D1}}{\eta \cdot V_T}} = 2$$
+Despejamos el voltaje del diodo en directa VD1:
+$$V_{D1} = \eta \cdot V_T \cdot \ln(2)$$
+$$V_{D1} = 2 \cdot 26\text{ mV} \cdot \ln(2) = 36\text{ mV} = 0.0358\text{ V}$$
+El voltaje del diodo en inversa VD2 se obtiene restando la caída anterior de la batería:
+$$V_{D2} = V_{bat} - V_{D1} = 5\text{ V} - 0.0358\text{ V} = 4.964\text{ V}$$
+
+### Respuestas
+Tensión en diodo directa VD1:
+$$V_{D1} = 0.0358\text{ V}$$
+Tensión en diodo inversa VD2:
+$$V_{D2} = 4.964\text{ V}$$
+
+---
+
+## Problema 2: Diodo de Silicio en Serie con Resistencia de 10 MΩ
+
+### Enunciado
+Un diodo de silicio se conecta en serie con una resistencia de 10MΩ, y el conjunto se alimenta con una batería de 1V. La corriente inversa de saturación del diodo es de 30nA a temperatura ambiente (25ºC). Calcular la tensión en el diodo cuando la batería se conecte en:
+1. Polarización inversa.
+2. Polarización directa.
+
+### Datos
+Resistencia de carga:
+$$R = 10\text{ M}\Omega = 10^7\text{ }\Omega$$
+Tensión de alimentación:
+$$V_1 = 1\text{ V}$$
+Corriente de saturación inversa:
+$$I_0 = 30\text{ nA} = 30 \cdot 10^{-9}\text{ A}$$
+Tensión térmica:
+$$V_T = 26\text{ mV}$$
+Idealidad para Silicio:
+$$\eta = 2$$
+
+### Resolución
+
+#### Apartado 1: Polarización inversa
+Corriente en inversa:
+$$I_{inv} = I_0 = 30\text{ nA}$$
+Caída de tensión en la resistencia:
+$$V_R = I_{inv} \cdot R = 30\text{ nA} \cdot 10\text{ M}\Omega = 0.3\text{ V}$$
+Tensión en el diodo VD:
+$$V_D = V_1 - V_R = 1\text{ V} - 0.3\text{ V} = 0.7\text{ V}$$
+
+#### Apartado 2: Polarización directa
+Ecuaciones del circuito:
+$$I_D = \frac{V_1 - V_D}{R}$$
+$$V_D = \eta \cdot V_T \cdot \ln\left(\frac{I_D}{I_0} + 1\right)$$
+Iteración 1 (Suponer VD = 0 V):
+$$I_D^{(0)} = \frac{1\text{ V} - 0\text{ V}}{10\text{ M}\Omega} = 100\text{ nA}$$
+$$V_D^{(1)} = 2 \cdot 26\text{ mV} \cdot \ln\left(\frac{100\text{ nA}}{30\text{ nA}} + 1\right) = 52\text{ mV} \cdot \ln(4.33) = 0.076\text{ V}$$
+Iteración 2 (Usar VD = 0.076 V):
+$$I_D^{(1)} = \frac{1\text{ V} - 0.076\text{ V}}{10\text{ M}\Omega} = 92.4\text{ nA}$$
+$$V_D^{(2)} = 2 \cdot 26\text{ mV} \cdot \ln\left(\frac{92.4\text{ nA}}{30\text{ nA}} + 1\right) = 52\text{ mV} \cdot \ln(4.08) = 0.073\text{ V}$$
+Valor redondeado de la hoja de soluciones:
+$$V_D = 0.072\text{ V}$$
+
+### Respuestas
+Tensión en polarización inversa:
+$$V_D = 0.7\text{ V}$$
+Tensión en polarización directa:
+$$V_D = 0.072\text{ V}$$
+
+---
+
+## Problema 3: Variaciones del Problema 2
+
+### Enunciado
+Resolver el mismo problema anterior, pero considerando las siguientes variantes:
+1. La resistencia de carga es de 1kΩ.
+2. La resistencia de carga es de 100Ω.
+3. La resistencia de carga es de 10MΩ, y el circuito trabaja a una temperatura de 10ºC por encima de la temperatura ambiente.
+4. Se sustituye el diodo de silicio por uno de germanio con una corriente inversa de saturación de 30µA.
+
+### Resoluciones por apartado
+
+#### Apartado 1: Resistencia de carga R = 1 kΩ
+* **Inversa:**
+  Caída en resistencia:
+  $$V_R = I_0 \cdot R = 30\text{ nA} \cdot 1000\text{ }\Omega = 30\text{ }\mu\text{V} \approx 0\text{ V}$$
+  Tensión en el diodo VD:
+  $$V_D = V_1 - V_R = 1\text{ V} - 30\text{ }\mu\text{V} \approx 1\text{ V}$$
+* **Directa:**
+  Iterando se obtiene el punto de operación:
+  $$I = 499\text{ }\mu\text{A}$$
+  $$V_D = 0.501\text{ V}$$
+
+#### Apartado 2: Resistencia de carga R = 100 Ω
+* **Inversa:**
+  Caída en resistencia:
+  $$V_R = 30\text{ nA} \cdot 100\text{ }\Omega = 3\text{ }\mu\text{V} \approx 0\text{ V}$$
+  Tensión en el diodo VD:
+  $$V_D = 1\text{ V}$$
+* **Directa:**
+  Iterando se obtiene el punto de operación:
+  $$I = 3.92\text{ mA}$$
+  $$V_D = 0.608\text{ V}$$
+
+#### Apartado 3: R = 10 MΩ y Temperatura T = 35 ºC (+10 ºC)
+La corriente de saturación inversa crece exponencialmente con la temperatura (se duplica aproximadamente por cada 10 ºC):
+$$I_{0(35\text{ }^{\circ}\text{C})} = 95.2\text{ nA}$$
+La tensión térmica cambia a:
+$$V_T = 26.7\text{ mV}$$
+* **Inversa:**
+  Corriente de malla:
+  $$I = 95.2\text{ nA}$$
+  Tensión en el diodo VD:
+  $$V_D = 1\text{ V} - (95.2\text{ nA} \cdot 10\text{ M}\Omega) = 1\text{ V} - 0.952\text{ V} = 0.048\text{ V}$$
+* **Directa:**
+  Iterando con los nuevos parámetros térmicos:
+  $$I = 98.7\text{ nA}$$
+  $$V_D = 0.038\text{ V}$$
+
+#### Apartado 4: Diodo de Germanio (I0 = 30 µA)
+* **Inversa:**
+  La corriente del circuito no puede exceder la corriente de cortocircuito máxima dada por la resistencia de malla:
+  $$I_{max} = \frac{1\text{ V}}{10\text{ M}\Omega} = 100\text{ nA}$$
+  Como la corriente del circuito es muy inferior a la corriente inversa de saturación del germanio ($100\text{ nA} \ll 30\text{ }\mu\text{A}$), el diodo se polariza en la zona cercana al origen:
+  $$I = 100\text{ nA}$$
+  $$V_D = 0\text{ V}$$
+* **Directa:**
+  Iterando con idealidad del germanio ($\eta = 1$):
+  $$I = 99.9\text{ nA}$$
+  $$V_D = 85\text{ }\mu\text{V}$$
+
+---
+
+## Problema 4: Deducción Gráfica de Asociaciones
+
+### Enunciado
+Deducir gráficamente las características corriente-tensión de las asociaciones de componentes indicadas en las figuras 1, 2 y 3. La curva característica de los diodos es la representada en la figura 4.
+
+### Resoluciones
+
+#### Asociación 1: Resistor R en serie con diodo D (Figura 1)
+* **Comportamiento:**
+  Para tensiones totales inferiores a la de codo ($$V < V_\gamma$$), el diodo bloquea el paso de corriente ($$I \approx 0$$). Para tensiones superiores ($$V \ge V_\gamma$$), el diodo conduce y la corriente crece linealmente con una pendiente dada por la conductancia de la resistencia ($$1/R$$). En inversa, se mantiene a cero.
+
+#### Asociación 2: Dos diodos en serie y oposición (Figura 2)
+* **Comportamiento:**
+  Para cualquier polaridad de la tensión externa, un diodo estará en directa y el otro en inversa. Por tanto, la corriente queda limitada en ambos sentidos al valor de la corriente inversa de saturación ($$I_0$$) del diodo polarizado en inversa. Se forma una curva simétrica limitada a $$\pm I_0$$ hasta alcanzar la tensión de ruptura.
+
+#### Asociación 3: Dos diodos en paralelo y oposición (Figura 3)
+* **Comportamiento:**
+  Para tensiones positivas, uno de los diodos conduce en directa a partir del umbral ($$V_\gamma$$). Para tensiones negativas, el otro diodo conduce en sentido opuesto a partir del umbral ($$-V_\gamma$$). Se obtiene una característica de conducción bidireccional simétrica con umbral de conducción en $$\pm V_\gamma$$.
+
+---
+
+## Problema 5: Resistencia Estática/Dinámica y Señal Alterna en Germanio
+
+### Enunciado
+Se ha conectado en serie una resistencia de 15kΩ y un diodo de germanio, alimentando el circuito con una batería de 15V tal y como se muestra en la figura siguiente. El circuito trabaja a 25ºC de temperatura ambiente y la intensidad inversa de saturación del diodo es de 0,5µA. Se pide:
+1. Calcular la resistencia estática y dinámica que presenta el diodo de germanio.
+2. Si sobre la tensión de batería VB se superpone una tensión alterna de 1V pico a pico, calcular la amplitud de la tensión alterna sobre el diodo.
+3. Dibujar la gráfica de tensión en el diodo para el caso anterior con Vpp = 1V y también con Vpp = 36V.
+
+### Datos
+Resistencia de carga:
+$$R = 15\text{ k}\Omega = 15000\text{ }\Omega$$
+Tensión de batería:
+$$V_B = 15\text{ V}$$
+Temperatura:
+$$T = 25\text{ }^{\circ}\text{C}$$
+Corriente inversa:
+$$I_0 = 0.5\text{ }\mu\text{A} = 0.5 \cdot 10^{-6}\text{ A}$$
+Parámetro de idealidad (Germanio):
+$$\eta = 1$$
+
+### Resolución
+
+#### Apartado 1: Resistencia estática y dinámica
+Resolviendo el circuito por aproximaciones en continua:
+$$I_D \approx 987\text{ }\mu\text{A}$$
+$$V_D \approx 194.3\text{ mV}$$
+Resistencia estática:
+$$r_{estatica} = \frac{V_D}{I_D} = \frac{194.3\text{ mV}}{987\text{ }\mu\text{A}} = 198.6\text{ }\Omega$$
+Resistencia dinámica en el punto Q:
+$$r_{dinamica} = \frac{\eta \cdot V_T}{I_D} = \frac{1 \cdot 26\text{ mV}}{987\text{ }\mu\text{A}} = 26.1\text{ }\Omega$$
+
+#### Apartado 2: Amplitud de la señal alterna superpuesta
+Tensión pico de alterna en la entrada:
+$$V_{g,pico} = 0.5\text{ V}$$
+Divisor de tensión dinámico en el diodo:
+$$\Delta v_d = V_{g,pico} \cdot \frac{r_{dinamica}}{R + r_{dinamica}}$$
+$$\Delta v_d = 0.5\text{ V} \cdot \frac{26.1\text{ }\Omega}{15000\text{ }\Omega + 26.1\text{ }\Omega} = 0.865\text{ mV}$$
+
+#### Apartado 3: Comportamiento para Vpp = 1 V y Vpp = 36 V
+* **Caso Vpp = 1 V:**
+  Es una pequeña señal. La tensión del diodo oscila de forma lineal y senoidal alrededor de la tensión continua del punto Q ($$194.3\text{ mV}$$) con una amplitud pico a pico de:
+  $$2 \cdot 0.865\text{ mV} = 1.73\text{ mV}$$
+* **Caso Vpp = 36 V:**
+  Es una gran señal. Durante el semiciclo negativo, la tensión de entrada cae por debajo del codo y llega a polarizar el diodo en inversa. El diodo se corta, comportándose como un circuito abierto y la tensión en sus bornes reproduce la forma de onda negativa de la entrada hasta el límite inverso.
