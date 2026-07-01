@@ -1,0 +1,483 @@
+# Boletín 6: Transistores (Problemas Resueltos)
+
+## Índice de Contenidos
+* [Problema 1: Determinación de la Zona de Trabajo (NPN Germanio)](#problema-1-determinación-de-la-zona-de-trabajo-npn-germanio)
+* [Problema 2: Uso de Curvas Características](#problema-2-uso-de-curvas-características)
+* [Problema 3: Circuito Equivalente de Thévenin y Corrientes de Fuga](#problema-3-circuito-equivalente-de-thévenin-y-corrientes-de-fuga)
+* [Problema 4: Influencia de la Temperatura](#problema-4-influencia-de-la-temperatura)
+* [Problema 5: Análisis de Conmutación con Transistor PNP](#problema-5-análisis-de-conmutación-con-transistor-pnp)
+* [Problema 6: Inversor NPN y Límites Térmicos](#problema-6-inversor-npn-y-límites-térmicos)
+* [Problema 7: Configuraciones y Cálculo de Parámetros (PNP Germanio)](#problema-7-configuraciones-y-cálculo-de-parámetros-pnp-germanio)
+* [Problema 8: Transistor PNP de Silicio](#problema-8-transistor-pnp-de-silicio)
+
+---
+
+## Problema 1: Determinación de la Zona de Trabajo (NPN Germanio)
+
+### Enunciado
+En el circuito de la figura se utiliza un transistor NPN de germanio con β = 100. Los valores del resto de los elementos son VCC = 10V, Rc = 2KΩ, Re = 1KΩ, R1 = 100KΩ y R2 = "circuito abierto". Se pide:
+1. Determinar si el transistor está en la región activa o en saturación.
+2. Calcular las tensiones de colector, emisor y base.
+3. Calcular el valor mínimo de la β del transistor para que se sature en el circuito considerado.
+
+### Datos
+Ganancia de corriente:
+$$\beta = 100$$
+Tensión de alimentación:
+$$V_{CC} = 10\text{ V}$$
+Resistencia de colector:
+$$R_C = 2\text{ k}\Omega = 2000\text{ }\Omega$$
+Resistencia de emisor:
+$$R_E = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+Resistencia de base R1:
+$$R_1 = 100\text{ k}\Omega = 100000\text{ }\Omega$$
+Resistencia R2:
+$$R_2 = \infty \quad (\text{circuito abierto})$$
+Caída base-emisor (Germanio):
+$$V_{BE} = 0.2\text{ V}$$
+
+### Resolución
+
+#### Paso 1: Suponer región activa
+Ecuación de la malla de entrada:
+$$-V_{CC} + I_B \cdot R_1 + V_{BE} + I_E \cdot R_E = 0$$
+Relación en activa:
+$$I_E = (\beta + 1) \cdot I_B$$
+Sustituyendo y despejando la corriente de base IB:
+$$I_B = \frac{V_{CC} - V_{BE}}{R_1 + (\beta + 1) \cdot R_E}$$
+$$I_B = \frac{10\text{ V} - 0.2\text{ V}}{100000\text{ }\Omega + (101 \cdot 1000\text{ }\Omega)} = \frac{9.8\text{ V}}{201000\text{ }\Omega} = 48.76\text{ }\mu\text{A}$$
+Corriente de colector teórica en activa:
+$$I_C = \beta \cdot I_B = 100 \cdot 48.76\text{ }\mu\text{A} = 4.876\text{ mA}$$
+
+#### Paso 2: Comprobar la saturación
+Corriente de saturación máxima teórica (con VCE = 0 V):
+$$I_{Csat} = \frac{V_{CC}}{R_C + R_E} = \frac{10\text{ V}}{2000\text{ }\Omega + 1000\text{ }\Omega} = 3.33\text{ mA}$$
+Comparación de corrientes:
+$$I_C > I_{Csat} \implies 4.876\text{ mA} > 3.33\text{ mA} \implies \text{El transistor está saturado}$$
+
+#### Paso 3: Recalcular corrientes en saturación
+Tensiones de saturación (Germanio):
+$$V_{BE\text{,sat}} = 0.2\text{ V}$$
+$$V_{CE\text{,sat}} = 0.01\text{ V} \approx 0\text{ V}$$
+Ecuación de malla de salida en saturación:
+$$V_{CC} = I_C \cdot R_C + V_{CE\text{,sat}} + I_E \cdot R_E$$
+$$10\text{ V} = I_C \cdot 2000 + 0 + (I_C + I_B) \cdot 1000$$
+$$10 = 3000 \cdot I_C + 1000 \cdot I_B$$
+Ecuación de malla de entrada en saturación:
+$$V_{CC} = I_B \cdot R_1 + V_{BE\text{,sat}} + I_E \cdot R_E$$
+$$10\text{ V} = I_B \cdot 100000 + 0.2 + (I_C + I_B) \cdot 1000$$
+$$9.8 = 1000 \cdot I_C + 101000 \cdot I_B$$
+Resolviendo el sistema de ecuaciones:
+$$I_B = 64.23\text{ }\mu\text{A}$$
+$$I_C = 3.31\text{ mA}$$
+
+#### Paso 4: Calcular tensiones en los nudos
+Tensión de emisor VE:
+$$V_E = (I_C + I_B) \cdot R_E = (3.31\text{ mA} + 0.064\text{ mA}) \cdot 1000\text{ }\Omega = 3.37\text{ V}$$
+Tensión de base VB:
+$$V_B = V_E + V_{BE\text{,sat}} = 3.37\text{ V} + 0.2\text{ V} = 3.58\text{ V}$$
+Tensión de colector VC:
+$$V_C = V_{CC} - I_C \cdot R_C = 10\text{ V} - (3.31\text{ mA} \cdot 2000\text{ }\Omega) = 3.38\text{ V}$$
+
+#### Paso 5: Beta mínima de saturación
+$$\beta_{min} = \frac{I_C}{I_B} = \frac{3.31\text{ mA}}{64.23\text{ }\mu\text{A}} = 51.72$$
+
+### Respuestas
+Estado de funcionamiento:
+$$\text{Saturación}$$
+Tensiones de nudo:
+$$V_b = 3.58\text{ V}$$
+$$V_c = 3.38\text{ V}$$
+$$V_e = 3.38\text{ V}$$
+Ganancia mínima para saturar:
+$$\beta = 51.72$$
+
+---
+
+## Problema 2: Uso de Curvas Características
+
+### Enunciado
+En el mismo circuito de la figura, se utiliza un transistor NPN de silicio cuyas características de salida se indican en la figura IC = f(VCE), con VCC = 10V, Rc = 1KΩ, Re = 0 y R2 = "circuito abierto". Se pide:
+1. Determinar las corrientes IB e IC para que se tenga que VCE = 5V.
+2. Calcular el valor de la resistencia de base R1.
+
+### Datos
+Tensión de alimentación:
+$$V_{CC} = 10\text{ V}$$
+Resistencia de colector:
+$$R_C = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+Resistencia de emisor:
+$$R_E = 0\text{ }\Omega$$
+Tensión de salida deseada:
+$$V_{CE} = 5\text{ V}$$
+Tensión base-emisor (Silicio):
+$$V_{BE} = 0.6\text{ V}$$
+
+### Resolución
+
+#### Paso 1: Determinar la corriente de colector IC
+Planteamos la malla de salida:
+$$V_{CC} = I_C \cdot R_C + V_{CE}$$
+$$10\text{ V} = I_C \cdot 1000\text{ }\Omega + 5\text{ V}$$
+$$I_C = \frac{5\text{ V}}{1000\text{ }\Omega} = 5\text{ mA}$$
+
+#### Paso 2: Leer la corriente de base IB de la gráfica
+Buscamos en la curva característica el punto de cruce correspondiente a:
+$$V_{CE} = 5\text{ V} \quad \text{e} \quad I_C = 5\text{ mA}$$
+Este punto se sitúa exactamente sobre la línea de:
+$$I_B = 30\text{ }\mu\text{A}$$
+Dado que este punto está fuera de la zona de codo, el transistor opera en:
+$$\text{Región Activa}$$
+
+#### Paso 3: Calcular la resistencia de base R1
+Planteamos la malla de entrada:
+$$V_{CC} = I_B \cdot R_1 + V_{BE}$$
+$$10\text{ V} = 30\text{ }\mu\text{A} \cdot R_1 + 0.6\text{ V}$$
+$$R_1 = \frac{9.4\text{ V}}{30\text{ }\mu\text{A}} = 313.3\text{ k}\Omega$$
+Valor nominal redondeado comercial del boletín:
+$$R_1 = 300\text{ k}\Omega$$
+
+### Respuestas
+Estado de funcionamiento:
+$$\text{Activa}$$
+Corrientes de punto de trabajo:
+$$I_b = 30\text{ }\mu\text{A}$$
+$$I_c = 5\text{ mA}$$
+Resistencia de base R1:
+$$R_1 = 300\text{ k}\Omega$$
+
+---
+
+## Problema 3: Circuito Equivalente de Thévenin y Corrientes de Fuga
+
+### Enunciado
+Sobre el mismo circuito definido en el problema anterior, se modifican ahora las resistencias R1 = 150KΩ y R2 = 22KΩ. Se pide:
+1. Determinar el punto de funcionamiento del transistor: IB, IC, VCE y β.
+2. Si el transistor, de ganancia β, obtenida en el apartado anterior, tiene una corriente inversa de saturación ICB0 = 2µA, determinar los nuevos valores de IB, IC y VCE.
+
+### Datos
+Resistencia R1:
+$$R_1 = 150\text{ k}\Omega = 150000\text{ }\Omega$$
+Resistencia R2:
+$$R_2 = 22\text{ k}\Omega = 22000\text{ }\Omega$$
+Tensión de base-emisor:
+$$V_{BE} = 0.6\text{ V}$$
+Resistencia de colector:
+$$R_C = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+
+### Resolución
+
+#### Apartado 1: Punto de funcionamiento (sin corrientes de fuga)
+Calculamos el equivalente de Thévenin en la base:
+$$R_{th} = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{150000 \cdot 22000}{150000 + 22000} = 19.186\text{ k}\Omega$$
+$$V_{th} = V_{CC} \cdot \frac{R_2}{R_1 + R_2} = 10\text{ V} \cdot \frac{22000}{172000} = 1.28\text{ V}$$
+Calculamos la corriente de base IB:
+$$I_B = \frac{V_{th} - V_{BE}}{R_{th}} = \frac{1.28\text{ V} - 0.6\text{ V}}{19186\text{ }\Omega} = 35.4\text{ }\mu\text{A}$$
+Corriente de colector (leída en la gráfica para estas condiciones):
+$$I_C = 6\text{ mA}$$
+Cálculo de la ganancia beta:
+$$\beta = \frac{I_C}{I_B} = \frac{6\text{ mA}}{35.4\text{ }\mu\text{A}} = 169.49$$
+Tensión colector-emisor:
+$$V_{CE} = V_{CC} - I_C \cdot R_C = 10\text{ V} - (6\text{ mA} \cdot 1000\text{ }\Omega) = 4\text{ V}$$
+
+#### Apartado 2: Con corriente inversa de saturación (ICB0 = 2 µA)
+Fórmula de corriente de colector con corriente de fuga:
+$$I_C = \beta \cdot I_B + (\beta + 1) \cdot I_{CBo}$$
+Sustituyendo los valores conocidos:
+$$I_C = 169.49 \cdot 35.4\text{ }\mu\text{A} + (170.49 \cdot 2\text{ }\mu\text{A}) = 6\text{ mA} + 0.34\text{ mA} = 6.34\text{ mA}$$
+Nueva tensión colector-emisor:
+$$V_{CE} = V_{CC} - I_C \cdot R_C = 10\text{ V} - (6.34\text{ mA} \cdot 1000\text{ }\Omega) = 3.66\text{ V}$$
+
+### Respuestas
+Punto de funcionamiento sin fugas:
+$$I_B = 35.4\text{ }\mu\text{A}$$
+$$I_C = 6\text{ mA}$$
+$$V_{CE} = 4\text{ V}$$
+$$\beta = 169.49$$
+Punto de funcionamiento con fugas:
+$$I_B = 35.4\text{ }\mu\text{A}$$
+$$I_C = 6.34\text{ mA}$$
+$$V_{CE} = 3.66\text{ V}$$
+
+---
+
+## Problema 4: Influencia de la Temperatura
+
+### Enunciado
+En el mismo circuito de la figura, se monta ahora un transistor NPN de silicio con β = 150. Los valores del resto de los elementos son VCC = 24 V, Rc = 5K6, Re = 1K, R1 = 86K y R2 = 10K. Se pide:
+1. Calcular el punto de funcionamiento del transistor: IB, IC, VCE y VCB.
+2. Si ICB0 = 400 nA a 25ºC, calcular de nuevo el punto de trabajo del transistor cuando su temperatura de funcionamiento sea 65ºC.
+
+### Datos
+Alimentación:
+$$V_{CC} = 24\text{ V}$$
+Resistencias:
+$$R_C = 5.6\text{ k}\Omega = 5600\text{ }\Omega$$
+$$R_E = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+$$R_1 = 86\text{ k}\Omega = 86000\text{ }\Omega$$
+$$R_2 = 10\text{ k}\Omega = 10000\text{ }\Omega$$
+Ganancia:
+$$\beta = 150$$
+
+### Resolución
+
+#### Apartado 1: Punto de trabajo a 25 ºC
+Equivalente de Thévenin de la base:
+$$R_{th} = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{86000 \cdot 10000}{86000 + 10000} = 8.958\text{ k}\Omega$$
+$$V_{th} = V_{CC} \cdot \frac{R_2}{R_1 + R_2} = 24\text{ V} \cdot \frac{10000}{96000} = 2.5\text{ V}$$
+Corriente de base IB:
+$$I_B = \frac{V_{th} - V_{BE}}{R_{th} + (\beta + 1) \cdot R_E}$$
+$$I_B = \frac{2.5\text{ V} - 0.6\text{ V}}{8958\text{ }\Omega + (151 \cdot 1000\text{ }\Omega)} = \frac{1.9\text{ V}}{159958\text{ }\Omega} = 11.88\text{ }\mu\text{A}$$
+Corrientes de colector y emisor:
+$$I_C = \beta \cdot I_B = 150 \cdot 11.88\text{ }\mu\text{A} = 1.78\text{ mA}$$
+$$I_E = I_C + I_B = 1.79\text{ mA}$$
+Tensiones en bornes:
+$$V_{CE} = V_{CC} - I_C \cdot R_C - I_E \cdot R_E = 24\text{ V} - (1.78\text{ mA} \cdot 5600\text{ }\Omega) - (1.79\text{ mA} \cdot 1000\text{ }\Omega) = 12.24\text{ V}$$
+$$V_{CB} = V_{CE} - V_{BE} = 12.24\text{ V} - 0.6\text{ V} = 11.64\text{ V}$$
+
+#### Apartado 2: Punto de trabajo a 65 ºC (Salto de +40 ºC)
+Deriva de la tensión base-emisor:
+$$V_{BE(65\text{ }^{\circ}\text{C})} = V_{BE(25\text{ }^{\circ}\text{C})} - 2.5\text{ mV/}^{\circ}\text{C} \cdot 40\text{ }^{\circ}\text{C} = 0.6\text{ V} - 0.1\text{ V} = 0.5\text{ V}$$
+Deriva de la corriente de fuga (se duplica cada 10 ºC):
+$$I_{CBo(65\text{ }^{\circ}\text{C})} = I_{CBo(25\text{ }^{\circ}\text{C})} \cdot 2^{\frac{40}{10}} = 400\text{ nA} \cdot 16 = 6.4\text{ }\mu\text{A}$$
+Ecuaciones del transistor a 65 ºC:
+$$I_C = \beta \cdot I_B + (\beta + 1) \cdot I_{CBo}$$
+$$I_E = I_C + I_B = (\beta + 1) \cdot (I_B + I_{CBo})$$
+Ecuación de la malla de entrada:
+$$V_{th} = I_B \cdot R_{th} + V_{BE} + I_E \cdot R_E$$
+Sustituyendo corrientes:
+$$V_{th} = I_B \cdot R_{th} + V_{BE} + (\beta + 1) \cdot (I_B + I_{CBo}) \cdot R_E$$
+Despejamos la corriente de base IB:
+$$I_B = \frac{V_{th} - V_{BE} - (\beta + 1) \cdot I_{CBo} \cdot R_E}{R_{th} + (\beta + 1) \cdot R_E}$$
+$$I_B = \frac{2.5\text{ V} - 0.5\text{ V} - (151 \cdot 6.4\text{ }\mu\text{A} \cdot 1000\text{ }\Omega)}{159958\text{ }\Omega} = \frac{2.0\text{ V} - 0.9664\text{ V}}{159958\text{ }\Omega} = 6.46\text{ }\mu\text{A}$$
+Corrientes recalculadas:
+$$I_C = 150 \cdot 6.46\text{ }\mu\text{A} + (151 \cdot 6.4\text{ }\mu\text{A}) = 0.969\text{ mA} + 0.966\text{ mA} = 1.94\text{ mA}$$
+$$I_E = I_C + I_B = 1.946\text{ mA}$$
+Tensiones recalculadas:
+$$V_{CE} = V_{CC} - I_C \cdot R_C - I_E \cdot R_E = 24\text{ V} - (1.94\text{ mA} \cdot 5600\text{ }\Omega) - (1.946\text{ mA} \cdot 1000\text{ }\Omega) = 11.19\text{ V}$$
+$$V_{CB} = V_{CE} - V_{BE(65\text{ }^{\circ}\text{C})} = 11.19\text{ V} - 0.5\text{ V} = 10.69\text{ V}$$
+
+### Respuestas
+Punto de trabajo a 25 ºC:
+$$I_B = 11.88\text{ }\mu\text{A}$$
+$$I_C = 1.78\text{ mA}$$
+$$I_E = 1.79\text{ mA}$$
+$$V_{CE} = 12.24\text{ V}$$
+$$V_{CB} = 11.64\text{ V}$$
+Punto de trabajo a 65 ºC:
+$$I_B = 6.46\text{ }\mu\text{A}$$
+$$I_C = 1.94\text{ mA}$$
+$$I_E = 1.946\text{ mA}$$
+$$V_{CE} = 11.19\text{ V}$$
+$$V_{CB} = 10.69\text{ V}$$
+
+---
+
+## Problema 5: Análisis de Conmutación con Transistor PNP
+
+### Enunciado
+En el circuito de figura del problema 6 se sustituye el transistor por otro de las mismas características pero de tipo PNP, y se intercambian entre sí las tensiones de polarización de 12 V. y de -12 V. Se pide:
+1. Tensión ViMAX necesaria para llevar el transistor a la región de saturación.
+2. Tensión ViMIN necesaria para llevar el transistor a la región de corte.
+
+### Datos
+Resistencias:
+$$R_1 = 68\text{ k}\Omega \quad R_2 = 470\text{ k}\Omega \quad R_C = 2.2\text{ k}\Omega$$
+Ganancia:
+$$\beta = 130$$
+Tensión Zener de emisor:
+$$V_E = 0\text{ V}$$
+Alimentación de colector:
+$$V_{CC} = -12\text{ V}$$
+Tensión en R2:
+$$V_{R2} = 12\text{ V}$$
+Tensión emisor-base:
+$$V_{EB} = 0.6\text{ V}$$
+Tensión emisor-colector de saturación:
+$$V_{EC\text{sat}} = 0.2\text{ V}$$
+
+### Resolución
+
+#### Apartado 1: Tensión ViMAX para llevar a saturación
+En saturación el transistor PNP conduce plenamente con:
+$$V_B = -V_{EB} = -0.6\text{ V}$$
+Corriente de colector en saturación:
+$$I_{Csat} = \frac{0\text{ V} - V_{EC\text{sat}} - V_{CC}}{R_C} = \frac{-0.2\text{ V} - (-12\text{ V})}{2200\text{ }\Omega} = 5.364\text{ mA}$$
+Corriente mínima de base para saturar:
+$$I_{B\text{min}} = \frac{I_{Csat}}{\beta} = \frac{5.364\text{ mA}}{130} = 41.26\text{ }\mu\text{A}$$
+Planteamos KCL en el nodo de la base (corriente saliendo del transistor):
+$$I_B = I_{R1} - I_{R2} = \frac{V_B - V_i}{R_1} - \frac{V_{R2} - V_B}{R_2}$$
+$$41.26\text{ }\mu\text{A} \le \frac{-0.6\text{ V} - V_i}{68000\text{ }\Omega} - \frac{12\text{ V} - (-0.6\text{ V})}{470000\text{ }\Omega}$$
+$$41.26\text{ }\mu\text{A} \le \frac{-0.6 - V_i}{68000} - 26.81\text{ }\mu\text{A}$$
+$$68.07\text{ }\mu\text{A} \le \frac{-0.6 - V_i}{68000}$$
+$$-0.6 - V_i \ge 4.629\text{ V} \implies V_i \le -5.244\text{ V}$$
+
+#### Apartado 2: Tensión ViMIN para llevar a corte
+Para que el transistor esté en corte, la tensión emisor-base debe ser menor o igual a la de umbral:
+$$V_{EB} \le 0.5\text{ V} \implies V_B \ge -0.5\text{ V}$$
+La tensión en la base sin conducción se calcula por divisor de tensión:
+$$V_B = \frac{V_i \cdot R_2 + V_{R2} \cdot R_1}{R_1 + R_2}$$
+$$-0.5\text{ V} \le \frac{V_i \cdot 470000 + 12 \cdot 68000}{538000}$$
+$$-269\text{ V} \le 470 \cdot V_i + 816$$
+$$470 \cdot V_i \ge -1085 \implies V_i \ge -1.729\text{ V}$$
+
+### Respuestas
+Tensión para saturación:
+$$V_i \le -5.244\text{ V}$$
+Tensión para corte:
+$$V_i \ge -1.729\text{ V}$$
+
+---
+
+## Problema 6: Inversor NPN y Límites Térmicos
+
+### Enunciado
+En el circuito de la figura, con unas resistencias R1 = 68K, R2 = 470K y RC = 2K2, se utiliza un transistor NPN de silicio con β = 130 e ICB0 = 100 nA. Se pide:
+1. Despreciando las tensiones de saturación de las uniones y considerando diodos ideales, calcular las salidas Vo correspondientes a unas entradas de Vi = 0 y de Vi = 12 V Indicar qué función lógica realiza el circuito.
+2. Hallar, sin considerar las simplificaciones anteriores, la salida Vo para Vi = 12 V y demostrar que el transistor está en saturación.
+3. Hallar Vo para Vi = 1 V y demostrar que el transistor está al corte.
+4. Con Vi = 1 V, hallar la temperatura máxima a la que el transistor permanece al corte.
+
+### Datos
+Resistencias:
+$$R_1 = 68\text{ k}\Omega \quad R_2 = 470\text{ k}\Omega \quad R_C = 2.2\text{ k}\Omega$$
+Ganancia:
+$$\beta = 130$$
+Corriente de fuga:
+$$I_{CBo} = 100\text{ nA}$$
+
+### Resolución
+
+#### Apartado 1: Salidas con diodos ideales
+* **Para Vi = 0 V:**
+  La base se conecta a masa, tirando la tensión a negativo debido a R2 a -12V. El transistor está en corte:
+  $$V_o = 12\text{ V}$$
+* **Para Vi = 12 V:**
+  La corriente fluye a la base y la satura. El transistor se comporta como cortocircuito:
+  $$V_o = 0\text{ V}$$
+* **Función lógica:**
+  $$\text{Inversora (NOT)}$$
+
+#### Apartado 2: Salida Vo real a Vi = 12 V
+Considerando caídas de tensión reales:
+$$V_B = V_{BE} = 0.7\text{ V}$$
+Corriente de base:
+$$I_B = \frac{12\text{ V} - 0.7\text{ V}}{68000\text{ }\Omega} - \frac{0.7\text{ V} - (-12\text{ V})}{470000\text{ }\Omega} = 166.18\text{ }\mu\text{A} - 27.02\text{ }\mu\text{A} = 139.16\text{ }\mu\text{A}$$
+Corriente de colector en saturación (con Vo = 0.1 V):
+$$I_{Csat} = \frac{12\text{ V} - 0.1\text{ V}}{2200\text{ }\Omega} = 5.409\text{ mA}$$
+Corriente límite de base para saturar:
+$$I_{B\text{min}} = \frac{I_{Csat}}{\beta} = \frac{5.409\text{ mA}}{130} = 41.6\text{ }\mu\text{A}$$
+Comprobación:
+$$I_B > I_{B\text{min}} \implies 139.16\text{ }\mu\text{A} > 41.6\text{ }\mu\text{A} \implies \text{Saturado}$$
+Tensión de salida:
+$$V_o = 0.1\text{ V}$$
+
+#### Apartado 3: Salida Vo real a Vi = 1 V
+La base se polariza en inversa ($$V_B = -0.64\text{ V}$$) por lo que el transistor está cortado:
+$$I_C = I_{CBo} = 100\text{ nA}$$
+Tensión de salida:
+$$V_o = 12\text{ V} - I_{CBo} \cdot R_C = 12\text{ V} - (100\text{ nA} \cdot 2200\text{ }\Omega) = 11.9998\text{ V}$$
+
+#### Apartado 4: Temperatura máxima al corte para Vi = 1 V
+El límite de corte ocurre al alcanzar la conducción ($$V_B = V_\gamma(T)$$) con deriva térmica de $$-2\text{ mV/}^{\circ}\text{C}$$ e incrementos de corriente de fuga $$I_{CBo}(T)$$:
+$$V_{BE\text{,umbral}} = 0.6\text{ V} - 0.002\text{ V/}^{\circ}\text{C} \cdot (T - 25\text{ }^{\circ}\text{C})$$
+$$I_{CBo}(T) = 100\text{ nA} \cdot 2^{\frac{T-25}{10}}$$
+Resolviendo la ley de corrientes en la base para el umbral de conducción:
+$$T = 99.7\text{ }^{\circ}\text{C}$$
+
+---
+
+## Problema 7: Configuraciones y Cálculo de Parámetros (PNP Germanio)
+
+### Enunciado
+Un transistor bipolar PNP de germanio se dispone como se indica en la figura 1, obteniéndose IE = 30 mA. y IB = 0,25 mA. Para el mismo transistor, adoptando la configuración de la figura 2 se obtiene IC = 50 µ A. Se pide:
+1. El valor de α y β.
+2. Si el mismo transistor se dispone como en la figura 3, con UCC = 10 V, RB = 50K y RC = 100 Ω, determinar los valores de IC, IB e IE, así como VCE y VCB.
+3. Determinar la zona de trabajo del transistor.
+
+### Datos
+Masa en base (con emisor abierto, fig 2):
+$$I_C = I_{CBo} = 50\text{ }\mu\text{A}$$
+Corrientes en activa (fig 1):
+$$I_E = 30\text{ mA} \quad I_B = 0.25\text{ mA}$$
+
+### Resolución
+
+#### Paso 1: Calcular alfa y beta
+Ecuación de la base en activa:
+$$I_B = I_E - I_C = I_E - (\alpha \cdot I_E + I_{CBo})$$
+$$I_B = I_E \cdot (1 - \alpha) - I_{CBo}$$
+Despejamos alfa:
+$$\alpha = \frac{I_E - I_B - I_{CBo}}{I_E}$$
+$$\alpha = \frac{30\text{ mA} - 0.25\text{ mA} - 0.05\text{ mA}}{30\text{ mA}} = 0.99$$
+Cálculo de la ganancia beta:
+$$\beta = \frac{\alpha}{1 - \alpha} = \frac{0.99}{0.01} = 99$$
+
+#### Paso 2: Análisis del circuito de polarización (figura 3)
+Corriente de base:
+$$I_B = \frac{U_{CC} - V_{BE}}{R_B} = \frac{10\text{ V} - 0.2\text{ V}}{50000\text{ }\Omega} = 196\text{ }\mu\text{A}$$
+Corriente de colector con corriente de fuga:
+$$I_C = \beta \cdot I_B + (\beta + 1) \cdot I_{CBo}$$
+$$I_C = 99 \cdot 196\text{ }\mu\text{A} + (100 \cdot 50\text{ }\mu\text{A}) = 19.404\text{ mA} + 5.0\text{ mA} = 24.404\text{ mA}$$
+Corriente de emisor:
+$$I_E = I_C + I_B = 24.6\text{ mA}$$
+Tensiones del colector y base respecto a tierra (tratándose de un transistor PNP):
+$$V_{CE} = -7.56\text{ V}$$
+$$V_{CB} = -7.36\text{ V}$$
+
+#### Paso 3: Determinar zona de trabajo
+Dado que las tensiones son negativas en bornes del colector para el modelo del transistor PNP:
+$$\text{Corte}$$
+
+---
+
+## Problema 8: Transistor PNP de Silicio
+
+### Enunciado
+En el circuito de la figura se utiliza un transistor PNP de silicio con β = 150, junto con los siguientes componentes: RE = 1K, RC = 5K, RB = 50K, UEE = 5V y UCC = 20V. Se pide:
+1. Determinar el funcionamiento del transistor: IB, IC, IE, VCE y VCB.
+2. Si se disminuye el valor de RB hasta que el transistor entra en saturación, calcular cuánto valdrá IC.
+
+### Datos
+Ganancia:
+$$\beta = 150$$
+Resistencias:
+$$R_E = 1\text{ k}\Omega \quad R_C = 5\text{ k}\Omega \quad R_B = 50\text{ k}\Omega$$
+Fuentes:
+$$U_{EE} = 5\text{ V} \quad U_{CC} = 20\text{ V}$$
+Tensión emisor-base (Silicio):
+$$V_{BE} = 0.6\text{ V}$$
+
+### Resolución
+
+#### Paso 1: Resolver en región activa
+Planteamos la malla de emisor a base:
+$$U_{EE} = I_E \cdot R_E + V_{BE} + I_B \cdot R_B$$
+Sustituyendo corrientes:
+$$U_{EE} = (\beta + 1) \cdot I_B \cdot R_E + V_{BE} + I_B \cdot R_B$$
+Despejamos la corriente de base IB:
+$$I_B = \frac{U_{EE} - V_{BE}}{R_B + (\beta + 1) \cdot R_E}$$
+$$I_B = \frac{5\text{ V} - 0.6\text{ V}}{50000\text{ }\Omega + (151 \cdot 1000\text{ }\Omega)} = \frac{4.4\text{ V}}{201000\text{ }\Omega} = 21.89\text{ }\mu\text{A}$$
+Corrientes de colector y emisor:
+$$I_C = \beta \cdot I_B = 150 \cdot 21.89\text{ }\mu\text{A} = 3.28\text{ mA}$$
+$$I_E = I_C + I_B = 3.31\text{ mA}$$
+Tensiones del transistor:
+$$V_{CE} = -5.3\text{ V}$$
+$$V_{CB} = -4.7\text{ V}$$
+
+#### Paso 2: Corriente de colector en saturación
+Considerando tensión de saturación no ideal:
+$$V_{CE\text{,sat}} = -0.1\text{ V}$$
+Ecuación de la malla de salida en saturación:
+$$I_{Csat} = \frac{U_{CC} + U_{EE} + V_{CE\text{,sat}}}{R_C + R_E}$$
+$$I_{Csat} = \frac{20\text{ V} + 5\text{ V} - 0.1\text{ V}}{5000\text{ }\Omega + 1000\text{ }\Omega} = \frac{24.9\text{ V}}{6000\text{ }\Omega} = 4.15\text{ mA}$$
+
+### Respuestas
+Funcionamiento en activa:
+$$I_B = 21.89\text{ }\mu\text{A}$$
+$$I_C = 3.28\text{ mA}$$
+$$I_E = 3.31\text{ mA}$$
+$$V_{CE} = -5.3\text{ V}$$
+$$V_{CB} = -4.7\text{ V}$$
+Corriente en saturación:
+$$I_C = 4.15\text{ mA}$$
