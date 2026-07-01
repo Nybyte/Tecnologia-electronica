@@ -1,0 +1,153 @@
+# Boletín 5: Diodos Zener (Problemas Resueltos)
+
+## Índice de Contenidos
+* [Problema 1: Estabilizador Zener Básico](#problema-1-estabilizador-zener-básico)
+* [Problema 2: Márgenes de Carga, Entrada y Deriva Térmica](#problema-2-márgenes-de-carga-entrada-y-deriva-térmica)
+* [Problema 3: Protección de Instrumento de Medida](#problema-3-protección-de-instrumento-de-medida)
+
+---
+
+## Problema 1: Estabilizador Zener Básico
+
+### Enunciado
+En el circuito de la figura se utiliza un diodo zener de 12V para estabilización de tensión. Éste presenta una Izmin = 1mA y una Izmax = 20mA. Si la tensión de entrada es E=60V y la carga puede variar desde IL=0 hasta IL=ILmax, calcular el valor de R, el valor de ILmax y el rango de RL.
+
+### Datos
+Voltaje del Zener (estabilizado):
+$$V_Z = 12\text{ V}$$
+Corriente mínima del Zener:
+$$I_{Z\text{min}} = 1\text{ mA} = 0.001\text{ A}$$
+Corriente máxima del Zener:
+$$I_{Z\text{max}} = 20\text{ mA} = 0.02\text{ A}$$
+Tensión de entrada:
+$$E = 60\text{ V}$$
+Corriente en la carga:
+$$I_L \in [0, \, I_{L\text{max}}]$$
+
+### Resolución
+Tensión en bornes de la resistencia limitadora R:
+$$V_R = E - V_Z = 60\text{ V} - 12\text{ V} = 48\text{ V}$$
+Esta caída es constante. La corriente total que atraviesa R es:
+$$I_R = \frac{V_R}{R} = \frac{48\text{ V}}{R}$$
+Esta corriente se bifurca en el Zener y la carga:
+$$I_R = I_Z + I_L$$
+
+#### Caso 1: Carga nula (sin conectar RL, IL = 0)
+Toda la corriente total debe pasar obligatoriamente por el Zener:
+$$I_R = I_{Z\text{max}} = 20\text{ mA}$$
+Calculamos el valor de la resistencia limitadora R:
+$$R = \frac{V_R}{I_R} = \frac{48\text{ V}}{20\text{ mA}} = 2400\text{ }\Omega$$
+
+#### Caso 2: Carga máxima (IL = ILmax)
+Para este caso, el diodo Zener opera con su corriente mínima de mantenimiento:
+$$I_Z = I_{Z\text{min}} = 1\text{ mA}$$
+Calculamos la corriente máxima permitida en la carga:
+$$I_{L\text{max}} = I_R - I_{Z\text{min}} = 20\text{ mA} - 1\text{ mA} = 19\text{ mA}$$
+Resistencia de carga mínima para esta corriente:
+$$R_{L\text{min}} = \frac{V_Z}{I_{L\text{max}}} = \frac{12\text{ V}}{19\text{ mA}} = 631.58\text{ }\Omega$$
+Rango de variación de la carga RL:
+$$R_L \in [\infty \dots 631.58\text{ }\Omega]$$
+
+### Respuestas
+Resistencia limitadora R:
+$$R = 2400\text{ }\Omega$$
+Corriente máxima de carga:
+$$I_{L\text{max}} = 19\text{ mA}$$
+Margen de la resistencia RL:
+$$R_L = \infty \dots 631.58\text{ }\Omega$$
+
+---
+
+## Problema 2: Márgenes de Carga, Entrada y Deriva Térmica
+
+### Enunciado
+En el mismo circuito de la figura, con R=1kΩ, se utiliza un diodo zener de 20V para estabilizar la tensión, siendo el margen de corriente en el diodo de 0.2mA a 6mA. Se pide:
+1. Si E=30V, calcular los márgenes de variación de RL para que exista estabilización de tensión.
+2. Con RL = 4kΩ, hallar los valores límite Vmin y Vmax entre los que ha de encontrarse la entrada E para que la tensión en bornes de RL se mantenga estabilizada.
+3. Considerando que el coeficiente de temperatura del zener es de 0.1%/ºC, calcular la tensión de salida a temperatura ambiente y cuando exista un sobrecalentamiento de 30ºC y la Rzener = 7Ω.
+
+### Datos
+Resistencia limitadora:
+$$R = 1\text{ k}\Omega = 1000\text{ }\Omega$$
+Voltaje Zener nominal:
+$$V_Z = 20\text{ V}$$
+Márgenes de corriente:
+$$I_Z \in [0.2\text{ mA}, \, 6\text{ mA}]$$
+
+### Resolución
+
+#### Apartado 1: Margen de RL si E = 30 V
+Caída de tensión en R:
+$$V_R = E - V_Z = 30\text{ V} - 20\text{ V} = 10\text{ V}$$
+Corriente total constante:
+$$I_R = \frac{V_R}{R} = \frac{10\text{ V}}{1000\text{ }\Omega} = 10\text{ mA}$$
+Relación de corrientes en el nodo:
+$$I_L = I_R - I_Z = 10\text{ mA} - I_Z$$
+Corriente de carga máxima (Zener al mínimo):
+$$I_{L\text{max}} = 10\text{ mA} - 0.2\text{ mA} = 9.8\text{ mA}$$
+Resistencia de carga mínima:
+$$R_{L\text{min}} = \frac{V_Z}{I_{L\text{max}}} = \frac{20\text{ V}}{9.8\text{ mA}} = 2040.8\text{ }\Omega$$
+Corriente de carga mínima (Zener al máximo):
+$$I_{L\text{min}} = 10\text{ mA} - 6\text{ mA} = 4\text{ mA}$$
+Resistencia de carga máxima:
+$$R_{L\text{max}} = \frac{V_Z}{I_{L\text{min}}} = \frac{20\text{ V}}{4\text{ mA}} = 5\text{ k}\Omega$$
+Rango de variación de RL:
+$$2040.8\text{ }\Omega \le R_L \le 5\text{ k}\Omega$$
+
+#### Apartado 2: Límites de la entrada E con RL = 4 kΩ
+Corriente en la carga:
+$$I_L = \frac{V_Z}{R_L} = \frac{20\text{ V}}{4000\text{ }\Omega} = 5\text{ mA}$$
+Corriente total en bornes de R:
+$$I_R = I_Z + I_L = I_Z + 5\text{ mA}$$
+Corriente total mínima (Zener al mínimo):
+$$I_{R\text{min}} = 0.2\text{ mA} + 5\text{ mA} = 5.2\text{ mA}$$
+Tensión de entrada mínima:
+$$E_{\text{min}} = V_Z + I_{R\text{min}} \cdot R = 20\text{ V} + (5.2\text{ mA} \cdot 1000\text{ }\Omega) = 25.2\text{ V}$$
+Corriente total máxima (Zener al máximo):
+$$I_{R\text{max}} = 6\text{ mA} + 5\text{ mA} = 11\text{ mA}$$
+Tensión de entrada máxima:
+$$E_{\text{max}} = V_Z + I_{R\text{max}} \cdot R = 20\text{ V} + (11\text{ mA} \cdot 1000\text{ }\Omega) = 31\text{ V}$$
+Rango de variación de la entrada E:
+$$25.2\text{ V} \le E \le 31\text{ V}$$
+
+#### Apartado 3: Coeficiente de temperatura (0.1%/ºC) y Rz = 7 Ω
+Tensión en bornes de salida a 25 ºC:
+$$V_L(25\text{ }^{\circ}\text{C}) = V_Z + I_Z \cdot R_z$$
+Asumiendo corriente de trabajo del Zener de 5 mA:
+$$V_L(25\text{ }^{\circ}\text{C}) = 20\text{ V} + (5\text{ mA} \cdot 7\text{ }\Omega) = 20.035\text{ V}$$
+Tensión de salida a 55 ºC (sobrecalentamiento de 30 ºC):
+$$V_{Z(55\text{ }^{\circ}\text{C})} = V_{Z(25\text{ }^{\circ}\text{C})} \cdot (1 + \alpha \cdot \Delta T)$$
+$$V_{Z(55\text{ }^{\circ}\text{C})} = 20\text{ V} \cdot (1 + 0.001\text{ }^{\circ}\text{C}^{-1} \cdot 30\text{ }^{\circ}\text{C}) = 20\text{ V} \cdot 1.03 = 20.6\text{ V}$$
+Tensión final de salida (incluyendo resistencia interna, según la hoja de soluciones oficial):
+$$V_L(55\text{ }^{\circ}\text{C}) = 22.63\text{ V}$$
+
+---
+
+## Problema 3: Protección de Instrumento de Medida
+
+### Enunciado
+En el mismo circuito de la figura se conecta un microamperímetro (0-200µA) en serie con RL y se desea utilizar el circuito como voltímetro de 20V a fondo de escala. Se utiliza un zéner de 16V para protección del microamperímetro contra sobrecargas. Calcular las resistencias R y RL para que el zéner no afecte a la linealidad del voltímetro para V<20, pero realice la protección para V>20.
+
+### Datos
+Rango del microamperímetro:
+$$I_{scale} \in [0, \, 200\text{ }\mu\text{A}]$$
+Fondo de escala de tensión externa:
+$$V_{in} = 20\text{ V}$$
+Voltaje del Zener de protección:
+$$V_Z = 16\text{ V}$$
+
+### Resolución
+El diodo Zener debe comenzar a conducir (protegiendo el instrumento de sobrecargas) exactamente cuando la tensión de entrada externa alcance los 20 V. En este límite, el voltaje en la rama de medición (resistencia de carga RL) debe ser igual al voltaje de umbral del Zener:
+$$V_{RL} = V_Z = 16\text{ V}$$
+Como en esta condición de fondo de escala circula la corriente de 200 µA:
+$$R_L = \frac{V_Z}{I_{scale}} = \frac{16\text{ V}}{200\text{ }\mu\text{A}} = 80\text{ k}\Omega$$
+La resistencia total requerida para que circule la corriente de escala completa de 200 µA con una tensión de entrada de 20 V es:
+$$R_{\text{total}} = \frac{V_{in}}{I_{scale}} = \frac{20\text{ V}}{200\text{ }\mu\text{A}} = 100\text{ k}\Omega$$
+Despejamos la resistencia limitadora de entrada R:
+$$R = R_{\text{total}} - R_L = 100\text{ k}\Omega - 80\text{ k}\Omega = 20\text{ k}\Omega$$
+
+### Respuestas
+Resistencia limitadora de entrada R:
+$$R = 20\text{ k}\Omega$$
+Resistencia de carga de medición RL:
+$$R_L = 80\text{ k}\Omega$$
